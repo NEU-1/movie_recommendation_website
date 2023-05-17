@@ -59,6 +59,12 @@ INSTALLED_APPS = [
     
 ]
 
+REST_AUTH = {
+    'SESSION_LOGIN':False
+}
+
+SITE_ID = 1
+
 MIDDLEWARE = [
     # CORS
     # CommonMiddleware보다 위에 위치

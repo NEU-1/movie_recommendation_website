@@ -4,10 +4,11 @@ from django.http import HttpResponse
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import get_user_model
-
+from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, get_list_or_404
-from .serializers import ReviewSerializer, MovieListSerializer, MovieDetailSerializer, GenreSerializer
+from .serializers import MovieListSerializer
+# from .serializers import ReviewSerializer, MovieDetailSerializer, GenreSerializer
 from .models import Movie, Genre, Actor, MovieReview
 # Create your views here.
 
