@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # app
     'accounts',
     'community',
+    'movies',
     # 3rd
     'django_extensions',
     'corsheaders',
