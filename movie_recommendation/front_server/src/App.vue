@@ -1,28 +1,64 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div class="navbar-container">
+      <div class="header-container">
+        <Header />
+      </div>
+      <NavBar />
+      <LoginButton />
+    </div>
+    <div class="router-container">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import NavBar from "./components/NavBar.vue";
+import Header from "./components/Header.vue";
+import LoginButton from "./components/LoginButton.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    NavBar,
+    Header,
+    LoginButton,
   },
 };
 </script>
 
 <style>
+@import "~bootstrap/dist/css/bootstrap.css";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  min-height: 100vh;
+  background-color: rgb(83, 131, 234);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 1500px;
+  height: 70px;
+}
+
+.router-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0;
 }
 </style>
