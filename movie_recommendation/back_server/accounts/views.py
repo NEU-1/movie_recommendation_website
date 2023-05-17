@@ -34,41 +34,6 @@ def handle_follow(me, person):
 
 
 @api_view(['POST'])  # POST 요청을 처리
-@authentication_classes([JSONWebTokenAuthentication])  # JWT 인증 사용
-@permission_classes([IsAuthenticated])  # 인증된 사용자만 요청 가능
-# 사용자들이 좋아하는 영화들을 반환하는 API endpoint
-def users_info(request):
-    # 요청에 포함된 사용자 정보를 얻음
-    users = request.data.get('users')
-    movies = set()  # set 자료형 사용
-    for user in users:
-        # 각 사용자 정보를 얻음
-        user = get_user(user)
-        # 사용자 정보를 시리얼라이즈
-        serializer = UserSerializer(user)
-        # 사용자가 좋아하는 영화 정보를 얻음
-        like_movies = serializer.data.get('like_movies')
-        # 영화 정보를 set에 추가
-        movies.update(like_movies)  # set의 update 메소드 사용
-    
-    # 좋아하는 영화 정보를 list 형태로 변환하여 반환
-    return Response(list(movies))  # set을 list로 변환하여 반환
-
-
-@api_view(['GET'])  # GET 요청을 처리
-@authentication_classes([JSONWebTokenAuthentication])  # JWT 인증 사용
-@permission_classes([IsAuthenticated])  # 인증된 사용자만 요청 가능
-# 모든 사용자의 정보를 반환하는 API endpoint
-def users(request):
-    # 모든 사용자 정보를 얻음
-    users = get_user_model().objects.all()
-    # 사용자 정보를 시리얼라이즈 (many=True는 여러 개의 객체를 시리얼라이즈하겠다는 의미)
-    serializer = UserSerializer(users, many=True)
-    # 시리얼라이즈 된 데이터 반환
-    return Response(serializer.data)
-
-
-@api_view(['POST'])  # POST 요청을 처리
 # 사용자 등록을 위한 API endpoint
 def signup(request):
     # 클라이언트에서 보낸 비밀번호 정보 받기
@@ -111,17 +76,6 @@ def my_profile(request):
 def profile(request, user_pk):
     # 요청된 pk를 가진 사용자 정보를 얻음
     user = get_user(user_pk)
-    # 사용자 정보를 시리얼라이즈
-    serializer = UserSerializer(user)
-    # 시리얼라이즈 된 데이터 반환
-    return Response(serializer.data)
-
-
-@api_view(['GET'])  # GET 요청을 처리
-# 특정 사용자의 정보를 반환하는 API endpoint
-def user(request, my_pk):
-    # 요청된 pk를 가진 사용자 정보를 얻음
-    user = get_user(my_pk)
     # 사용자 정보를 시리얼라이즈
     serializer = UserSerializer(user)
     # 시리얼라이즈 된 데이터 반환
