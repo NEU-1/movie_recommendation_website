@@ -32,7 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # app
-    'coummunity',
+    'accounts',
+    'community',
     # 3rd
     'django_extensions',
     'corsheaders',
@@ -46,8 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
-    'dj_rest_auth.registration',
+    # 'allauth.socialaccount',
     # 기본
     'django.contrib.admin',
     'django.contrib.auth',
