@@ -12,7 +12,7 @@ import MovieListItem from "@/components/MovieListItem.vue";
 import moviesData from "@/views/movies.json";
 
 export default {
-  name: "MovieListView",
+  name: "movieList",
 
   components: {
     MovieListItem,
