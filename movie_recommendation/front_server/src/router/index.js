@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "@/views/HomeView.vue";
-import MovieList from "@/views/MovieList.vue";
+import MovieView from "@/views/MovieView.vue";
 import MovieRanking from "@/views/MovieRanking.vue";
 import Community from "@/views/Community.vue";
 
@@ -15,8 +15,8 @@ const routes = [
   },
   {
     path: "/movies",
-    name: "movieList",
-    component: MovieList,
+    name: "MovieView",
+    component: MovieView,
   },
   {
     path: "/rankings",

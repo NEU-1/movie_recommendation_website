@@ -1,11 +1,11 @@
+import json
 from django.shortcuts import render
 from rest_framework.response import Response
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticated
-from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, get_list_or_404
 from .serializers import MovieListSerializer
 # from .serializers import ReviewSerializer, MovieDetailSerializer, GenreSerializer
@@ -80,3 +80,9 @@ def get_likes(request, movie_pk):
         is_liked = False
 
     return Response({'is_liked' : is_liked})
+
+
+def your_view_function(request):
+    with open('movies/fixtures/movies.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    return JsonResponse(data, safe=False)

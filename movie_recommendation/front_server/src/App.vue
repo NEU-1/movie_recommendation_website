@@ -1,9 +1,6 @@
 <template>
   <div id="app">
     <div class="navbar-container">
-      <nav>
-        <router-link :to="{name: "movieList"}">movieList</router-link>
-      </nav>
       <div class="header-container">
         <Header />
       </div>
