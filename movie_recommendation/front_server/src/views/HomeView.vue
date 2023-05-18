@@ -6,7 +6,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import SearchBar from "@/components/SearchBar.vue";
 import imgg from "../assets/동석-removebg-preview.png";
 
