@@ -1,9 +1,8 @@
 <template>
-  <div class="movie-item">
-    <img :src="movie.poster" :alt="movie.title" />
-    <h3>{{ movie.title }}</h3>
-    <p>{{ movie.description }}</p>
-    <p>아이템입니다</p>
+  <div>
+    <h2>{{ movie.title }}</h2>
+    <img :src="imageUrl" alt="Poster" />
+    <p>{{ movie.overview }}</p>
   </div>
 </template>
 
@@ -37,7 +36,21 @@ export default {
           console.error(error);
         });
     }
-  }
+  },
+  name: "MovieListItem",
+
+  props: {
+    movie: {
+      type: Object,
+      required: true,
+    },
+  },
+  computed: {
+    imageUrl() {
+      const baseUrl = "https://image.tmdb.org/t/p/original";
+      return baseUrl + this.movie.poster_path;
+    },
+  },
 };
 </script>
 

@@ -1,7 +1,10 @@
 <template>
   <div class="movie-item">
-    <MovieListItem v-for="movie in movies" :key="movie.id" :movie="movie" />
-    <p>리스트입니다</p>
+    <MovieListItem
+      v-for="movie in movies"
+      :key="movie.id"
+      :movie="movie.fields"
+    />
   </div>
 </template>
 
@@ -9,7 +12,7 @@
 import MovieListItem from "@/components/MovieListItem";
 
 export default {
-  name: "movieList",
+  name: "MovieList",
 
   components: {
     MovieListItem,
@@ -17,14 +20,8 @@ export default {
 
   props: {
     movies: {
-      type: Object,
+      type: Array,
       required: true,
-    },
-  },
-
-  computed: {
-    movies() {
-      return rhis.$store.state.movies;
     },
   },
 };
