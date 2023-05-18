@@ -1,10 +1,9 @@
 from django.urls import path
 from . import views
-from .views import your_view_function
 
 app_name = 'movies'
 urlpatterns = [
-    path('movie_list/', views.movie_list),
+    path('', views.movie_list),
     # path('create_data/', views.create_data),
     path('<int:movie_id>/', views.movie_detail),
     path('<int:movie_id>/reviews/', views.review_list),
