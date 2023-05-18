@@ -1,10 +1,15 @@
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, get_object_or_404
 from .serializers import UserSerializer
+
+def some_view_func(request):
+    token = Token.objects.create(user=...)
+    return Response({ 'token':token.key })
 
 # 사용자의 ID로 사용자를 찾는 함수
 def get_user(pk):
@@ -25,6 +30,8 @@ def handle_follow(me, person):
         # 없으면 팔로우
         me.followings.add(person)
         return True
+
+
 
 @api_view(['POST'])  # POST 요청을 처리
 # 사용자 등록을 위한 API endpoint
@@ -49,6 +56,7 @@ def signup(request):
             user.save()
             # 사용자 데이터 반환
             return Response(serializer.data)
+        
 
 @api_view(['POST'])  # POST 요청을 처리
 @authentication_classes([JSONWebTokenAuthentication])  # JWT 인증 사용
@@ -62,6 +70,7 @@ def my_profile(request):
     # 시리얼라이즈 된 데이터 반환
     return Response(serializer.data)
 
+
 @api_view(['GET'])  # GET 요청을 처리
 # 특정 사용자의 프로필 정보를 반환하는 API endpoint
 def profile(request, user_pk):
@@ -72,73 +81,36 @@ def profile(request, user_pk):
     # 시리얼라이즈 된 데이터 반환
     return Response(serializer.data)
 
-@api_view(['GET'])  # GET 요청을 처리
-@authentication_classes([JSONWebTokenAuthentication])  # JWT 인증 사용
-@permission_classes([IsAuthenticated])  # 인증된 사용자만 요청 가능
-# 모든 사용자의 정보를 반환하는 API endpoint
-def users(request):
-    # 모든 사용자 정보를 얻음
-    users = get_user_model().objects.all()
-    # 사용자 정보를 시리얼라이즈 (many=True는 여러 개의 객체를 시리얼라이즈하겠다는 의미)
-    serializer = UserSerializer(users, many=True)
-    # 시리얼라이즈 된 데이터 반환
-    return Response(serializer.data)
 
-
-@api_view(['GET'])  # GET 요청을 처리
-# 특정 사용자의 정보를 반환하는 API endpoint
-def user(request, my_pk):
-    # 요청된 pk를 가진 사용자 정보를 얻음
-    user = get_user(my_pk)
-    # 사용자 정보를 시리얼라이즈
-    serializer = UserSerializer(user)
-    # 시리얼라이즈 된 데이터 반환
-    return Response(serializer.data)
-
-@api_view(['POST'])  # POST 요청을 처리
-# 사용자가 다른 사용자를 팔로우하거나 팔로우 취소하는 API endpoint
+# 팔로우 요청을 처리하는 함수
+@api_view(['POST'])
 def follow(request, my_pk, user_pk):
-    # 팔로우할 사용자 정보를 얻음
-    person = get_user(user_pk)
-    # 팔로우하는 사용자 정보를 얻음
-    me = get_user(my_pk)
-    # 사용자가 자기 자신을 팔로우하려는 것이 아니라면
+    # 요청으로부터 person과 me를 가져옴
+    person = get_user(user_pk)  # 팔로우 대상 사용자
+    me = get_user(my_pk)  # 요청한 사용자
+
+    # 요청한 사용자와 팔로우 대상 사용자가 같지 않은지 확인
     if person != me:
-        # 팔로우하거나 팔로우를 취소함
+        # 팔로우 상태를 변경하고 변경된 상태를 반환
         following = handle_follow(me, person)
         return Response(following)
+    else:
+        # 같은 경우 에러 메시지 반환
+        return error_response('자기 자신을 팔로우할 수 없습니다.')
 
-@api_view(['POST'])  # POST 요청을 처리
-# 사용자가 특정 사용자를 팔로우하는지 확인하는 API endpoint
+
+# 팔로우 여부를 확인하는 함수
+@api_view(['POST'])
 def is_follow(request, my_pk, user_pk):
-    # 확인하려는 대상 사용자 정보를 얻음
-    person = get_user(user_pk)
-    # 팔로우 확인을 요청한 사용자 정보를 얻음
-    me = get_user(my_pk)
-    # 사용자가 자기 자신을 팔로우하려는 것이 아니라면
+    # 요청으로부터 person과 me를 가져옴
+    person = get_user(user_pk)  # 팔로우 대상 사용자
+    me = get_user(my_pk)  # 요청한 사용자
+
+    # 요청한 사용자와 팔로우 대상 사용자가 같지 않은지 확인
     if person != me:
-        # 팔로우하는지 확인
+        # 팔로우 여부를 확인하고 그 결과를 반환
         following = me.followings.filter(pk=person.pk).exists()
         return Response(following)
-
-@api_view(['POST'])  # POST 요청을 처리
-@authentication_classes([JSONWebTokenAuthentication])  # JWT 인증 사용
-@permission_classes([IsAuthenticated])  # 인증된 사용자만 요청 가능
-# 사용자들이 좋아하는 영화들을 반환하는 API endpoint
-def users_info(request):
-    # 요청에 포함된 사용자 정보를 얻음
-    users = request.data.get('users')
-    movies = set()  # set 자료형 사용
-    for user in users:
-        # 각 사용자 정보를 얻음
-        user = get_user(user)
-        # 사용자 정보를 시리얼라이즈
-        serializer = UserSerializer(user)
-        # 사용자가 좋아하는 영화 정보를 얻음
-        like_movies = serializer.data.get('like_movies')
-        # 영화 정보를 set에 추가
-        movies.update(like_movies)  # set의 update 메소드 사용
-    
-    # 좋아하는 영화 정보를 list 형태로 변환하여 반환
-    return Response(list(movies))  # set을 list로 변환하여 반환
-
+    else:
+        # 같은 경우 에러 메시지 반환
+        return error_response('자기 자신을 팔로우할 수 없습니다.')
