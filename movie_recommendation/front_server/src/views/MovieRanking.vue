@@ -2,7 +2,7 @@
   <div>
     <h1>Movie Ranking</h1>
     <ul>
-      <li v-for="movie in sortedMovies" :key="movie.pk">
+      <li v-for="movie in sortedMovies" :key="movie.id">
         <h2>{{ movie.fields.title }}</h2>
         <p>Rating: {{ movie.fields.vote_average }}</p>
       </li>

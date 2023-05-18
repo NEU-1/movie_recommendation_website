@@ -2,7 +2,7 @@
   <div class="movie-item">
     <MovieListItem
       v-for="movie in movies"
-      :key="movie.id"
+      :key="movie.pk"
       :movie="movie.fields"
     />
   </div>

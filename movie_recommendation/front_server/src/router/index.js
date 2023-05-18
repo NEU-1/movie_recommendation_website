@@ -30,7 +30,7 @@ const routes = [
     component: Community,
   },
   {
-    path: '/movies/:id',
+    path: "/movies/:id",
     name: "moviedetail",
     component: MovieDetail,
   },

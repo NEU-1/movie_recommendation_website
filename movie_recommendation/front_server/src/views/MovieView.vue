@@ -28,7 +28,6 @@ export default {
         "http://127.0.0.1:8000/api/v1/movies/your-url/"
       );
       this.movies = response.data;
-      console.log(response.data, this.movies);
     } catch (error) {
       console.error(error);
     }
