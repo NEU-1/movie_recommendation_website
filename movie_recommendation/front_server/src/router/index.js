@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import MovieList from "@/views/MovieList.vue";
 import MovieRanking from "@/views/MovieRanking.vue";
-import Community from "@/views/Community.vue"
+import Community from "@/views/Community.vue";
 
 Vue.use(VueRouter);
 
@@ -14,18 +14,18 @@ const routes = [
     component: HomeView,
   },
   {
-    path: '/movies',
-    name: 'movieList',
+    path: "/movies",
+    name: "movieList",
     component: MovieList,
   },
   {
-    path: '/rankings',
-    name: 'movieRanking',
+    path: "/rankings",
+    name: "movieRanking",
     component: MovieRanking,
   },
   {
-    path: '/community',
-    name: 'community',
+    path: "/community",
+    name: "community",
     component: Community,
   },
 
