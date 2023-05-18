@@ -42,20 +42,28 @@ def fetch_movie_data(url, genres, page, is_active):
 
 
 def fetch_credit_data(movie_data):
-    actor_data = []
+    actor_dict = {}
     for data in movie_data:
         movie_id = data['pk']
         url = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={TMDB_API_KEY}"
         credit_info = requests.get(url).json()
-        actors = [cast['name'] for cast in credit_info['cast'][:5]]
-        data['fields']['actors'] = actors
+        actors = [cast for cast in credit_info['cast'][:5]]
+        data['fields']['actors'] = [actor['name'] for actor in actors]
         if credit_info['crew']:
             data['fields']['director'] = credit_info['crew'][0]['name']
-        
-        for actor in actors:
-            actor_data.append({"name": actor})
 
-    return actor_data
+        for actor in actors:
+            if actor['id'] not in actor_dict:
+                actor_dict[actor['id']] = {
+                    "pk": actor['id'],
+                    "model": "movies.actor",
+                    "fields": {
+                        "name": actor['name']
+                    }
+                }
+
+    return list(actor_dict.values())
+
 
 
 def save_to_file(filename, data):
@@ -65,7 +73,7 @@ def save_to_file(filename, data):
 
 def main():
     genres = fetch_genre_data()
-    genre_data = [{"pk": genre['id'], 'name': genre['name']} for genre in genres]
+    genre_data = [{"pk": genre['id'], "model": "movies.genre", "fields": {'name': genre['name']}} for genre in genres]
 
     movie_data = []
     for i in range(1, 20):
