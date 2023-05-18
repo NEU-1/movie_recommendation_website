@@ -8,18 +8,20 @@
 </template>
 
 <script>
-import MovieListItem from './MovieListItem.vue';
-import moviesData from './movies.json';
+import MovieListItem from "@/components/MovieListItem.vue";
+import moviesData from "@/views/movies.json";
 
 export default {
+  name: "MovieListView",
+
   components: {
-    MovieListItem
+    MovieListItem,
   },
   data() {
     return {
-      movies: moviesData
+      movies: moviesData,
     };
-  }
+  },
 };
 </script>
 

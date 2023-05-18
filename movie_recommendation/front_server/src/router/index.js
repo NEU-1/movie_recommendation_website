@@ -12,9 +12,9 @@ const routes = [
     component: HomeView,
   },
   {
-    path: '/movies',
-    name: 'MovieList',
-    component: MovieList,
+    path: "/movies",
+    name: "MovieListView",
+    component: MovieListView,
   },
 
   // {
