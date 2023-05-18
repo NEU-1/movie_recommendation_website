@@ -23,7 +23,7 @@ export default {
     };
   },
   async created() {
-    const response = await axios.get("http://127.0.0.1:8000/movies/your-url/");
+    const response = await axios.get("http://127.0.0.1:8000/api/v1/movies/your-url/");
     this.movies = response.data;
     console.log(movies);
   },
