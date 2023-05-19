@@ -23,9 +23,7 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get(
-        "http://127.0.0.1:8000/api/v1/movies/your-url/"
-      );
+      const response = await axios.get("http://127.0.0.1:8000/api/v1/movies/");
       this.movies = response.data;
     } catch (error) {
       console.error(error);

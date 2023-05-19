@@ -5,7 +5,8 @@ import MovieView from "@/views/MovieView.vue";
 import MovieRanking from "@/views/MovieRanking.vue";
 import Community from "@/views/Community.vue";
 import MovieDetail from "@/views/MovieDetail.vue";
-
+import LoginView from "@/views/LoginView.vue";
+import SignupView from "@/views/SignupView";
 Vue.use(VueRouter);
 
 const routes = [
@@ -34,14 +35,16 @@ const routes = [
     name: "moviedetail",
     component: MovieDetail,
   },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
+  {
+    path: "/login",
+    name: "login",
+    component: LoginView,
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: SignupView,
+  },
 ];
 
 const router = new VueRouter({

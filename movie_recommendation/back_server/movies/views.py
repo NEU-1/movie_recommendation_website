@@ -20,9 +20,12 @@ def movie_list(request):
 
 @api_view(['GET'])
 def movie_detail(request, movie_id):
+<<<<<<< HEAD
     movie = get_object_or_404(Movie.objects.prefetch_related('actors','genres'), pk=movie_id)
+=======
+    movie = get_object_or_404(Movie.objects.prefetch_related('actors','genres','directors', 'ott_paths'), movie_id=movie_id)
+>>>>>>> e5adabd9b36d9ec7f0a03b4c4e7510b9370002ac
 
-    # movie = get_object_or_404(Movie, pk=movie_id)
     serializer = MovieSerializer(movie)
 
     is_liked = False
