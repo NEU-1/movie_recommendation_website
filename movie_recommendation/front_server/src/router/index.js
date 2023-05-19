@@ -5,7 +5,8 @@ import MovieView from "@/views/MovieView.vue";
 import MovieRanking from "@/views/MovieRanking.vue";
 import Community from "@/views/Community.vue";
 import MovieDetail from "@/views/MovieDetail.vue";
-
+import LoginView from "@/views/LoginView.vue";
+import SignupView from "@/views/SignupView";
 Vue.use(VueRouter);
 
 const routes = [
@@ -33,6 +34,16 @@ const routes = [
     path: "/movies/:id",
     name: "moviedetail",
     component: MovieDetail,
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: LoginView,
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: SignupView,
   },
   // {
   //   path: '/about',

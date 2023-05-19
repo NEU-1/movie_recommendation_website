@@ -1,23 +1,7 @@
 <template>
   <div>
-    <button class="login-button" @click="showLoginModal">로그인</button>
-    <div v-if="showModal" class="modal">
-      <div class="modal-content">
-        <span class="close" @click="closeLoginModal">&times;</span>
-        <h2>로그인</h2>
-        <form @submit.prevent="login">
-          <div class="form-group">
-            <label for="username">아이디</label>
-            <input type="text" id="username" v-model="username" required />
-          </div>
-          <div class="form-group">
-            <label for="password">비밀번호</label>
-            <input type="password" id="password" v-model="password" required />
-          </div>
-          <button type="submit">로그인</button>
-        </form>
-      </div>
-    </div>
+    <router-link to="/login" class="login-button">로그인</router-link>
+    <router-link to="/signup" class="signup-button">회원가입</router-link>
   </div>
 </template>
 
@@ -49,6 +33,7 @@ export default {
 };
 </script>
 
+<!-- ...your styles... -->
 <style scoped>
 .login-button {
   padding: 10px 20px;
