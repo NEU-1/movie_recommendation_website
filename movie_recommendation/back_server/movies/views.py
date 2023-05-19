@@ -21,21 +21,21 @@ def movie_list(request):
 @api_view(['GET'])
 def movie_detail(request, movie_id):
 
-    movie = get_object_or_404(Movie.objects.prefetch_related('actors','genres','directors', 'ott_paths'), movie_id=movie_id)
+    movie = get_object_or_404(Movie, movie_id=movie_id)
 
     serializer = MovieSerializer(movie)
 
-    is_liked = False
+    # is_liked = False
 
-    if request.user:
-        if movie.like_users.filter(pk=request.user.pk).exists():
-            is_liked = True
-        else:
-            is_liked = False
+    # if request.user:
+    #     if movie.like_users.filter(pk=request.user.pk).exists():
+    #         is_liked = True
+    #     else:
+    #         is_liked = False
 
     context = {
         'data': serializer.data,
-        'is_liked': is_liked
+        # 'is_liked': is_liked
     }
 
     return Response(context)
