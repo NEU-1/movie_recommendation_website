@@ -20,7 +20,7 @@ def movie_list(request):
 
 @api_view(['GET'])
 def movie_detail(request, movie_id):
-    movie = get_object_or_404(Movie.objects.prefetch_related('actors','genres'), pk=movie_id)
+    movie = get_object_or_404(Movie.objects.prefetch_related('actors','genres','directors', 'ott_paths'), pk=movie_id)
 
     # movie = get_object_or_404(Movie, pk=movie_id)
     serializer = MovieSerializer(movie)
@@ -66,7 +66,7 @@ def movie_likes(request, movie_pk):
     return
 
 
-def list(request):
+def your_view_function(request):
     with open('movies/fixtures/movies.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
     return JsonResponse(data, safe=False)

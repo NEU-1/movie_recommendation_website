@@ -10,5 +10,6 @@ urlpatterns = [
     path('<int:movie_id>/reviews/create/', views.review_create),
     path('<int:movie_pk>/likes/', views.movie_likes),
     path('list/', views.list),
+    path('your-url/', views.your_view_function),
 
 ]
