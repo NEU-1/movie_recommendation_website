@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>Movie</h2>
     <div class="movie-list">
       <MovieList :movies="movies" />
     </div>
