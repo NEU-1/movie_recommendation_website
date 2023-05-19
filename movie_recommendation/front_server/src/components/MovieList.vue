@@ -1,10 +1,13 @@
 <template>
   <div class="movie-item">
-    <MovieListItem
-      v-for="movie in movies"
-      :key="movie.pk"
-      :movie="movie.fields"
-    />
+    <div class="row">
+      <MovieListItem
+        v-for="movie in movies"
+        :key="movie.pk"
+        :movie="movie.fields"
+        class="col-md-4"
+      />
+    </div>
   </div>
 </template>
 
@@ -29,14 +32,38 @@ export default {
 
 <style scoped>
 .movie-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin-bottom: 20px;
 }
 
+.movie-item .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -10px;
+  margin-left: -10px;
+}
+
+.movie-item .col-md-4 {
+  padding-right: 10px;
+  padding-left: 10px;
+  flex: 0 0 33.33%;
+  max-width: 33.33%;
+}
+
 .movie-item img {
-  width: 200px;
+  max-width: 100%;
   height: auto;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.movie-item h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.movie-item p {
+  font-size: 14px;
+  color: #6c757d;
 }
 </style>
