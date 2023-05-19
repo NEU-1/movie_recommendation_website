@@ -82,7 +82,7 @@ def get_likes(request, movie_pk):
     return Response({'is_liked' : is_liked})
 
 
-def your_view_function(request):
+def list(request):
     with open('movies/fixtures/movies.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
     return JsonResponse(data, safe=False)

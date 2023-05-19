@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <h1><b>MV.GG</b></h1>
+    <router-link class="home-link" to="/">MV.GG</router-link>
   </div>
 </template>
 
@@ -16,9 +16,16 @@ export default {};
   padding: 10px;
 }
 
-h1 {
-  color: #fff;
+.home-link {
+  font-size: 30px;
   font-weight: bold;
+  color: #fff;
   margin: 0;
+  text-decoration: none;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>
