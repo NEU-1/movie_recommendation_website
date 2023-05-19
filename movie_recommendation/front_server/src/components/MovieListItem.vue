@@ -11,7 +11,7 @@
         class="details-button"
         :to="`/movie/${movie.id}`"
       >
-        상세보기
+        상세보기 외안됨?
       </router-link>
     </div>
     <h2 class="movie-title">{{ movie.title }}</h2>
@@ -20,6 +20,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -28,23 +29,30 @@ export default {
       showDetailsButton: false,
     };
   },
+  computed: {
+    ...mapGetters(["getMovieById"]),
+    imageUrl() {
+      const baseUrl = "https://image.tmdb.org/t/p/";
+      return baseUrl + this.movie.poster_path;
+    },
+  },
   mounted() {
     // 영화 세부 내용을 조회하는 메서드를 호출합니다.
     this.fetchMovieDetails();
   },
   methods: {
     fetchMovieDetails() {
-      const movieId = "영화의 ID를 입력하세요"; // 영화의 ID를 설정하세요
+      const movieId = this.$route.params.movieId;
 
       axios
-        .get(`http://127.0.0.1:8000/api/v1/movies/your-url/${movieId}`)
+        .get(`http://127.0.0.1:8000/api/v1/movies/list/${movieId}`)
         .then((response) => {
-          const movieData = response.data[0]; // 응답이 단일 영화 객체를 포함하는 배열이라고 가정합니다.
+          const movieData = response.data[0];
           this.movie = {
             id: movieData.id,
             title: movieData.fields.title,
             description: movieData.fields.overview,
-            // 표시할 다른 영화 세부 정보를 추가하세요
+            poster_path: movieData.fields.poster_path, // 포스터 이미지 경로를 가져옵니다.
           };
         })
         .catch((error) => {
@@ -52,19 +60,10 @@ export default {
         });
     },
   },
-  name: "MovieListItem",
-
-  props: {
-    movie: {
-      type: Object,
-      required: true,
-    },
-  },
-  computed: {
-    imageUrl() {
-      const baseUrl = "https://image.tmdb.org/t/p/original";
-      return baseUrl + this.movie.poster_path;
-    },
+  created() {
+    if (!this.getMovieById(this.$route.params.movieId)) {
+      this.fetchMovieDetails();
+    }
   },
 };
 </script>
