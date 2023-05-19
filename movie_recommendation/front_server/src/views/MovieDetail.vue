@@ -19,15 +19,6 @@ export default {
     const movie_id = this.$route.params.id;
     const movie = movies.filter(movie.id === movie_id);
     this.movie = movie;
-    // const movieId = this.$route.params.movieId;
-    // try {
-    //   const response = await axios.get(
-    //     `http://127.0.0.1:8000/api/v1/movies/${movieId}/`
-    //   );
-    //   this.movie = response.data;
-    // } catch (error) {
-    //   console.error(error);
-    // }
   },
   computed: {
     imageUrl() {

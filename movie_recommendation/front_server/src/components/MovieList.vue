@@ -5,7 +5,7 @@
         v-for="(movie, i) in movies"
         :key="movie.id"
         :movie="movie"
-        :movie_id="i"
+        :movie_id="movie.movie_id"
         class="col-md-4"
       />
     </div>

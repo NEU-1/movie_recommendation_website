@@ -14,7 +14,7 @@
         상세보기
       </router-link>
     </div>
-    <h2 class="movie-title">{{ movie.fields.title }}</h2>
+    <h2 class="movie-title">{{ movie.title }}</h2>
   </div>
 </template>
 
@@ -25,17 +25,7 @@ export default {
       showDetailsButton: false,
     };
   },
-  mounted() {
-    // movieId를 가져와서 movieDetail 메서드를 호출합니다.
-    this.movieDetail(this.movie.id);
-  },
-  methods: {
-    movieDetail(movieId) {
-      // Vuex action을 호출하여 영화 상세 정보를 가져옵니다.
-      // 왜호출함 안해도되는데
-      // this.$store.dispatch("getMovieDetail", movieId);
-    },
-  },
+  methods: {},
   name: "MovieListItem",
   props: {
     movie: {
@@ -47,7 +37,7 @@ export default {
   computed: {
     imageUrl() {
       const baseUrl = "https://image.tmdb.org/t/p/original";
-      return baseUrl + this.movie.fields.poster_path;
+      return baseUrl + this.movie.poster_path;
     },
   },
 };
