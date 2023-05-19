@@ -43,7 +43,7 @@ def signup(request):
     # 비밀번호 일치 여부 확인
     if password != passwordConfirmation:
         # 일치하지 않을 경우 에러 메시지 반환
-        return error_response('비밀번호가 일치하지 않습니다.')
+        return error_response('비밀번호가 다릅니다.')
     else:
         # 사용자가 보낸 데이터로 UserSerializer를 통해 데이터 생성
         serializer = UserSerializer(data=request.data)
@@ -96,7 +96,7 @@ def follow(request, my_pk, user_pk):
         return Response(following)
     else:
         # 같은 경우 에러 메시지 반환
-        return error_response('자기 자신을 팔로우할 수 없습니다.')
+        return error_response('자기 자신은 팔로우할 수 없습니다.')
 
 
 # 팔로우 여부를 확인하는 함수
@@ -113,4 +113,4 @@ def is_follow(request, my_pk, user_pk):
         return Response(following)
     else:
         # 같은 경우 에러 메시지 반환
-        return error_response('자기 자신을 팔로우할 수 없습니다.')
+        return error_response('자기 자신은 팔로우할 수 없습니다.')

@@ -20,6 +20,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -34,10 +35,10 @@ export default {
   },
   methods: {
     fetchMovieDetails() {
-      const movieId = "영화의 ID를 입력하세요"; // 영화의 ID를 설정하세요
+      const movieId = this.$route.params.movieId;
 
       axios
-        .get(`http://127.0.0.1:8000/api/v1/movies/your-url/${movieId}`)
+        .get(`http://127.0.0.1:8000/api/v1/movies/list/${movieId}`)
         .then((response) => {
           const movieData = response.data[0]; // 응답이 단일 영화 객체를 포함하는 배열이라고 가정합니다.
           this.movie = {
@@ -52,19 +53,10 @@ export default {
         });
     },
   },
-  name: "MovieListItem",
-
-  props: {
-    movie: {
-      type: Object,
-      required: true,
-    },
-  },
-  computed: {
-    imageUrl() {
-      const baseUrl = "https://image.tmdb.org/t/p/original";
-      return baseUrl + this.movie.poster_path;
-    },
+  created() {
+    if (!this.getMovieById(this.$route.params.movieId)) {
+      this.fetchMovieDetails();
+    }
   },
 };
 </script>

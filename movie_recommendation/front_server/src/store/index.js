@@ -7,17 +7,30 @@ const API_URL = "http://127.0.0.1:8000";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  getters: {},
-  mutations: {},
+  state: {
+    movies: [],
+  },
+  getters: {
+    getMovieById: (state) => (movieId) => {
+      return state.movies.find((movie) => movie.id === movieId);
+    },
+  },
+  mutations: {
+    addMovie(state, movie) {
+      state.movies.push(movie);
+    },
+  },
   actions: {
-    getMovies(context) {
-      axios({
-        method: "get",
-        url: `${API_URL}/api/v1/movies/`,
-      })
-        .then((res) => console.log(res, context))
-        .catch((err) => console.log(err));
+    fetchMovieDetails({ commit }, movieId) {
+      axios
+        .get(`${API_URL}/api/v1/movies/list/${movieId}`)
+        .then((response) => {
+          const movieData = response.data[0];
+          commit("addMovie", movieData);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
   modules: {},
