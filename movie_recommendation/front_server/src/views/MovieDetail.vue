@@ -16,7 +16,7 @@ export default {
     };
   },
   async created() {
-    const movie_id = this.$route.params.id;
+    const movie_id = this.$route.params.movie_id;
 
     try {
       const response = await axios.get(
