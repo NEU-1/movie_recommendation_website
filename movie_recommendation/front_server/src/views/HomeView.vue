@@ -6,15 +6,14 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import SearchBar from "@/components/SearchBar.vue";
-import img from "../assets/동석-removebg-preview.png";
+import imgg from "../assets/동석-removebg-preview.png";
 
 export default {
   name: "HomeView",
   components: {
     SearchBar,
-    img,
+    imgg,
   },
 };
 </script>

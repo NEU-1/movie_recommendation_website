@@ -170,12 +170,15 @@ SITE_ID = 1
 # drf 설정
 REST_FRAMEWORK = {
     # 기본 인증을 기본 Token 으로 설정
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
+     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
     # 인증받은 사용자에게만 요청 허용
     'DEFAULT_PERMISSION_CLASSES': [
-        # 'rest_framework.permissions.AllowAny',       # => 기본적으로 모두에게 허용
-        'rest_framework.permissions.IsAuthenticated',  # => 기본적으로 인증받아야 사용
+        'rest_framework.permissions.AllowAny',       # => 기본적으로 모두에게 허용
+        # 'rest_framework.permissions.IsAuthenticated',  # => 기본적으로 인증받아야 사용
     ],
+
 }
