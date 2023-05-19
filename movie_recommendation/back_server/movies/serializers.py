@@ -24,4 +24,4 @@ class MovieSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = MovieReview
-        fields = ('id','user','movie','content','rate','like','created_at','updated_at')
+        fields = ('id', 'title','content')
