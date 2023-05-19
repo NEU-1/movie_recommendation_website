@@ -21,7 +21,7 @@ def movie_list(request):
 @api_view(['GET'])
 def movie_detail(request, movie_id):
 
-    movie = get_object_or_404(Movie.objects.prefetch_related('actors','genres','directors', 'ott_paths'), movie_id=movie_id)
+    movie = get_object_or_404(Movie.objects.prefetch_related('actors','genres'), movie_id=movie_id)
 
     serializer = MovieSerializer(movie)
 
