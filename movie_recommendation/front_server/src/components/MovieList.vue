@@ -2,10 +2,10 @@
   <div class="movie-item">
     <div class="row">
       <MovieListItem
-        v-for="(movie, i) in movies"
+        v-for="(movie) in movies"
         :key="movie.id"
         :movie="movie"
-        :movie_id="movie.movie_id"
+        :movie_id="movie.pk"
         class="col-md-4"
       />
     </div>

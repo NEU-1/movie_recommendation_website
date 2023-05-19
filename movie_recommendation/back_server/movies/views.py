@@ -20,7 +20,11 @@ def movie_list(request):
 
 @api_view(['GET'])
 def movie_detail(request, movie_id):
+<<<<<<< HEAD
+    movie = get_object_or_404(Movie.objects.prefetch_related('actors','genres'), pk=movie_id)
+=======
     movie = get_object_or_404(Movie.objects.prefetch_related('actors','genres','directors', 'ott_paths'), movie_id=movie_id)
+>>>>>>> e5adabd9b36d9ec7f0a03b4c4e7510b9370002ac
 
     serializer = MovieSerializer(movie)
 
@@ -55,30 +59,14 @@ def review_list(request, movie_id):
     serializer = ReviewSerializer(review, many=True)
     return Response(serializer.data)
 
-@api_view(['GET', 'POST'])
-def likes(request, movie_pk):
-    
-    user = get_object_or_404(get_user_model(), pk=request.user.id)
-    
-    if user.movies.filter(pk=movie_pk).exists():
-        user.movies.remove(movie_pk)
-        is_liked = False
+@api_view(['POST'])
+def movie_likes(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    if movie.like_users.filter(pk=request.user.pk).exists():
+        movie.like_users.remove(request.user)
     else:
-        user.movies.add(movie_pk)
-        is_liked = True
-
-    return Response({'is_liked' : is_liked})
-
-# 좋아요 데이터 불러오기    
-@api_view(['GET'])
-def get_likes(request, movie_pk):
-    user = get_object_or_404(get_user_model(), pk=request.user.id)
-    if user.movies.filter(pk=movie_pk).exists():
-        is_liked = True
-    else:
-        is_liked = False
-
-    return Response({'is_liked' : is_liked})
+        movie.like_users.add(request.user)
+    return
 
 
 def your_view_function(request):
