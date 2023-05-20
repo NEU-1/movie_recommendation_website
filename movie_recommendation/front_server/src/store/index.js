@@ -13,7 +13,7 @@ export default new Vuex.Store({
     movies: [],
     movieDetail: null, // movieDetail을 위한 상태를 추가하였습니다.
     token: {
-      key: "YOUR_TOKEN_HERE",
+      key: null,
     },
     username: null,
   },
@@ -21,6 +21,9 @@ export default new Vuex.Store({
     getMovieById: (state) => (movieId) => {
       return state.movies.find((movie) => movie.id === movieId);
     },
+    isLogin(state) {
+      return state.token ? true : false
+    }
   },
   mutations: {
     addMovie(state, movie) {
@@ -32,7 +35,11 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, userInfo) {
       state.token = userInfo.token;
       state.username = userInfo.username;
-      router.push({ name: "Home" });
+      router.push({ name: "home" });
+    },
+    CLEAR_TOKEN(state) {
+      state.token = null;
+      state.username = null;
     },
   },
   actions: {
@@ -69,8 +76,28 @@ export default new Vuex.Store({
           };
           context.commit("SAVE_TOKEN", userInfo);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err.response.data));
     },
+    login(context, payload) {
+      const username = payload.username
+      const password = payload.password
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/login/`,
+        data: {
+          username, password
+        }
+      })
+      .then(res => {
+        console.log('login succes')
+        context.commit('SAVE_TOKEN', res.data.key)
+      })
+      .catch(err => console.log(err))
+    },
+    logout(context) {
+      context.commit("CLEAR_TOKEN");
+      router.push({ name: "home" }).catch(err => {});
+    }
   },
 
   modules: {},

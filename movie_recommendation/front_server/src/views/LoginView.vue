@@ -28,15 +28,14 @@ export default {
   },
   methods: {
     login() {
-      console.log("아이디:", this.username);
-      console.log("비밀번호:", this.password);
-
-      // 이곳에 백엔드 서버와의 통신 코드를 추가해야 합니다.
-      // 로그인 성공 후에는 사용자를 알맞은 페이지로 리다이렉트하거나,
-      // 로그인 상태를 전역 상태로 관리하는 등의 추가 작업이 필요합니다.
+      const username = this.username
+      const password = this.password
+      const payload = {
+        username, password
+      }
+      this.$store.dispatch('login', payload)
     },
     goToSignup() {
-      // 추가된 메소드
       this.$router.push("/signup");
     },
   },

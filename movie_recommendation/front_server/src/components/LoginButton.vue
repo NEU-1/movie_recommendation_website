@@ -1,11 +1,14 @@
 <template>
   <div>
-    <router-link to="/login" class="login-button">로그인</router-link>
-    <router-link to="/signup" class="signup-button">회원가입</router-link>
+    <router-link v-if="!isLogin" to="/login" class="login-button">로그인</router-link>
+    <button v-else class="logout-button" @click="logout">로그아웃</button>
+
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'; 
+
 export default {
   name: "LoginButton",
   data() {
@@ -15,6 +18,9 @@ export default {
       password: "",
     };
   },
+  computed: {
+    ...mapGetters(['isLogin']) 
+  },
   methods: {
     showLoginModal() {
       this.showModal = true;
@@ -23,11 +29,10 @@ export default {
       this.showModal = false;
     },
     login() {
-      console.log("아이디:", this.username);
-      console.log("비밀번호:", this.password);
-      // 로그인 로직을 수행합니다.
-      // ...
       this.closeLoginModal();
+    },
+    logout() {
+      this.$store.dispatch('logout');
     },
   },
 };
@@ -36,6 +41,15 @@ export default {
 <!-- ...your styles... -->
 <style scoped>
 .login-button {
+  padding: 10px 20px;
+  background-color: black;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.logout-button {
   padding: 10px 20px;
   background-color: black;
   color: #fff;
