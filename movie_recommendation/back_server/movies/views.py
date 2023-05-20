@@ -70,3 +70,9 @@ def your_view_function(request):
     with open('movies/fixtures/movies.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
     return JsonResponse(data, safe=False)
+
+
+def genre(request):
+    with open('movies/fixtures/genre.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    return JsonResponse(data, safe=False)

@@ -1,14 +1,13 @@
 <template>
   <div>
     <nav>
-      <ul>
-        <li v-for="genre in genres" :key="genre.id" @click="filterByGenre(genre.id)">
-          {{ genre.name }}
+      <ul class="no-bullet">
+        <li v-for="genre in genres" :key="genre.pk" @click="filterByGenre(genre.pk)">
+          {{ genre.fields.name }}
         </li>
       </ul>
     </nav>
-    <h1>Movie Ranking</h1>
-    <ul>
+    <ul class="no-bullet">
       <li v-for="movie in sortedMovies" :key="movie.id">
         <h2>{{ movie.fields.title }}</h2>
         <p>Rating: {{ movie.fields.vote_average }}</p>
@@ -17,6 +16,14 @@
   </div>
 </template>
 
+<style>
+.no-bullet {
+  list-style: none;
+  padding-left: 0;
+}
+</style>
+
+
 <script>
 import axios from "axios";
 
@@ -24,13 +31,13 @@ export default {
   data() {
     return {
       movies: [],
-      genres: [],  
-      selectedGenre: null,  // 선택한 장르를 저장할 변수 추가
+      genres: [],
+      selectedGenre: null,
     };
   },
   mounted() {
     this.fetchMovies();
-    this.fetchGenres();  
+    this.fetchGenres();
   },
   computed: {
     sortedMovies() {
@@ -40,7 +47,7 @@ export default {
         );
       } else {
         return this.movies
-          .filter((movie) => movie.fields.genre_ids.includes(this.selectedGenre))  // 선택한 장르에 맞게 필터링
+          .filter((movie) => movie.fields.genres.includes(this.selectedGenre))
           .sort((a, b) => b.fields.vote_average - a.fields.vote_average);
       }
     },
@@ -56,9 +63,9 @@ export default {
           console.error(error);
         });
     },
-    fetchGenres() {  
+    fetchGenres() {
       axios
-        .get("http://127.0.0.1:8000/api/v1/genres/your-url/")
+        .get("http://127.0.0.1:8000/api/v1/movies/genre/")
         .then((response) => {
           this.genres = response.data;
         })
@@ -66,9 +73,17 @@ export default {
           console.error(error);
         });
     },
-    filterByGenre(genreId) {  // 장르별 필터링을 위한 메서드 추가
+    filterByGenre(genreId) {
       this.selectedGenre = genreId;
     },
   },
 };
 </script>
+
+
+<style>
+.no-bullet {
+  list-style: none;
+  padding-left: 0;
+}
+</style>
