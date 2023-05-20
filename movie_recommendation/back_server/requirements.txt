@@ -43,6 +43,15 @@ itemadapter==0.7.0
 itemloaders==1.0.6
 jedi==0.18.2
 jmespath==1.0.1
+<<<<<<< HEAD
+joblib==1.1.1
+jsonpointer==2.3
+jsonschema==4.17.3
+jupyter==1.0.0
+jupyter-console==6.4.4
+jupyter-events==0.6.3
+=======
+>>>>>>> e05ebf25259b1a3d47176fbc3e1aa0d49e4db2c2
 jupyter_client==7.4.9
 jupyter_core==5.1.5
 lxml==4.9.2

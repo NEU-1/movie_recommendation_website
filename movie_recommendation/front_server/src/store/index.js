@@ -10,6 +10,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     movies: [],
+    communities: [],
     movieDetail: null, // movieDetail을 위한 상태를 추가하였습니다.
     token: {
       key: null,
@@ -31,6 +32,9 @@ export default new Vuex.Store({
     GET_MOVIEDETAIL(state, movieData) {
       state.movieDetail = movieData;
     },
+    GET_COMMUNITY_LIST(state, communities) {
+      state.communities = communities
+    },
     SAVE_TOKEN(state, userInfo) {
       state.token = userInfo.token;
       state.username = userInfo.username;
@@ -45,7 +49,7 @@ export default new Vuex.Store({
     getMovieDetail(context, movieId) {
       axios({
         method: "get",
-        url: `${API_URL}/movies/${movieId}/`,
+        url: `${API_URL}/api/v1/movies/${movieId}/`,
         headers: {
           Authorization: `Token ${context.state.token.key}`,
         },
@@ -57,6 +61,20 @@ export default new Vuex.Store({
         .catch((err) => {
           console.log(err);
         });
+    },
+    getCommunityList(context) {
+      // console.log(this.state.token)
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/community/create/`,
+        // headers: {
+        //   Authorization: `Token ${this.state.token}`
+        // },
+      })
+        .then((res) => {
+          // console.log(res)
+          context.commit('GET_COMMUNITY_LIST', res.data)
+        })
     },
     signUp(context, payload) {
       axios({

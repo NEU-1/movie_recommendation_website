@@ -293,4 +293,4 @@ docs/_book
 # TODO: where does this rule come from?
 test/
 
-# End of https://www.toptal.com/developers/gitignore/api/vue,django,python,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/vue,django,python,visualstudiocode.venv

@@ -7,6 +7,8 @@ import Community from "@/views/Community.vue";
 import MovieDetail from "@/views/MovieDetail.vue";
 import LoginView from "@/views/LoginView.vue";
 import SignupView from "@/views/SignupView";
+import CommunityFormView from "@/components/CommunityFormView.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -29,6 +31,11 @@ const routes = [
     path: "/community",
     name: "community",
     component: Community,
+  },
+  {
+    path: '/community/create',
+    name: 'CommunityCreate',
+    component: CommunityFormView,
   },
   {
     path: "/movies/:id",
