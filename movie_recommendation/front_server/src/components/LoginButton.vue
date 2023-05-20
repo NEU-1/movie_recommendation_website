@@ -47,7 +47,10 @@ export default {
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  display: inline-block; /* 인라인 요소로 변경 */
+  margin-top: 3px; /* 상단 여백 조정 */
 }
+
 .logout-button {
   padding: 10px 20px;
   background-color: black;
@@ -56,6 +59,8 @@ export default {
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  display: inline-block; /* 인라인 요소로 변경 */
+  margin-top: 3px; /* 상단 여백 조정 */
 }
 
 .modal {
