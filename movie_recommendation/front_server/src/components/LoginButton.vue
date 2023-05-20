@@ -2,7 +2,6 @@
   <div>
     <router-link v-if="!isLogin" to="/login" class="login-button">로그인</router-link>
     <button v-else class="logout-button" @click="logout">로그아웃</button>
-
   </div>
 </template>
 

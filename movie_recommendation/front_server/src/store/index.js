@@ -1,10 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
-import router from "@/router"; // router를 import 해야합니다. 경로는 실제 vue-router 파일 경로에 맞추어야 합니다.
-
+import router from "@/router"; 
 const API_URL = "http://127.0.0.1:8000";
-const API_KEY = "a37782b08f823354bf51e4e5f7c07775";
+// const API_KEY = "a37782b08f823354bf51e4e5f7c07775";
 
 Vue.use(Vuex);
 

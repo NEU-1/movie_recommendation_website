@@ -3,6 +3,7 @@
     <h2>{{ movie.data.title }}</h2>
     <img :src="imageUrl" alt="Poster" />
     <p>{{ movie.data.overview }}</p>
+    <p>{{ formattedGenres }}</p>
   </div>
 </template>
 
@@ -17,13 +18,11 @@ export default {
   },
   async created() {
     const movie_id = this.$route.params.id;
-    console.log(movie_id);
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/api/v1/movies/${movie_id}/`
       );
       this.movie = response.data;
-      console.log(this.movie);
     } catch (error) {
       console.error(error);
     }
@@ -33,6 +32,12 @@ export default {
       const baseUrl = "https://image.tmdb.org/t/p/original/";
       return baseUrl + this.movie.data.poster_path;
     },
+    formattedGenres() {
+      if (this.movie.data.genres && Array.isArray(this.movie.data.genres)) {
+        return this.movie.data.genres.map(genre => genre.name).join(", ");
+      }
+      return "";
+    }
   },
 };
 </script>
