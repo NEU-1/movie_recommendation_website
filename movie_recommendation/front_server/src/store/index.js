@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
-import router from "@/router"; // router를 import 해야합니다. 경로는 실제 vue-router 파일 경로에 맞추어야 합니다.
-
+import router from "@/router"; 
 const API_URL = "http://127.0.0.1:8000";
+// const API_KEY = "a37782b08f823354bf51e4e5f7c07775";
 
 Vue.use(Vuex);
 
@@ -13,25 +13,36 @@ export default new Vuex.Store({
     communities: [],
     movieDetail: null, // movieDetail을 위한 상태를 추가하였습니다.
     token: {
-      // 만약 token이 있다면 이런 형식으로 저장할 수 있습니다. 실제로는 로그인 절차를 통해 획득해야 합니다.
-      key: "YOUR_TOKEN_HERE",
+      key: null,
     },
+    username: null,
   },
   getters: {
     getMovieById: (state) => (movieId) => {
       return state.movies.find((movie) => movie.id === movieId);
     },
+    isLogin(state) {
+      return state.token ? true : false
+    }
   },
   mutations: {
     addMovie(state, movie) {
       state.movies.push(movie);
     },
     GET_MOVIEDETAIL(state, movieData) {
-      // 새로운 mutation을 추가했습니다.
       state.movieDetail = movieData;
     },
     GET_COMMUNITY_LIST(state, communities) {
       state.communities = communities
+    },
+    SAVE_TOKEN(state, userInfo) {
+      state.token = userInfo.token;
+      state.username = userInfo.username;
+      router.push({ name: "home" });
+    },
+    CLEAR_TOKEN(state) {
+      state.token = null;
+      state.username = null;
     },
   },
   actions: {
@@ -65,6 +76,45 @@ export default new Vuex.Store({
           context.commit('GET_COMMUNITY_LIST', res.data)
         })
     },
+    signUp(context, payload) {
+      axios({
+        method: "post",
+        url: `${API_URL}/accounts/signup/`,
+        data: {
+          username: payload.username,
+          password1: payload.password1,
+          password2: payload.password2,
+        },
+      })
+        .then((res) => {
+          const userInfo = {
+            username: payload.username,
+            token: res.data.key,
+          };
+          context.commit("SAVE_TOKEN", userInfo);
+        })
+        .catch((err) => console.log(err.response.data));
+    },
+    login(context, payload) {
+      const username = payload.username
+      const password = payload.password
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/login/`,
+        data: {
+          username, password
+        }
+      })
+      .then(res => {
+        console.log('login succes')
+        context.commit('SAVE_TOKEN', res.data.key)
+      })
+      .catch(err => console.log(err))
+    },
+    logout(context) {
+      context.commit("CLEAR_TOKEN");
+      router.push({ name: "home" }).catch(err => {});
+    }
   },
 
   modules: {},

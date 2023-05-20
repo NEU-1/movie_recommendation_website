@@ -13,6 +13,11 @@ import img1 from "../assets/존윅.png";
 import img2 from "../assets/동석.png";
 import img3 from "../assets/마리오.png";
 import img4 from "../assets/조커.png";
+import img5 from "../assets/스즈메.png";
+import img6 from "../assets/스파이더맨.png";
+import img7 from "../assets/쥬라기월드.png";
+import img8 from "../assets/토토로.png";
+import img9 from "../assets/트랜스포머.png";
 
 export default {
   name: "HomeView",
@@ -21,7 +26,7 @@ export default {
   },
   data() {
     return {
-      images: [img1, img2, img3, img4], // Add more image paths as needed
+      images: [img1, img2, img3, img4, img5, img6, img7, img8, img9], // Add more image paths as needed
     };
   },
   computed: {

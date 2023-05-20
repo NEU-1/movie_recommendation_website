@@ -4,17 +4,12 @@
     <form @submit.prevent="submitForm">
       <label for="username">아이디</label>
       <input type="text" id="username" v-model="username" required />
-
-      <label for="password">비밀번호</label>
-      <input type="password" id="password" v-model="password" required />
-
-      <label for="passwordConfirm">비밀번호 확인</label>
-      <input
-        type="password"
-        id="passwordConfirm"
-        v-model="passwordConfirm"
-        required
-      />
+      <br>
+      <label for="password1">비밀번호</label>
+      <input type="password" id="password1" v-model="password1" required />
+      <br>  
+      <label for="password2">비밀번호 확인</label>
+      <input type="password" id="password2" v-model="password2" required />
 
       <button type="submit">가입하기</button>
     </form>
@@ -22,38 +17,30 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
+  name: "SignUpView",
   data() {
     return {
-      username: "",
-      password: "",
-      passwordConfirm: "",
+      username: null,
+      password1: null,
+      password2: null,
     };
   },
   methods: {
-    async submitForm() {
-      if (this.password !== this.passwordConfirm) {
-        alert("비밀번호가 일치하지 않습니다.");
-        return;
-      }
+    signUp() {
+      const username = this.username;
+      const password1 = this.password1;
+      const password2 = this.password2;
 
-      try {
-        const response = await axios.post(
-          "http://localhost:8000/accounts/signup/",
-          {
-            username: this.username,
-            password: this.password,
-            passwordConfirmation: this.passwordConfirm,
-          }
-        );
-
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
-        alert("회원 가입에 실패했습니다.");
-      }
+      const payload = {
+        username: username,
+        password1: password1,
+        password2: password2,
+      };
+      this.$store.dispatch("signUp", payload);
+    },
+    submitForm() {
+      this.signUp();
     },
   },
 };
