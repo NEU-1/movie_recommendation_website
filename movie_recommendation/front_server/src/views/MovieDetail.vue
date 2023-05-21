@@ -1,9 +1,16 @@
 <template>
   <div class="movie-detail">
-    <h2>{{ movie.data.title }}</h2>
-    <img :src="imageUrl" alt="Poster" />
-    <p>{{ movie.data.overview }}</p>
-    <p>{{ formattedGenres }}</p>
+    <h2><b>{{ movie.data.title }}</b></h2>
+    <br/><br/>
+    <div class="content">
+      <div class="image-container">
+        <img :src="imageUrl" alt="Poster" />
+        <p>장르: {{ formattedGenres }}</p>
+      </div>
+      <div class="text-container">
+        <p>{{ movie.data.overview }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -43,5 +50,45 @@ export default {
 </script>
 
 <style scoped>
-/* 여기에 스타일을 추가하십시오 */
+  .movie-detail {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+  }
+
+  .movie-detail h2 {
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+  }
+
+  .content {
+    display: flex;
+    gap: 20px;
+  }
+
+  .image-container {
+    flex: 0 0 400px;
+  }
+
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .text-container {
+    flex-grow: 1;
+    font-size: 20px;
+  }
+
+  .text-container p,
+  .image-container p {
+    color: #000; 
+    line-height: 1.6;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: left;
+  }
 </style>
