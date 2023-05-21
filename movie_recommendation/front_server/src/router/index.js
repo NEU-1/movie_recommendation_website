@@ -8,6 +8,7 @@ import MovieDetail from "@/views/MovieDetail.vue";
 import LoginView from "@/views/LoginView.vue";
 import SignupView from "@/views/SignupView";
 import CommunityFormView from "@/components/CommunityFormView.vue";
+import SearchResults from "@/components/SearchResults.vue";
 
 Vue.use(VueRouter);
 
@@ -41,6 +42,7 @@ const routes = [
     path: "/movies/:id",
     name: "moviedetail",
     component: MovieDetail,
+    props: true,
   },
   {
     path: "/login",
@@ -51,6 +53,11 @@ const routes = [
     path: "/signup",
     name: "signup",
     component: SignupView,
+  },
+  {
+    path: "/search",
+    name: "searchresults",
+    component: SearchResults,
   },
 ];
 

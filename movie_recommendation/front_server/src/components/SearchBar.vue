@@ -6,25 +6,32 @@
       placeholder="검색할 영화제목을 쓰세요"
     />
     <button @click="search">검색</button>
+    <div v-for="movie in movies" :key="movie.movie_id">
+      <router-link :to="`/movies/${movie.movie_id}`">{{ movie.title }}</router-link>
+    </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  name: "SearchBar",
   data() {
     return {
       searchText: "",
+      movies: [],
     };
   },
   methods: {
     search() {
-      console.log("검색어:", this.searchText);
-    },
+    const movieTitle = this.searchText;
+    console.log("검색어:", movieTitle);
+    // this.$router.push({ name: "moviedetail", params: { id: movieTitle } });
+    this.$router.push({ name: "searchresults", query: { q: movieTitle } });
   },
+},
 };
 </script>
-
 <style scoped>
 .search-bar {
   display: flex;

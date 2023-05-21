@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404, get_list_or_404
 from .serializers import MovieSerializer, ReviewSerializer
 # from .serializers import ReviewSerializer, MovieDetailSerializer, GenreSerializer
 from .models import Movie, Genre, Actor, MovieReview
+from django.db.models import Q
 # Create your views here.
 
 @api_view(['GET'])
@@ -71,6 +72,14 @@ def your_view_function(request):
         data = json.load(file)
     return JsonResponse(data, safe=False)
 
+@api_view(['GET'])
+def search_movies(request):
+    q = request.GET.get('q', '')
+    qs = Movie.objects.none()
+    if q:
+        qs = Movie.objects.filter(Q(title__icontains=q))
+    serializer = MovieSerializer(qs, many=True)
+    return Response(serializer.data)
 
 def genre(request):
     with open('movies/fixtures/genre.json', 'r', encoding='utf-8') as file:
