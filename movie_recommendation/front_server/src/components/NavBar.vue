@@ -17,12 +17,15 @@
         <router-link class="nav-link" to="/community">커뮤니티</router-link>
       </li>
       <li
-        class="nav-item"
-        :class="{ active: $route.path === '/recommendation' }"
+      class="nav-item"
+      :class="{ active: $route.path === '/recommendation' }"
       >
-        <router-link class="nav-link" to="/recommendation">추천</router-link>
-      </li>
-    </ul>
+      <router-link class="nav-link" to="/recommendation">추천</router-link>
+    </li>
+    <li class="nav-item" :class="{ active: $route.path === '/profile' }">
+      <router-link class="nav-link" to="/profile">프로필</router-link>
+    </li>
+  </ul>
   </nav>
 </template>
 
