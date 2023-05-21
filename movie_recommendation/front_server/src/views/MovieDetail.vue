@@ -59,7 +59,7 @@ export default {
   }
 
   .movie-detail h2 {
-    color: #333;
+    color: white;
     font-size: 2.5em;
     margin-bottom: 10px;
   }
