@@ -11,11 +11,12 @@ export default new Vuex.Store({
   state: {
     movies: [],
     communities: [],
-    movieDetail: null, // movieDetail을 위한 상태를 추가하였습니다.
+    movieDetail: null, 
     token: {
       key: null,
     },
     username: null,
+    profile: [],
   },
   getters: {
     getMovieById: (state) => (movieId) => {
@@ -63,16 +64,11 @@ export default new Vuex.Store({
         });
     },
     getCommunityList(context) {
-      // console.log(this.state.token)
       axios({
         method: 'get',
         url: `${API_URL}/api/v1/community/create/`,
-        // headers: {
-        //   Authorization: `Token ${this.state.token}`
-        // },
       })
         .then((res) => {
-          // console.log(res)
           context.commit('GET_COMMUNITY_LIST', res.data)
         })
     },

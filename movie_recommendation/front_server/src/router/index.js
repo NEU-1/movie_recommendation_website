@@ -9,6 +9,8 @@ import LoginView from "@/views/LoginView.vue";
 import SignupView from "@/views/SignupView";
 import CommunityFormView from "@/components/CommunityFormView.vue";
 import SearchResults from "@/components/SearchResults.vue";
+import MyProfile from "@/views/MyProfile.vue";
+import NotFound404 from "@/views/NotFound404.vue";
 
 Vue.use(VueRouter);
 
@@ -58,6 +60,16 @@ const routes = [
     path: "/search",
     name: "searchresults",
     component: SearchResults,
+  },
+  {
+    path: '/profile/',
+    name: 'MyProfile',
+    component: MyProfile,
+  },
+  {
+    path: '/404',
+    name: 'NotFound404',
+    component: NotFound404
   },
 ];
 
