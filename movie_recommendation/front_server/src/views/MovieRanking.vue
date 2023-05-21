@@ -1,7 +1,13 @@
 <template>
   <div>
-    <h1>Movie Ranking</h1>
-    <ul>
+    <nav>
+      <ul class="no-bullet">
+        <li v-for="genre in genres" :key="genre.pk" @click="filterByGenre(genre.pk)">
+          {{ genre.fields.name }}
+        </li>
+      </ul>
+    </nav>
+    <ul class="no-bullet">
       <li v-for="movie in sortedMovies" :key="movie.id">
         <h2>{{ movie.fields.title }}</h2>
         <p>Rating: {{ movie.fields.vote_average }}</p>
@@ -10,6 +16,14 @@
   </div>
 </template>
 
+<style>
+.no-bullet {
+  list-style: none;
+  padding-left: 0;
+}
+</style>
+
+
 <script>
 import axios from "axios";
 
@@ -17,16 +31,25 @@ export default {
   data() {
     return {
       movies: [],
+      genres: [],
+      selectedGenre: null,
     };
   },
   mounted() {
     this.fetchMovies();
+    this.fetchGenres();
   },
   computed: {
     sortedMovies() {
-      return this.movies.sort(
-        (a, b) => b.fields.vote_average - a.fields.vote_average
-      );
+      if (this.selectedGenre === null) {
+        return this.movies.sort(
+          (a, b) => b.fields.vote_average - a.fields.vote_average
+        );
+      } else {
+        return this.movies
+          .filter((movie) => movie.fields.genres.includes(this.selectedGenre))
+          .sort((a, b) => b.fields.vote_average - a.fields.vote_average);
+      }
     },
   },
   methods: {
@@ -40,6 +63,27 @@ export default {
           console.error(error);
         });
     },
+    fetchGenres() {
+      axios
+        .get("http://127.0.0.1:8000/api/v1/movies/genre/")
+        .then((response) => {
+          this.genres = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    filterByGenre(genreId) {
+      this.selectedGenre = genreId;
+    },
   },
 };
 </script>
+
+
+<style>
+.no-bullet {
+  list-style: none;
+  padding-left: 0;
+}
+</style>

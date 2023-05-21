@@ -80,3 +80,8 @@ def search_movies(request):
         qs = Movie.objects.filter(Q(title__icontains=q))
     serializer = MovieSerializer(qs, many=True)
     return Response(serializer.data)
+
+def genre(request):
+    with open('movies/fixtures/genre.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    return JsonResponse(data, safe=False)
