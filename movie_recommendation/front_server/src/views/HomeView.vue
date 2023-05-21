@@ -43,6 +43,7 @@ export default {
 .poster-container {
   position: relative;
   display: inline-block;
+  margin-right: 50px;
 }
 
 .poster-image {
