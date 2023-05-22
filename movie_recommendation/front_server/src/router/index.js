@@ -9,7 +9,7 @@ import LoginView from "@/views/LoginView.vue";
 import SignupView from "@/views/SignupView";
 import CommunityFormView from "@/components/CommunityFormView.vue";
 import SearchResults from "@/components/SearchResults.vue";
-import MyProfile from "@/views/MyProfile.vue";
+import ProFile from "@/views/ProFile.vue";
 import NotFound404 from "@/views/NotFound404.vue";
 import CommunityDetail from "@//components/CommunityDetail.vue";
 
@@ -22,58 +22,58 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/movies",
+    path: "/movies/",
     name: "movieview",
     component: MovieView,
   },
   {
-    path: "/ranking",
+    path: "/ranking/",
     name: "movieranking",
     component: MovieRanking,
   },
   {
-    path: "/community",
+    path: "/community/",
     name: "community",
     component: Community,
   },
   {
-    path: "/community/create",
+    path: "/community/create/",
     name: "CommunityCreate",
     component: CommunityFormView,
   },
   {
-    path: "/community/:community_pk",
+    path: "/community/:community_pk/",
     name: "CommunityDetail",
     component: CommunityDetail,
   },
   {
-    path: "/movies/:id",
+    path: "/movies/:id/",
     name: "moviedetail",
     component: MovieDetail,
     props: true,
   },
   {
-    path: "/login",
+    path: "/login/",
     name: "login",
     component: LoginView,
   },
   {
-    path: "/signup",
+    path: "/signup/",
     name: "signup",
     component: SignupView,
   },
   {
-    path: "/search",
+    path: "/search/",
     name: "searchresults",
     component: SearchResults,
   },
   {
-    path: "/profile/",
-    name: "MyProfile",
-    component: MyProfile,
+    path: "/profile/:id/",
+    name: "ProFile",
+    component: ProFile,
   },
   {
-    path: "/404",
+    path: "/404/",
     name: "NotFound404",
     component: NotFound404,
   },

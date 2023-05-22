@@ -51,12 +51,16 @@ def review_create(request, movie_id):
         serializer.save(movie=movie, user=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
+
+
 @api_view(['GET'])
 def review_list(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
     review = movie.reviews.all()
     serializer = ReviewSerializer(review, many=True)
     return Response(serializer.data)
+
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -78,6 +82,8 @@ def search_movies(request):
         qs = Movie.objects.filter(Q(title__icontains=q))
     serializer = MovieSerializer(qs, many=True)
     return Response(serializer.data)
+
+
 
 def genre(request):
     with open('movies/fixtures/genre.json', 'r', encoding='utf-8') as file:

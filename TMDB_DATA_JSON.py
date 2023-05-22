@@ -104,9 +104,9 @@ def main():
 
     actor_data = fetch_credit_data(movie_data)
     
-    # save_to_file("genre", genre_data)
+    save_to_file("genre", genre_data)
     save_to_file("movies", movie_data)
-    # save_to_file("actors", actor_data)
+    save_to_file("actors", actor_data)
 
 
 if __name__ == "__main__":

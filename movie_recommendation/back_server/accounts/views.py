@@ -56,20 +56,7 @@ def handle_follow(me, person):
 #             user.save()
 #             # 사용자 데이터 반환
 #             return Response(serializer.data)
-        
 
-
-@api_view(['GET'])  # POST 요청을 처리
-# @authentication_classes([JSONWebTokenAuthentication])  # JWT 인증 사용
-# @permission_classes([IsAuthenticated])  # 인증된 사용자만 요청 가능
-# 로그인된 사용자의 프로필 정보를 반환하는 API endpoint
-def my_profile(request):
-    # 요청된 사용자 정보를 얻음
-    user = get_user(request.data.get('user_id'))
-    # 사용자 정보를 시리얼라이즈
-    serializer = UserSerializer(user)
-    # 시리얼라이즈 된 데이터 반환
-    return Response(serializer.data)
 
 
 @api_view(['GET'])  # GET 요청을 처리

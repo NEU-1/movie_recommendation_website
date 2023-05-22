@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-profile">
+  <div class="container proFile">
     <div class="row justify-content-center">
       <div class="col-sm-9 col-12">
         <div class="user-heading text-center pb-4">
@@ -36,7 +36,7 @@ import axios from "axios";
 const API_URL = "http://127.0.0.1:8000";
 
 export default {
-  name: "MyProfile",
+  name: "ProFile",
   data() {
     return {
       me: [],
@@ -50,39 +50,63 @@ export default {
   },
   methods: {
     async getMyProfile() {
-      if (this.$store.getters.isLogin === false) {
-        this.me = null;
-        this.user = null;
-        return;
-      }
-      try {
-        const me = await this.fetchProfile();
-        const user = await this.fetchName(me.pk);
-        this.me = me;
-        this.user = user;
-      } catch (err) {
-        console.error(err);
-      }
+  if (this.$store.getters.isLogin === false) {
+    this.me = null;
+    this.user = null;
+    return;
+  }
+  try {
+    const me = await this.fetchProfile();
+    console.log(me)
+    if (!me) {
+      console.log('프로필 정보를 받아오지 못했습니다.');
+      return;
+    }
+    const user = await this.fetchName(me.pk);
+    if (!user) {
+      console.log('사용자 정보를 받아오지 못했습니다.');
+      return;
+    }
+    this.me = me;
+    this.user = user;
+  } catch (err) {
+    console.error(err);
+  }
+},
+async fetchProfile() {
+  const tokenKey = this.$store.state.token;
+  console.log('Authorization Token Key:', tokenKey);
+  
+  return axios({
+    method: "get",
+    url: `${API_URL}/accounts/user/`,
+    headers: {
+      Authorization: `Token ${tokenKey}`,
     },
-    async fetchProfile() {
-      return axios({
-        method: "get",
-        url: `${API_URL}/accounts/user/`,
-        headers: {
-          Authorization: `Token ${this.$store.state.token.key}`,
-        },
-      }).then((res) => {
-        this.me = res.data;
-        return res.data;
-      });
-    },
+  }).then((res) => {
+    this.me = res.data;
+    return res.data;
+  }).catch((err) => {
+    console.log('프로필 자격 인증 데이터가 없습니다.')
+    return null;
+  });
+},
 
-    fetchName(my_pk) {
-      return axios({
-        method: "get",
-        url: `${API_URL}/userinfo/user/${my_pk}/`,
-      }).then((res) => res.data);
-    },
+fetchName(my_pk) {
+  if (!my_pk) {
+    console.log('사용자 PK가 없습니다.');
+    return null;
+  }
+  return axios({
+    method: "get",
+    url: `${API_URL}/user/profile/${my_pk}/`,
+  }).then((res) => res.data)
+  .catch((err) => {
+    console.log('네임 자격 인증 데이터가 없습니다')
+    return null;
+  });
+},
+
     openModal(modalNumber) {
       if (modalNumber === 1) {
         this.show1 = true;

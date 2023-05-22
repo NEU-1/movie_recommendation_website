@@ -70,7 +70,7 @@ export default {
             showinfo: 0,
             fs: 1,
           },
-          
+
         });
       } else {
         setTimeout(this.onYouTubeIframeAPIReady, 100);
@@ -83,38 +83,26 @@ export default {
         .map((genre) => genre.fields.name);
       return genreNames.join(", ");
     },
-    // getMe() {
-    //   if (this.$store.getters.isLogin === false) {
-    //     return
-    //   }
-    //   axios({
-    //     method: 'get',
-    //     url: `http://127.0.0.1:8000/accounts/user/`,
-    //     headers: {
-    //       Authorization: `Token ${this.$store.state.token}`
-    //     },
-    //   })
-    //     .then(res => {
-    //       this.me = res.data
-    //       this.islike()
-    //     })
-    // },
+
     async movie_likes() {
-  try {
-    const response = await axios.post(
-      `http://127.0.0.1:8000/api/v1/movies/${this.movie.data.pk}/likes/`,
-      {},
-      {
-        headers: {
-          Authorization: `Token ${this.$store.state.token}`
-        }
+      try {
+        const response = await axios.post(
+          `http://127.0.0.1:8000/api/v1/movies/${this.movie.data.pk}/likes/`,
+          {},
+          {
+            headers: {
+              Authorization: `Token ${this.$store.state.token}`
+            }
+          }
+        );
+
+        this.$set(this.movie.data.fields, 'like_movies', response.data.like_movies);
+      } catch (error) {
+        console.error(error);
       }
-    );
-    this.movie.data.fields.like_movies = response.data.like_movies;
-  } catch (error) {
-    console.error(error);
-  }
-},
+    },
+
+
   },
   async mounted() {
     try {
