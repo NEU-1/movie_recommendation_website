@@ -5,11 +5,11 @@ import router from "@/router";
 import createPersistedState from "vuex-persistedstate";
 
 const API_URL = "http://127.0.0.1:8000";
+// const API_KEY = "a37782b08f823354bf51e4e5f7c07775";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  plugins: [createPersistedState()],
   state: {
     movies: [],
     communities: [],

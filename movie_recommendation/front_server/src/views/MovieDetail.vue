@@ -11,6 +11,10 @@
       <div class="text-container">
         <p>{{ movie.data.fields.overview }}</p>
         <p>장르 : {{ getGenreName(movie.data.fields.genres) }}</p>
+        <div>
+          <button @click="movie_likes">좋아요</button>
+          <p>좋아요 수: {{ movie.data.fields.like_movies ? movie.data.fields.like_movies.length : 0 }}</p>
+        </div>
         <div class="video-container">
           <div id="player"></div>
         </div>
@@ -49,6 +53,7 @@ export default {
     } catch (error) {
       console.error(error);
     }
+    // this.getMe()
   },
   methods: {
     onYouTubeIframeAPIReady() {
@@ -65,6 +70,7 @@ export default {
             showinfo: 0,
             fs: 1,
           },
+          
         });
       } else {
         setTimeout(this.onYouTubeIframeAPIReady, 100);
@@ -77,11 +83,43 @@ export default {
         .map((genre) => genre.fields.name);
       return genreNames.join(", ");
     },
+    // getMe() {
+    //   if (this.$store.getters.isLogin === false) {
+    //     return
+    //   }
+    //   axios({
+    //     method: 'get',
+    //     url: `http://127.0.0.1:8000/accounts/user/`,
+    //     headers: {
+    //       Authorization: `Token ${this.$store.state.token}`
+    //     },
+    //   })
+    //     .then(res => {
+    //       this.me = res.data
+    //       this.islike()
+    //     })
+    // },
+    async movie_likes() {
+  try {
+    const response = await axios.post(
+      `http://127.0.0.1:8000/api/v1/movies/${this.movie.data.pk}/likes/`,
+      {},
+      {
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      }
+    );
+    this.movie.data.fields.like_movies = response.data.like_movies;
+  } catch (error) {
+    console.error(error);
+  }
+},
   },
   async mounted() {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/api/v1/movies/genre/"
+        "http://127.0.0.1:8000/api/v1/movies/genre/",
       );
       this.genres = response.data;
       if (this.movie.data && this.movie.data.fields.youtube_key) {

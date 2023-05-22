@@ -59,13 +59,14 @@ def review_list(request, movie_id):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def movie_likes(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     if movie.like_users.filter(pk=request.user.pk).exists():
         movie.like_users.remove(request.user)
     else:
         movie.like_users.add(request.user)
-    return
+    return Response({"message": "Success"})
 
 
 
