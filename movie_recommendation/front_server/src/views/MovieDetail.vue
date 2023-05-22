@@ -13,7 +13,7 @@
         <p>장르 : {{ getGenreName(movie.data.fields.genres) }}</p>
         <div>
           <button @click="movie_likes">좋아요</button>
-          <p>좋아요 수: {{ movie.data.fields.like_movies }}</p>
+          <p>좋아요 수: {{ movie.data.fields.like_movies ? movie.data.fields.like_movies.length : 0 }}</p>
         </div>
         <div class="video-container">
           <div id="player"></div>
@@ -53,7 +53,7 @@ export default {
     } catch (error) {
       console.error(error);
     }
-    this.getMe()
+    // this.getMe()
   },
   methods: {
     onYouTubeIframeAPIReady() {
@@ -100,17 +100,21 @@ export default {
     //     })
     // },
     async movie_likes() {
-      try {
-        const response = await axios.post(`http://127.0.0.1:8000/api/v1/movies/${this.movie.data.pk}/likes/`,{
+  try {
+    const response = await axios.post(
+      `http://127.0.0.1:8000/api/v1/movies/${this.movie.data.pk}/likes/`,
+      {},
+      {
         headers: {
           Authorization: `Token ${this.$store.state.token}`
         }
-      });
-        this.movie.data.fields.like_movies = response.data.like_movies;
-      } catch (error) {
-        console.error(error);
       }
-    },
+    );
+    this.movie.data.fields.like_movies = response.data.like_movies;
+  } catch (error) {
+    console.error(error);
+  }
+},
   },
   async mounted() {
     try {
