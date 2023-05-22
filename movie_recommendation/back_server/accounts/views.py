@@ -59,7 +59,7 @@ def signup(request):
         
 
 @api_view(['POST'])  # POST 요청을 처리
-@authentication_classes([JSONWebTokenAuthentication])  # JWT 인증 사용
+# @authentication_classes([JSONWebTokenAuthentication])  # JWT 인증 사용
 @permission_classes([IsAuthenticated])  # 인증된 사용자만 요청 가능
 # 로그인된 사용자의 프로필 정보를 반환하는 API endpoint
 def my_profile(request):
