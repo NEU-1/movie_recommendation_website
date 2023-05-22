@@ -68,7 +68,7 @@ const routes = [
     component: SearchResults,
   },
   {
-    path: "/profile/:id/",
+    path: "/profile/:user_pk/",
     name: "ProFile",
     component: ProFile,
   },

@@ -7,23 +7,26 @@
     <div class="user-details d-flex justify-content-around flex-wrap">
       <div class="follow-info" @click="openModal(1)">
         <h2>
-          <strong>{{ followersLength }}</strong>
+          <!-- <strong>{{ followersLength }}</strong> -->
         </h2>
         <p>팔로워</p>
       </div>
       <div class="follow-info" @click="openModal(2)">
         <h2>
-          <strong>{{ followingsLength }}</strong>
+          <!-- <strong>{{ followingsLength }}</strong> -->
         </h2>
         <p>팔로잉</p>
       </div>
       <div class="follow-info">
         <h2>
-          <strong>{{ user.like_movies?.length }}</strong>
+          <!-- <strong>{{ user.like_movies?.length }}</strong> -->
         </h2>
         <p>좋아요한 영화 수</p>
       </div>
     </div>
+    <!-- <div class="follow-button" v-if="me.id !== user.id"> -->
+<button @click="followUser">팔로우</button>
+</div>
   </div>
 </template>
 
@@ -108,8 +111,8 @@ export default {
   name: "ProFile",
   data() {
     return {
-      me: [],
-      user: [],
+      me: null,
+      user: null,
       show1: false,
       show2: false,
     };
@@ -119,63 +122,59 @@ export default {
   },
   methods: {
     async getMyProfile() {
-  if (this.$store.getters.isLogin === false) {
-    this.me = null;
-    this.user = null;
-    return;
-  }
-  try {
-    const me = await this.fetchProfile();
-    console.log(me)
-    if (!me) {
-      console.log('프로필 정보를 받아오지 못했습니다.');
-      return;
-    }
-    const user = await this.fetchName(me.pk);
-    if (!user) {
-      console.log('사용자 정보를 받아오지 못했습니다.');
-      return;
-    }
-    this.me = me;
-    this.user = user;
-  } catch (err) {
-    console.error(err);
-  }
-},
-async fetchProfile() {
-  const tokenKey = this.$store.state.token;
-  console.log('Authorization Token Key:', tokenKey);
-  
-  return axios({
-    method: "get",
-    url: `${API_URL}/accounts/user/`,
-    headers: {
-      Authorization: `Token ${tokenKey}`,
+      if (!this.$store.getters.isLogin) {
+        this.me = null;
+        this.user = null;
+        return;
+      }
+
+      try {
+        const me = await this.fetchProfile();
+        if (!me) {
+          console.log('프로필 정보를 받아오지 못했습니다.');
+          return;
+        }
+        const user = await this.fetchName(me.pk);
+        if (!user) {
+          console.log('사용자 정보를 받아오지 못했습니다.');
+          return;
+        }
+        this.me = me;
+        this.user = user;
+      } catch (err) {
+        console.error(err);
+      }
     },
-  }).then((res) => {
-    this.me = res.data;
-    return res.data;
-  }).catch((err) => {
-    console.log('프로필 자격 인증 데이터가 없습니다.')
-    return null;
-  });
-},
+    async fetchProfile() {
+      const tokenKey = this.$store.state.token;
+      console.log('Authorization Token Key:', tokenKey);
 
-fetchName(my_pk) {
-  if (!my_pk) {
-    console.log('사용자 PK가 없습니다.');
-    return null;
-  }
-  return axios({
-    method: "get",
-    url: `${API_URL}/user/profile/${my_pk}/`,
-  }).then((res) => res.data)
-  .catch((err) => {
-    console.log('네임 자격 인증 데이터가 없습니다')
-    return null;
-  });
-},
+      try {
+        const res = await axios.get(`${API_URL}/accounts/user/`, {
+          headers: {
+            Authorization: `Token ${tokenKey}`,
+          },
+        });
+        return res.data;
+      } catch (err) {
+        console.log('프로필 자격 인증 데이터가 없습니다.');
+        return null;
+      }
+    },
+    async fetchName(my_pk) {
+      if (!my_pk) {
+        console.log('사용자 PK가 없습니다.');
+        return null;
+      }
 
+      try {
+        const res = await axios.get(`${API_URL}/user/profile/${my_pk}/`);
+        return res.data;
+      } catch (err) {
+        console.log('네임 자격 인증 데이터가 없습니다.');
+        return null;
+      }
+    },
     openModal(modalNumber) {
       if (modalNumber === 1) {
         this.show1 = true;
@@ -190,6 +189,25 @@ fetchName(my_pk) {
         this.show2 = false;
       }
     },
+    followUser() {
+      axios
+        .post(
+          `${API_URL}/user/follow/${this.me.id}/${this.user.id}`,
+          null,
+          {
+            headers: { Authorization: `Token ${this.$store.state.token}` },
+          }
+        )
+        .then((res) => {
+          if (res.data) {
+            alert('팔로우가 완료되었습니다.');
+            this.getMyProfile();
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
   },
   computed: {
     followingsLength() {
@@ -201,4 +219,5 @@ fetchName(my_pk) {
   },
 };
 </script>
+
 

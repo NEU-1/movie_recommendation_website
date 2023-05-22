@@ -133,8 +133,9 @@ export default {
       this.$router.push({ name: "CommunityCreate" });
     },
     goProfile(community) {
+      console.log(community.userId);
       this.$router.push({
-        name: "MyProfile",
+        name: "ProFile",
         params: { user_pk: community.userId },
       });
     },
