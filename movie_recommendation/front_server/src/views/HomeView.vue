@@ -4,11 +4,13 @@
       <img :src="randomImage" alt="" class="poster-image hoverable" />
     </div>
     <SearchBar />
+    <Footer />
   </div>
 </template>
 
 <script>
 import SearchBar from "@/components/SearchBar.vue";
+import Footer from "@/components/Footer.vue";
 import img1 from "../assets/존윅.png";
 import img2 from "../assets/동석.png";
 import img3 from "../assets/마리오.png";
@@ -24,10 +26,23 @@ export default {
   name: "HomeView",
   components: {
     SearchBar,
+    Footer,
   },
   data() {
     return {
-      images: [img1, img2, img3, img4, img5, img6, img7, img8, img9,img10,img11], // Add more image paths as needed
+      images: [
+        img1,
+        img2,
+        img3,
+        img4,
+        img5,
+        img6,
+        img7,
+        img8,
+        img9,
+        img10,
+        img11,
+      ],
     };
   },
   computed: {
