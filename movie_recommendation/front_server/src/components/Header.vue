@@ -17,7 +17,7 @@ export default {};
 }
 
 .home-link {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: bold;
   color: #fff;
   margin: 0;
