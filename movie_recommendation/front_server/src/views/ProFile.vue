@@ -1,34 +1,103 @@
 <template>
-  <div class="container proFile">
-    <div class="row justify-content-center">
-      <div class="col-sm-9 col-12">
-        <div class="user-heading text-center pb-4">
-          <h1>{{ user?.username }} ({{ me?.username }})</h1>
-        </div>
-        <div class="user-details d-flex justify-content-around">
-          <div class="follow-info" @click="openModal(1)">
-            <h2>
-              <strong>{{ followersLength }}</strong>
-            </h2>
-            <p>팔로워</p>
-          </div>
-          <div class="follow-info" @click="openModal(2)">
-            <h2>
-              <strong>{{ followingsLength }}</strong>
-            </h2>
-            <p>팔로잉</p>
-          </div>
-          <div class="follow-info">
-            <h2>
-              <strong>{{ user.like_movies?.length }}</strong>
-            </h2>
-            <p>좋아요한 영화 수</p>
-          </div>
-        </div>
+  <div class="proFile">
+    <div class="user-heading text-center pb-4">
+      <h1>{{ user?.username }} 의 프로필 정보</h1>
+      <!-- ({{ me?.username }}) -->
+    </div>
+    <div class="user-details d-flex justify-content-around flex-wrap">
+      <div class="follow-info" @click="openModal(1)">
+        <h2>
+          <strong>{{ followersLength }}</strong>
+        </h2>
+        <p>팔로워</p>
+      </div>
+      <div class="follow-info" @click="openModal(2)">
+        <h2>
+          <strong>{{ followingsLength }}</strong>
+        </h2>
+        <p>팔로잉</p>
+      </div>
+      <div class="follow-info">
+        <h2>
+          <strong>{{ user.like_movies?.length }}</strong>
+        </h2>
+        <p>좋아요한 영화 수</p>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.proFile {
+  padding: 2rem 0;
+  background-color: rgb(83, 131, 234);
+}
+
+.user-heading h1 {
+  font-size: 3rem;
+  color: #343a40;
+}
+
+.user-details {
+  margin-top: 3rem;
+}
+
+.follow-info {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  flex: 1 0 200px;
+  margin: 1rem;
+  text-align: center;
+}
+
+.follow-info h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.follow-info p {
+  color: #6c757d;
+  font-size: 1.2rem;
+}
+</style>
+.my-profile {
+  padding: 2rem 0;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-heading h1 {
+  font-size: 3rem;
+  color: #343a40;
+}
+
+.user-details {
+  margin-top: 3rem;
+}
+
+.follow-info {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  flex: 1 0 200px;
+  margin: 1rem;
+  text-align: center;
+}
+
+.follow-info h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.follow-info p {
+  color: #6c757d;
+  font-size: 1.2rem;
+}
+</style>
 
 <script>
 import axios from "axios";
@@ -133,36 +202,3 @@ fetchName(my_pk) {
 };
 </script>
 
-<style scoped>
-.my-profile {
-  padding: 2rem 0;
-  background-color: #f8f9fa;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.user-heading h1 {
-  font-size: 2.5rem;
-  color: #343a40;
-}
-
-.user-details {
-  margin-top: 2rem;
-}
-
-.follow-info {
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.follow-info h2 {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.follow-info p {
-  color: #6c757d;
-}
-</style>
