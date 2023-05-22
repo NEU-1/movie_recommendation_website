@@ -19,10 +19,11 @@ def genre_name(genres, genre_ids):
 
 
 
-def fetch_movie_data(url, genres, page, is_active):
+def fetch_movie_data(url, page):
     result = []
     movies = requests.get(url.format(page)).json()
     for movie in movies['results']:
+        youtube_key = get_youtube_key(movie)
         if movie.get('release_date', '') and movie.get('backdrop_path', ''):
             fields = {
                 'genres': movie['genre_ids'],
@@ -34,6 +35,7 @@ def fetch_movie_data(url, genres, page, is_active):
                 'vote_count': movie['vote_count'],
                 'overview': movie['overview'],
                 'poster_path': movie['poster_path'],
+                'youtube_key': youtube_key   
             }
             result.append({
                 "pk": movie['id'],
@@ -41,6 +43,21 @@ def fetch_movie_data(url, genres, page, is_active):
                 "fields": fields
             })
     return result
+
+
+
+def get_youtube_key(movie_dict):    
+    movie_id = movie_dict.get('id')
+    response = requests.get(
+        f'https://api.themoviedb.org/3/movie/{movie_id}/videos',
+        params={
+            'api_key': TMDB_API_KEY
+        }
+    ).json()
+    for video in response.get('results'):
+        if video.get('site') == 'YouTube':
+            return video.get('key')
+    return 'nothing'
 
 
 
@@ -82,15 +99,14 @@ def main():
     for i in range(1, 20):
         popular_url = f"https://api.themoviedb.org/3/movie/popular?api_key={TMDB_API_KEY}&language=ko-KR&page={i}"
         top_rated_url = f"https://api.themoviedb.org/3/movie/top_rated?api_key={TMDB_API_KEY}&language=ko-KR&page={i}"
-        is_active = 1 if i == 1 else 3
-        movie_data.extend(fetch_movie_data(popular_url, genres, i, is_active))
-        movie_data.extend(fetch_movie_data(top_rated_url, genres, i, is_active))
+        movie_data.extend(fetch_movie_data(popular_url, i))
+        movie_data.extend(fetch_movie_data(top_rated_url, i))
 
     actor_data = fetch_credit_data(movie_data)
     
-    save_to_file("genre", genre_data)
+    # save_to_file("genre", genre_data)
     save_to_file("movies", movie_data)
-    save_to_file("actors", actor_data)
+    # save_to_file("actors", actor_data)
 
 
 if __name__ == "__main__":
