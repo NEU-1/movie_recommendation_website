@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -169,14 +171,27 @@ SITE_ID = 1
 
 # drf 설정
 REST_FRAMEWORK = {
-    # 기본 인증을 기본 Token 으로 설정
-     'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-    ),
-    # 인증받은 사용자에게만 요청 허용
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',       # => 기본적으로 모두에게 허용
-        # 'rest_framework.permissions.IsAuthenticated',  # => 기본적으로 인증받아야 사용
     ],
-
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/day',
+    },
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    # 토큰 만료 시간을 설정합니다.
+    'DEFAULT_TOKEN_EXPIRY': timedelta(days=1),
 }
+

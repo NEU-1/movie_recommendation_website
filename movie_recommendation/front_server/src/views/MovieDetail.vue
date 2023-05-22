@@ -11,13 +11,13 @@
       <div class="text-container">
         <p>{{ movie.data.fields.overview }}</p>
         <p>장르 : {{ getGenreName(movie.data.fields.genres) }}</p>
+        <div class="video-container">
+          <div id="player"></div>
+        </div>
       </div>
     </div>
     <br />
     <br />
-    <div class="video-container">
-      <div id="player"></div>
-    </div>
   </div>
 </template>
 
@@ -67,7 +67,6 @@ export default {
           },
         });
       } else {
-        // YouTube API 스크립트가 아직 로드되지 않았을 경우, 잠시 후에 다시 시도합니다.
         setTimeout(this.onYouTubeIframeAPIReady, 100);
       }
     },
