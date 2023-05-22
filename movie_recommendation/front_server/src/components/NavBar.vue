@@ -14,7 +14,7 @@
         <router-link class="nav-link" to="/ranking">랭킹</router-link>
       </li>
       <li class="nav-item" :class="{ active: $route.path === '/community' }">
-        <router-link class="nav-link" to="/community">커뮤니티</router-link>
+        <router-link class="nav-link" to="/community">자유게시판</router-link>
       </li>
       <li
         class="nav-item"

@@ -1,88 +1,113 @@
 <template>
-  <div class="container my-5">
-    <h1 class="text-left mb-5"><b>커뮤니티</b></h1>
+  <div class="container">
+    
+    <h1 class="header">자유 게시판</h1>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col" class="col-id">#</th>
+          <th scope="col" class="col-title">제목</th>
+          <th scope="col" class="col-star"><i class="fas fa-star"></i></th>
+          <th scope="col" class="col-author">작성자</th>
+         
+        </tr>
+      </thead>
 
-    <div class="d-flex justify-content-end mb-4">
-      <button class="btn btn-primary btn-lg" @click="goCreate">추가</button>
-    </div>
-
-    <div class="row">
-      <div
-        class="col-12 mb-4"
-        v-for="community in communities"
-        :key="community.id"
-      >
-        <div class="community-item">
-          <div class="info-container">
-            <div class="title-container">
-              <span class="title-label">제목: </span>
-              <span class="title fw-bold" @click="goDetail(community)">
-                {{ community.title }}
-              </span>
-            </div>
-            <div class="author-container mt-2">
-              <span class="author-label">작성자: </span>
-              <span class="author" @click="goProfile(community)">
-                {{ community.userName }}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <tbody>
+        <tr
+          class="community-item"
+          v-for="community in communities"
+          :key="community.id"
+        >
+          <td>{{ community.id }}</td>
+          <td class="col-title" @click="goDetail(community)">
+            {{ community.title }}
+          </td>
+          <td></td>
+          <td class="col-author" @click="goProfile(community)">
+            {{ community.userName }}
+          </td>
+          <td>{{ community.time }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="add-button" @click="goCreate">글 작성</button>
   </div>
 </template>
 
 <style>
-.community {
-  padding-bottom: 450px;
+.container {
+  max-width: 90%;
+  margin: auto;
+  padding: 2rem;
+}
+
+.header {
+  text-align: left;
+  font-size: 30px;
+  margin-bottom: 1.5rem;
+  color: white;
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-collapse: collapse;
+  font-size: 1.5rem;
+}
+
+th,
+td {
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+  text-align: left;
+}
+
+.col-title {
+  width: 60%;
+  color: white;
+  text-align: left;
+}
+
+.col-author {
+  color: white;
+  margin-right: 10px;
+  text-align: left;
+}
+.author {
+  margin-right: 50px;
+}
+.add-button {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #fff;
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
 }
 
 .community-item {
-  border: 1px solid black;
-  padding: 10px;
-  border-radius: 5px;
+  border-bottom: 1px solid #dee2e6;
 }
+.id {
+  text-align: left;
 
-.info-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.title-container {
-  display: flex;
-}
-
-.author-container {
-  display: flex;
-  justify-content: flex-end;
-}
-
-h1 {
-  font-size: 40px !important;
-  text-align: left !important;
-}
-
-.title-label {
-  font-size: 24px;
-  color: black;
-}
-
-.title {
-  color: black;
-  cursor: pointer;
-}
-
-.author {
-  color: black !important;
-  cursor: pointer;
-}
-
-.views,
-.comments {
-  color: black;
 }
 </style>
+
+
 <script>
 export default {
   name: "CommunityView",
