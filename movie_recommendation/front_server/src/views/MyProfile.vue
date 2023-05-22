@@ -30,40 +30,6 @@
   </div>
 </template>
 
-<style scoped>
-.my-profile {
-  padding: 2rem 0;
-  background-color: #f8f9fa;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.user-heading h1 {
-  font-size: 2.5rem;
-  color: #343a40;
-}
-
-.user-details {
-  margin-top: 2rem;
-}
-
-.follow-info {
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.follow-info h2 {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.follow-info p {
-  color: #6c757d;
-}
-</style>
-
 <script>
 import axios from "axios";
 
@@ -136,3 +102,37 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.my-profile {
+  padding: 2rem 0;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-heading h1 {
+  font-size: 2.5rem;
+  color: #343a40;
+}
+
+.user-details {
+  margin-top: 2rem;
+}
+
+.follow-info {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.follow-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.follow-info p {
+  color: #6c757d;
+}
+</style>

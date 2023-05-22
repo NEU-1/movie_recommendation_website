@@ -37,14 +37,14 @@ const routes = [
     component: Community,
   },
   {
-    path: '/community/:community_pk',
-    name: 'CommunityDetail',
-    component: CommunityDetail,
+    path: "/community/create",
+    name: "CommunityCreate",
+    component: CommunityFormView,
   },
   {
-    path: '/community/create',
-    name: 'CommunityCreate',
-    component: CommunityFormView,
+    path: "/community/:community_pk",
+    name: "CommunityDetail",
+    component: CommunityDetail,
   },
   {
     path: "/movies/:id",
@@ -68,14 +68,14 @@ const routes = [
     component: SearchResults,
   },
   {
-    path: '/profile/',
-    name: 'MyProfile',
+    path: "/profile/",
+    name: "MyProfile",
     component: MyProfile,
   },
   {
-    path: '/404',
-    name: 'NotFound404',
-    component: NotFound404
+    path: "/404",
+    name: "NotFound404",
+    component: NotFound404,
   },
 ];
 
