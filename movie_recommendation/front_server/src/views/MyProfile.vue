@@ -101,11 +101,7 @@ export default {
         method: "get",
         url: `${API_URL}/accounts/user/`,
         headers: {
-<<<<<<< HEAD
-          Authorization: `Token ${this.$store.state.token}`,
-=======
           Authorization: `Token ${this.$store.state.token.key}`,
->>>>>>> 5858fb1a9d5f8fcef31b22940db40b849aa60afe
         },
       }).then((res) => res.data);
     },
