@@ -25,8 +25,7 @@
       </div>
     </div>
     <!-- <div class="follow-button" v-if="me.id !== user.id"> -->
-<button @click="followUser">팔로우</button>
-</div>
+    <button @click="followUser">팔로우</button>
   </div>
 </template>
 

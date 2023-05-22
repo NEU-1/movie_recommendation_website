@@ -54,9 +54,13 @@ def get_youtube_key(movie_dict):
             'api_key': TMDB_API_KEY
         }
     ).json()
+    # return response
     for video in response.get('results'):
         if video.get('site') == 'YouTube':
-            return video.get('key')
+            if video.get('type') == 'Teaser':
+                return video.get('key')
+            elif video.get('type') == 'Trailer':
+                return video.get('key')
     return 'nothing'
 
 
@@ -79,7 +83,7 @@ def fetch_credit_data(movie_data):
                         "name": actor['name']
                     }
                 }
-
+        print(data.get('fields').get('title')) 
     return list(actor_dict.values())
 
 
@@ -104,9 +108,9 @@ def main():
 
     actor_data = fetch_credit_data(movie_data)
     
-    save_to_file("genre", genre_data)
+    # save_to_file("genre", genre_data)
     save_to_file("movies", movie_data)
-    save_to_file("actors", actor_data)
+    # save_to_file("actors", actor_data)
 
 
 if __name__ == "__main__":
