@@ -1,38 +1,68 @@
 <template>
   <div class="container my-profile">
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-sm-9 col-12">
-        <div class="col-12 d-flex justify-content-around pb-2">
+        <div class="user-heading text-center pb-4">
           <h1>{{ user?.username }}</h1>
         </div>
-        <div
-          class="col-sm-12 divider text-center row d-flex justify-content-around"
-          style="margin-bottom: 20px"
-        >
-          <div class="col-sm-3 col-12 follow-info" @click="openModal(1)">
+        <div class="user-details d-flex justify-content-around">
+          <div class="follow-info" @click="openModal(1)">
             <h2>
               <strong>{{ followersLength }}</strong>
             </h2>
-            <p><small>팔로워</small></p>
+            <p>팔로워</p>
           </div>
-          <div class="col-sm-3 col-12 follow-info" @click="openModal(2)">
+          <div class="follow-info" @click="openModal(2)">
             <h2>
               <strong>{{ followingsLength }}</strong>
             </h2>
-            <p><small>팔로잉</small></p>
+            <p>팔로잉</p>
           </div>
-          <div class="col-sm-3 col-12">
+          <div class="follow-info">
             <h2>
               <strong>{{ user.like_movies?.length }}</strong>
             </h2>
-            <p><small>좋아요한 영화 수</small></p>
+            <p>좋아요한 영화 수</p>
           </div>
         </div>
       </div>
     </div>
-    <br />
   </div>
 </template>
+
+<style scoped>
+.my-profile {
+  padding: 2rem 0;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-heading h1 {
+  font-size: 2.5rem;
+  color: #343a40;
+}
+
+.user-details {
+  margin-top: 2rem;
+}
+
+.follow-info {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.follow-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.follow-info p {
+  color: #6c757d;
+}
+</style>
 
 <script>
 import axios from "axios";
@@ -71,7 +101,11 @@ export default {
         method: "get",
         url: `${API_URL}/accounts/user/`,
         headers: {
+<<<<<<< HEAD
           Authorization: `Token ${this.$store.state.token}`,
+=======
+          Authorization: `Token ${this.$store.state.token.key}`,
+>>>>>>> 5858fb1a9d5f8fcef31b22940db40b849aa60afe
         },
       }).then((res) => res.data);
     },

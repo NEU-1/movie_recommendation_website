@@ -33,34 +33,35 @@ def handle_follow(me, person):
 
 
 
-@api_view(['POST'])  # POST 요청을 처리
-# 사용자 등록을 위한 API endpoint
-def signup(request):
-    # 클라이언트에서 보낸 비밀번호 정보 받기
-    password = request.data.get('password')
-    # 클라이언트에서 보낸 비밀번호 확인 정보 받기
-    passwordConfirmation = request.data.get('passwordConfirmation')
-    # 비밀번호 일치 여부 확인
-    if password != passwordConfirmation:
-        # 일치하지 않을 경우 에러 메시지 반환
-        return error_response('비밀번호가 다릅니다.')
-    else:
-        # 사용자가 보낸 데이터로 UserSerializer를 통해 데이터 생성
-        serializer = UserSerializer(data=request.data)
-        # 시리얼라이저의 유효성 검사
-        if serializer.is_valid(raise_exception=True):
-            # 사용자 저장. 이 시점에서는 비밀번호가 암호화되지 않았음
-            user = serializer.save()
-            # 비밀번호 암호화
-            user.set_password(request.data.get('password'))
-            user.save()
-            # 사용자 데이터 반환
-            return Response(serializer.data)
+# @api_view(['POST'])  # POST 요청을 처리
+# # 사용자 등록을 위한 API endpoint
+# def signup(request):
+#     # 클라이언트에서 보낸 비밀번호 정보 받기
+#     password = request.data.get('password')
+#     # 클라이언트에서 보낸 비밀번호 확인 정보 받기
+#     passwordConfirmation = request.data.get('passwordConfirmation')
+#     # 비밀번호 일치 여부 확인
+#     if password != passwordConfirmation:
+#         # 일치하지 않을 경우 에러 메시지 반환
+#         return error_response('비밀번호가 다릅니다.')
+#     else:
+#         # 사용자가 보낸 데이터로 UserSerializer를 통해 데이터 생성
+#         serializer = UserSerializer(data=request.data)
+#         # 시리얼라이저의 유효성 검사
+#         if serializer.is_valid(raise_exception=True):
+#             # 사용자 저장. 이 시점에서는 비밀번호가 암호화되지 않았음
+#             user = serializer.save()
+#             # 비밀번호 암호화
+#             user.set_password(request.data.get('password'))
+#             user.save()
+#             # 사용자 데이터 반환
+#             return Response(serializer.data)
         
 
-@api_view(['POST'])  # POST 요청을 처리
-@authentication_classes([JSONWebTokenAuthentication])  # JWT 인증 사용
-@permission_classes([IsAuthenticated])  # 인증된 사용자만 요청 가능
+
+@api_view(['GET'])  # POST 요청을 처리
+# @authentication_classes([JSONWebTokenAuthentication])  # JWT 인증 사용
+# @permission_classes([IsAuthenticated])  # 인증된 사용자만 요청 가능
 # 로그인된 사용자의 프로필 정보를 반환하는 API endpoint
 def my_profile(request):
     # 요청된 사용자 정보를 얻음

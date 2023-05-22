@@ -11,6 +11,7 @@ import CommunityFormView from "@/components/CommunityFormView.vue";
 import SearchResults from "@/components/SearchResults.vue";
 import MyProfile from "@/views/MyProfile.vue";
 import NotFound404 from "@/views/NotFound404.vue";
+import CommunityDetail from "@//components/CommunityDetail.vue";
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,11 @@ const routes = [
     path: "/community",
     name: "community",
     component: Community,
+  },
+  {
+    path: '/community/:community_pk',
+    name: 'CommunityDetail',
+    component: CommunityDetail,
   },
   {
     path: '/community/create',
