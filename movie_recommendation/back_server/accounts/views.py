@@ -58,6 +58,7 @@ def handle_follow(me, person):
 #             return Response(serializer.data)
         
 
+
 @api_view(['GET'])  # POST 요청을 처리
 # @authentication_classes([JSONWebTokenAuthentication])  # JWT 인증 사용
 # @permission_classes([IsAuthenticated])  # 인증된 사용자만 요청 가능
