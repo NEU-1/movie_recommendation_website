@@ -192,6 +192,6 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     ],
     # 토큰 만료 시간을 설정합니다.
-    'DEFAULT_TOKEN_EXPIRY': timedelta(minutes=60), 
+    'DEFAULT_TOKEN_EXPIRY': timedelta(days=1),
 }
 
