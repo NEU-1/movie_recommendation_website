@@ -28,16 +28,13 @@ export default {
   methods: {},
   name: "MovieListItem",
   props: {
-    movie: {
-      type: Object,
-      required: true,
-    },
+    movie: Object,
     movie_id: Number,
   },
   computed: {
     imageUrl() {
       const baseUrl = "https://image.tmdb.org/t/p/original";
-      return baseUrl + this.movie.poster_path;
+      return baseUrl + this.movie.fields.poster_path;
     },
   },
 };

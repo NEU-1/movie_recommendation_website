@@ -1,17 +1,19 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
-import router from "@/router"; 
+import router from "@/router";
+import createPersistedState from "vuex-persistedstate";
+
 const API_URL = "http://127.0.0.1:8000";
-// const API_KEY = "a37782b08f823354bf51e4e5f7c07775";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     movies: [],
     communities: [],
-    movieDetail: null, 
+    movieDetail: null,
     token: {
       key: null,
     },
@@ -23,8 +25,8 @@ export default new Vuex.Store({
       return state.movies.find((movie) => movie.id === movieId);
     },
     isLogin(state) {
-      return state.token ? true : false
-    }
+      return state.token ? true : false;
+    },
   },
   mutations: {
     addMovie(state, movie) {
@@ -34,10 +36,11 @@ export default new Vuex.Store({
       state.movieDetail = movieData;
     },
     GET_COMMUNITY_LIST(state, communities) {
-      state.communities = communities
+      state.communities = communities;
     },
     SAVE_TOKEN(state, userInfo) {
       state.token = userInfo.token;
+      console.log(state.token);
       state.username = userInfo.username;
       router.push({ name: "home" });
     },
@@ -56,7 +59,11 @@ export default new Vuex.Store({
         },
       })
         .then((res) => {
-          context.commit("GET_MOVIEDETAIL", res.data);
+          const movieData = {
+            id: res.data.id,
+            title: res.data.title,
+          };
+          context.commit("GET_MOVIEDETAIL", movieData);
           router.push("/movieDetail/");
         })
         .catch((err) => {
@@ -65,12 +72,11 @@ export default new Vuex.Store({
     },
     getCommunityList(context) {
       axios({
-        method: 'get',
+        method: "get",
         url: `${API_URL}/api/v1/community/create/`,
-      })
-        .then((res) => {
-          context.commit('GET_COMMUNITY_LIST', res.data)
-        })
+      }).then((res) => {
+        context.commit("GET_COMMUNITY_LIST", res.data);
+      });
     },
     signUp(context, payload) {
       axios({
@@ -92,26 +98,29 @@ export default new Vuex.Store({
         .catch((err) => console.log(err.response.data));
     },
     login(context, payload) {
-      const username = payload.username
-      const password = payload.password
+      const username = payload.username;
+      const password = payload.password;
       axios({
-        method: 'post',
+        method: "post",
         url: `${API_URL}/accounts/login/`,
         data: {
-          username, password
-        }
+          username,
+          password,
+        },
       })
-      .then(res => {
-        console.log('login succes')
-        context.commit('SAVE_TOKEN', res.data.key)
-      })
-      .catch(err => console.log(err))
+        .then((res) => {
+          const userInfo = {
+            username: payload.username,
+            token: res.data.key,
+          };
+          context.commit("SAVE_TOKEN", userInfo);
+        })
+        .catch((err) => console.log(err));
     },
     logout(context) {
       context.commit("CLEAR_TOKEN");
-      router.push({ name: "home" }).catch(err => {});
-    }
+      router.push({ name: "home" }).catch((err) => {});
+    },
   },
-
   modules: {},
 });
