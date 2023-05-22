@@ -5,10 +5,12 @@
     <button>추가</button></div>
     <ul>
       <li v-for="community in communities" :key="community.id">
-        <p>작성자: {{ community.user }}</p>
-        <h2>{{ community.title }}</h2>
-        <p>{{ community.content }}</p>
-        
+        <div class="col-3">
+          <p class="m-0 fw-bold fs-5 user" @click="goDetail(community)">{{ community.title }}</p>
+        </div>
+        <div class="col-2 text-center">
+          <p class="m-0 fs-5 user" @click="goProfile(community)">{{ community.userName }}</p>
+        </div>
       </li>
     </ul>
   </div>
@@ -37,7 +39,13 @@ export default {
         return
       }
       this.$router.push({ name: 'CommunityCreate' })
-    }
+    },
+    goProfile(community) {
+      this.$router.push({ name: 'Profile', params: { user_pk: this.community.user }})
+    },
+    goDetail(community) {
+  this.$router.push({ name: 'CommunityDetail', params: { community_pk: community.id } })
+    },
   },
   created() {
     this.getCommunityList()

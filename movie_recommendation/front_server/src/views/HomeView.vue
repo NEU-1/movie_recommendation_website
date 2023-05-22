@@ -48,6 +48,7 @@ export default {
   computed: {
     randomImage() {
       const index = Math.floor(Math.random() * this.images.length);
+      //console.log(this.$store.state.token)
       return this.images[index];
     },
   },

@@ -102,8 +102,11 @@ export default new Vuex.Store({
         }
       })
       .then(res => {
-        console.log('login succes')
-        context.commit('SAVE_TOKEN', res.data.key)
+        const userInfo = {
+          username: payload.username,
+          token: res.data.key
+        }
+        context.commit('SAVE_TOKEN', userInfo)
       })
       .catch(err => console.log(err))
     },

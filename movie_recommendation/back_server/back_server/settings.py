@@ -171,9 +171,7 @@ SITE_ID = 1
 REST_FRAMEWORK = {
     # 기본 인증을 기본 Token 으로 설정
      'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
     # 인증받은 사용자에게만 요청 허용
     'DEFAULT_PERMISSION_CLASSES': [
