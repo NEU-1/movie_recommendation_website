@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-sm-9 col-12">
         <div class="user-heading text-center pb-4">
-          <h1>{{ user?.username }}</h1>
+          <h1>{{ user?.username }} ({{ me?.username }})</h1>
         </div>
         <div class="user-details d-flex justify-content-around">
           <div class="follow-info" @click="openModal(1)">
@@ -51,6 +51,8 @@ export default {
   methods: {
     async getMyProfile() {
       if (this.$store.getters.isLogin === false) {
+        this.me = null;
+        this.user = null;
         return;
       }
       try {
@@ -62,15 +64,19 @@ export default {
         console.error(err);
       }
     },
-    fetchProfile() {
+    async fetchProfile() {
       return axios({
         method: "get",
         url: `${API_URL}/accounts/user/`,
         headers: {
           Authorization: `Token ${this.$store.state.token.key}`,
         },
-      }).then((res) => res.data);
+      }).then((res) => {
+        this.me = res.data;
+        return res.data;
+      });
     },
+
     fetchName(my_pk) {
       return axios({
         method: "get",

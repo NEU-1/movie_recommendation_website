@@ -191,7 +191,9 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ],
-    # 토큰 만료 시간을 설정합니다.
-    'DEFAULT_TOKEN_EXPIRY': timedelta(days=1),
+    # 'DEFAULT_TOKEN_EXPIRY': timedelta(days=1),
 }
 
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': timedelta(days=1),
+}

@@ -62,11 +62,16 @@ export default {
       axios({
         method: "get",
         url: `${API_URL}/api/v1/community/comments/${this.communityId}`,
-      }).then((res) => {
-        this.comments = res.data;
-      });
+      })
+        .then((res) => {
+          this.comments = res.data;
+        })
+        .catch((err) => console.log(err));
     },
     createComment() {
+      console.log(this.$store.state.token);
+      console.log(1111111);
+
       const content = this.commentContent;
       if (!content) {
         alert("내용을 입력해주세요!");

@@ -2,12 +2,14 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import router from "@/router";
+import createPersistedState from "vuex-persistedstate";
+
 const API_URL = "http://127.0.0.1:8000";
-// const API_KEY = "a37782b08f823354bf51e4e5f7c07775";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     movies: [],
     communities: [],
@@ -57,7 +59,11 @@ export default new Vuex.Store({
         },
       })
         .then((res) => {
-          context.commit("GET_MOVIEDETAIL", res.data);
+          const movieData = {
+            id: res.data.id,
+            title: res.data.title,
+          };
+          context.commit("GET_MOVIEDETAIL", movieData);
           router.push("/movieDetail/");
         })
         .catch((err) => {
@@ -116,6 +122,5 @@ export default new Vuex.Store({
       router.push({ name: "home" }).catch((err) => {});
     },
   },
-
   modules: {},
 });
