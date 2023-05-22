@@ -1,6 +1,6 @@
 <template>
   <div class="container my-5">
-    <h1 class="text-center display-4 mb-5"><b>커뮤니티</b></h1>
+    <h1 class="text-left mb-5"><b>커뮤니티</b></h1>
 
     <div class="d-flex justify-content-end mb-4">
       <button class="btn btn-primary btn-lg" @click="goCreate">추가</button>
@@ -13,25 +13,18 @@
         :key="community.id"
       >
         <div class="community-item">
-          <div class="d-flex justify-content-center align-items-center">
-            <div>
+          <div class="info-container">
+            <div class="title-container">
               <span class="title-label">제목: </span>
               <span class="title fw-bold" @click="goDetail(community)">
                 {{ community.title }}
               </span>
             </div>
-          </div>
-
-          <div class="d-flex justify-content-between align-items-center mt-2">
-            <div>
+            <div class="author-container mt-2">
               <span class="author-label">작성자: </span>
-              <span class="author text-muted" @click="goProfile(community)">
+              <span class="author" @click="goProfile(community)">
                 {{ community.userName }}
               </span>
-            </div>
-            <div>
-              <span class="views">조회수: {{ community.views }}</span>
-              <span class="comments">댓글수: {{ community.comments }}</span>
             </div>
           </div>
         </div>
@@ -51,14 +44,37 @@
   border-radius: 5px;
 }
 
-.title-label,
-.author-label {
+.info-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-container {
+  display: flex;
+}
+
+.author-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+h1 {
+  font-size: 40px !important;
+  text-align: left !important;
+}
+
+.title-label {
+  font-size: 24px;
   color: black;
 }
 
-.title,
-.author {
+.title {
   color: black;
+  cursor: pointer;
+}
+
+.author {
+  color: black !important;
   cursor: pointer;
 }
 
@@ -67,7 +83,6 @@
   color: black;
 }
 </style>
-
 <script>
 export default {
   name: "CommunityView",
