@@ -3,10 +3,10 @@
     <div class="poster-container">
       <img :src="randomImage" alt="" class="poster-image hoverable" />
     </div>
-
+    <!-- <CodePen /> -->
     <SearchBar />
     <Footer />
-    <!-- <CodePen /> -->
+    
   </div>
 </template>
 
@@ -76,4 +76,5 @@
   .poster-image.hoverable:hover {
     transform: scale(1.5);
   }
+  
 </style>
