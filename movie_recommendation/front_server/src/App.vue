@@ -52,6 +52,7 @@ export default {
   width: 100%;
   max-width: 1500px;
   height: 70px;
+  z-index: 2;
 }
 
 .router-container {

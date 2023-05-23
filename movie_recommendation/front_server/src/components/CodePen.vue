@@ -1,7 +1,7 @@
 <template>
     <div>
         <canvas id="canvas1"></canvas>
-        <img src="@/assets/겨울왕국.png" id="image">
+        <img src="@/assets/마리오.png" id="image">
     </div>
 </template>
 
@@ -145,18 +145,12 @@
         position: absolute;
         top: 0;
         left: 0;
-        z-index: 1;
+        z-index: 2;
+        pointer-events: none;
     }
 
     img {
         display: none;
     }
 
-    a {
-        color: black;
-        position: absolute;
-        bottom: 50px;
-        left: 20px;
-        z-index: 100;
-    }
 </style>
