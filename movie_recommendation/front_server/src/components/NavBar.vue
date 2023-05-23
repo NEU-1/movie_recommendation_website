@@ -28,7 +28,6 @@
     name: "NavBar",
     computed: {
       userId() {
-        console.log(this.$store)
         return this.$store.state.userId;
       }
     }

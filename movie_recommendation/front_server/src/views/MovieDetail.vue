@@ -48,6 +48,7 @@ export default {
   },
   async created() {
     const movie_id = this.$route.params.id;
+    console.log(this.$route)
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/api/v1/movies/${movie_id}/`

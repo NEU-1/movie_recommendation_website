@@ -1,7 +1,7 @@
 <template>
   <div class="search-results">
-    <div v-for="movie in movies" :key="movie.movie_id" class="movie-item">
-      <router-link :to="`/movies/${movie.movie_id}`">
+    <div v-for="movie in movies" :key="movie.id" class="movie-item">
+      <router-link :to="`/movies/${movie.id}`">
         <div class="movie-poster">
           <img :src="getMoviePoster(movie)" :alt="movie.title" />
         </div>

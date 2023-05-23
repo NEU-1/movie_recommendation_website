@@ -141,6 +141,15 @@
         Authorization: `Token ${tokenKey}`,
       },
     });
+    // 'like_movies' 정보를 추가로 요청하는 코드
+    // const like_movies = await axios.get(`${url}/like_movies/`, {
+    //   headers: {
+    //     Authorization: `Token ${tokenKey}`,
+    //   },
+    // });
+    // // 'like_movies' 정보를 추가로 저장하는 코드
+    // res.data.like_movies = like_movies.data;
+    // console.log(res.data)
     return res.data;
   } catch (err) {
     console.log('프로필 자격 인증 데이터가 없습니다.');
