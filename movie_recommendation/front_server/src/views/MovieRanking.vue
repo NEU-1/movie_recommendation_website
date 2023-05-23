@@ -32,10 +32,24 @@
         :key="movie.id"
       >
         <img
-          :src="require(`../assets/challenger.png`)"
+          v-if="index < 5"
+          :src="require(`../assets/다이아.png`)"
           alt="Movie image"
           class="movie-img"
         />
+        <img
+          v-if="index >= 5 && index < 10"
+          :src="require(`../assets/플레티넘.png`)"
+          alt="Movie image"
+          class="movie-img"
+        />
+        <img
+          v-if="index >= 10"
+          :src="require(`../assets/골드.png`)"
+          alt="Movie image"
+          class="movie-img"
+        />
+
         <div class="movie-rank">{{ index + 1 }}</div>
         <div class="movie-info">
           <router-link :to="`/movies/${movie.pk}`">
@@ -65,29 +79,30 @@ export default {
   },
   computed: {
     sortedMovies() {
-  let uniqueMovies = [];
-  let movieMap = new Map();
+      let uniqueMovies = [];
+      let movieMap = new Map();
 
-  for (const movie of this.movies) {
-    if (!movieMap.has(movie.pk)) {
-      movieMap.set(movie.pk, true); // set any value to Map
-      uniqueMovies.push(movie);
-    }
-  }
+      for (const movie of this.movies) {
+        if (!movieMap.has(movie.pk)) {
+          movieMap.set(movie.pk, true); // set any value to Map
+          uniqueMovies.push(movie);
+        }
+      }
 
-  uniqueMovies = uniqueMovies.filter((movie) => movie.fields.vote_average !== 10);
+      uniqueMovies = uniqueMovies.filter(
+        (movie) => movie.fields.vote_average !== 10
+      );
 
-  if (this.selectedGenre === null) {
-    return uniqueMovies.sort(
-      (a, b) => b.fields.vote_average - a.fields.vote_average
-    );
-  } else {
-    return uniqueMovies
-      .filter((movie) => movie.fields.genres.includes(this.selectedGenre))
-      .sort((a, b) => b.fields.vote_average - a.fields.vote_average);
-  }
-},
-
+      if (this.selectedGenre === null) {
+        return uniqueMovies.sort(
+          (a, b) => b.fields.vote_average - a.fields.vote_average
+        );
+      } else {
+        return uniqueMovies
+          .filter((movie) => movie.fields.genres.includes(this.selectedGenre))
+          .sort((a, b) => b.fields.vote_average - a.fields.vote_average);
+      }
+    },
   },
 
   methods: {
