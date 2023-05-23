@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, get_object_or_404
 from .serializers import UserSerializer
+from .models import User
+
 
 def some_view_func(request):
     token = Token.objects.create(user=...)
@@ -70,21 +72,28 @@ def profile(request, user_pk):
     return Response(serializer.data)
 
 
-# 팔로우 요청을 처리하는 함수
 @api_view(['POST'])
-def follow(request, my_pk, user_pk):
-    # 요청으로부터 person과 me를 가져옴
-    person = get_user(user_pk)  # 팔로우 대상 사용자
-    me = get_user(my_pk)  # 요청한 사용자
+def follow(request, user_pk):
+    # 요청받은 사용자 객체를 불러옵니다.
+    me = request.user
+    # 팔로우할 사용자 객체를 불러옵니다.
+    person = get_object_or_404(User, pk=user_pk)
 
-    # 요청한 사용자와 팔로우 대상 사용자가 같지 않은지 확인
-    if person != me:
-        # 팔로우 상태를 변경하고 변경된 상태를 반환
-        following = handle_follow(me, person)
-        return Response(following)
-    else:
-        # 같은 경우 에러 메시지 반환
-        return error_response('자기 자신은 팔로우할 수 없습니다.')
+    # 팔로우 중인지 확인합니다.
+    if me != person:
+        if me in person.followers.all():  # 이미 팔로우 중이라면
+            # 팔로우를 취소합니다.
+            person.followers.remove(me)
+            followed = False
+        else:
+            # 팔로우를 합니다.
+            person.followers.add(me)
+            followed = True
+
+        follow_status = {'followed': followed}
+        return Response(follow_status)
+
+    return Response({'detail': "Can't follow yourself"})
 
 
 # 팔로우 여부를 확인하는 함수
