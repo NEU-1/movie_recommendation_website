@@ -11,7 +11,8 @@ import CommunityFormView from "@/components/CommunityFormView.vue";
 import SearchResults from "@/components/SearchResults.vue";
 import ProFile from "@/views/ProFile.vue";
 import NotFound404 from "@/views/NotFound404.vue";
-import CommunityDetail from "@//components/CommunityDetail.vue";
+import CommunityDetail from "@/components/CommunityDetail.vue";
+// import signupgenre from "@/views/signupgenre.vue";
 
 Vue.use(VueRouter);
 
@@ -77,11 +78,11 @@ const routes = [
     name: "NotFound404",
     component: NotFound404,
   },
-  {
-    path: "/signupgenre/",
-    name: "signupgenre",
-    component: SignupGenre,
-  },
+  // {
+  //   path: "/signupgenre/",
+  //   name: "signupgenre",
+  //   component: signupgenre,
+  // },
 ];
 
 const router = new VueRouter({
