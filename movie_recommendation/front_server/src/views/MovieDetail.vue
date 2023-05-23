@@ -127,7 +127,8 @@ export default {
   },
   computed: {
     imageUrl() {
-      const baseUrl = "https://image.tmdb.org/t/p/original/";
+      const baseUrl = "https://image.tmdb.org/t/p/original";
+      console.log(this.movie)
       return baseUrl + this.movie.poster_path;
     },
     formattedGenres() {
