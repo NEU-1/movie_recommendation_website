@@ -19,9 +19,6 @@
       <li class="nav-item" :class="{ active: $route.path === '/profile' }">
         <router-link class="nav-link" :to="'/profile/' + userId">나의 프로필</router-link>
       </li>
-      <li class="nav-item" :class="{ active: $route.path === '/gameplay' }">
-        <router-link class="nav-link" :to="'/gameplay/'">게임 플레이</router-link>
-      </li>
     </ul>
   </nav>
 </template>
