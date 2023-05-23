@@ -6,13 +6,13 @@
 
     <SearchBar />
     <Footer />
-    <CodePen />
+    <!-- <CodePen /> -->
   </div>
 </template>
 
 <script>
   import SearchBar from "@/components/SearchBar.vue";
-  import CodePen from "@/components/CodePen.vue";
+  // import CodePen from "@/components/CodePen.vue";
   import Footer from "@/components/Footer.vue";
   import img1 from "../assets/존윅.png";
   import img2 from "../assets/동석.png";
@@ -31,7 +31,7 @@
     components: {
       SearchBar,
       Footer,
-      CodePen,
+      // CodePen,
     },
     data() {
       return {

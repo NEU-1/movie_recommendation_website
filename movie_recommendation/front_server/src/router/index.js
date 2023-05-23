@@ -12,7 +12,7 @@ import SearchResults from "@/components/SearchResults.vue";
 import ProFile from "@/views/ProFile.vue";
 import NotFound404 from "@/views/NotFound404.vue";
 import CommunityDetail from "@/components/CommunityDetail.vue";
-// import signupgenre from "@/views/signupgenre.vue";
+import GamePlay from "@/views/GamePlay.vue";
 
 Vue.use(VueRouter);
 
@@ -70,7 +70,7 @@ const routes = [
   },
   {
     path: "/profile/:user_pk/",
-    name: "ProFile",
+    name: "profile",
     component: ProFile,
   },
   {
@@ -78,11 +78,11 @@ const routes = [
     name: "NotFound404",
     component: NotFound404,
   },
-  // {
-  //   path: "/signupgenre/",
-  //   name: "signupgenre",
-  //   component: signupgenre,
-  // },
+  {
+    path: "/gameplay/",
+    name: "GamePlay",
+    component: GamePlay,
+  },
 ];
 
 const router = new VueRouter({
