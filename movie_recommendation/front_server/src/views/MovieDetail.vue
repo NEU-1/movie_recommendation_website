@@ -12,25 +12,28 @@
       <div class="image-container">
         <img :src="imageUrl" alt="Poster" />
 
-        <p>
-          좋아요 수:
-          {{
-            movie.like_users
-              ? movie.like_users.length
-              : 0
-          }}
-        </p>
-        <button class="btn btn-primary" @click="movie_likes">좋아요</button>
-      </div>
-      <div class="text-container">
-        {{ movie.overview }}
-        <br />
-
-        <div class="video-container">
+        <div class="like-section">
+    <div class ="container3">
+      좋아요 수:
+      {{
+        movie.like_users
+          ? movie.like_users.length
+          : 0
+      }}
+    </div>
+    <button class="btn btn-primary" @click="movie_likes">좋아요</button>
+  </div>
+</div>
+      <div class="video-container">
           <div id="player"></div>
+        <br />
+          <div class="container2">
+          <div class="text-container">
+        {{ movie.overview }}</div>
         </div>
       </div>
     </div>
+   
   </div>
 </template>
 
@@ -160,7 +163,10 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   font-family: Arial, sans-serif;
 }
-
+.container2 {
+  margin: 10px !important;
+  padding: 10px;
+}
 .movie-detail h2 {
   color: white;
   font-size: 2.5em;
@@ -185,9 +191,15 @@ export default {
 .text-container {
   flex-grow: 1;
   font-size: 20px;
+  font-weight: bold;
+}
+.container3 {
+  padding:20px;
+  font-weight: bold;
+  text-align: left;
+  font-size:20px;
 }
 
-.text-container p,
 .image-container p {
   color: #000;
   line-height: 1.6;
@@ -199,5 +211,6 @@ export default {
 .video-container iframe {
   width: 100%;
   height: 315px;
+  margin-bottom: 10px ! important;
 }
 </style>
