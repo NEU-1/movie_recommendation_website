@@ -81,6 +81,7 @@ export default new Vuex.Store({
       });
     },
     signUp(context, payload) {
+      let signup = false; // declare variable
       axios({
         method: "post",
         url: `${API_URL}/accounts/signup/`,
@@ -102,6 +103,7 @@ export default new Vuex.Store({
         .catch((err) => console.log(err.response.data));
     },
     login(context, payload) {
+      let signup = false; // declare variable
       const username = payload.username;
       const password = payload.password;
       axios({
