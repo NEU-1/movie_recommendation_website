@@ -70,7 +70,8 @@ def movie_likes(request, movie_pk):
         movie.like_users.remove(request.user)
     else:
         movie.like_users.add(request.user)
-    return Response({"message": "Success"})
+    serializer = MovieSerializer(movie)  # MovieSerializer를 사용하여 movie 객체 직렬화
+    return Response(serializer.data)
 
 
 

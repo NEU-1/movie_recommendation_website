@@ -12,7 +12,9 @@
         <p>{{ movie.data.fields.overview }}</p>
         <p>장르 : {{ getGenreName(movie.data.fields.genres) }}</p>
         <div>
-          <button @click="movie_likes">좋아요</button>
+          <button @click="movie_likes">
+            좋아요
+          </button>
           <p>좋아요 수: {{ movie.data.fields.like_movies ? movie.data.fields.like_movies.length : 0 }}</p>
         </div>
         <div class="video-container">
@@ -34,6 +36,7 @@ export default {
       movie: {},
       player: null,
       genres: [],
+      isLiked: false,
     };
   },
   async created() {
@@ -50,6 +53,7 @@ export default {
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
       window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
+      console.log(this.movie)
     } catch (error) {
       console.error(error);
     }
@@ -84,24 +88,24 @@ export default {
       return genreNames.join(", ");
     },
 
-    async movie_likes() {
-      try {
-        const response = await axios.post(
-          `http://127.0.0.1:8000/api/v1/movies/${this.movie.data.pk}/likes/`,
-          {},
-          {
-            headers: {
-              Authorization: `Token ${this.$store.state.token}`
-            }
-          }
-        );
-
-        this.$set(this.movie.data.fields, 'like_movies', response.data.like_movies);
-      } catch (error) {
-        console.error(error);
+  async movie_likes() {
+  try {
+    const movieId = this.movie.data.pk;
+    const url = `http://127.0.0.1:8000/api/v1/movies/${movieId}/likes/`;
+    const headers = {
+      headers: {
+        Authorization: `Token ${this.$store.state.token}`
       }
-    },
+    };
 
+    const response = await axios.post(url, null, headers);
+    // console.log(response)
+    // console.log(this.movie)
+    this.$set(this.movie.data.fields, 'like_movies', response.data.like_users);
+  } catch (error) {
+    console.error(error);
+  }
+},
 
   },
   async mounted() {
