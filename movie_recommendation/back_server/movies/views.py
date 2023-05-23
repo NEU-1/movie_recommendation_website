@@ -44,11 +44,7 @@ def movie_detail(request, movie_id):
     if not movie:
         return Response(status=status.HTTP_404_NOT_FOUND)
     is_liked = False
-    if request.user:
-        if movie['fields']['actors'] and request.user.pk in movie['fields']['actors']:
-            is_liked = True
-        else:
-            is_liked = False
+    
     context = {
         'data': movie,
         'is_liked': is_liked
