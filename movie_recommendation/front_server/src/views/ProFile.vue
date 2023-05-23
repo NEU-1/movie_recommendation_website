@@ -24,7 +24,6 @@
         <p>좋아요한 영화 수</p>
       </div>
     </div>
-    <!-- <div class="follow-button" v-if="me.id !== user.id"> -->
     <button v-if="me && me.id !== user.id" @click="followUser">팔로우</button>
   </div>
 </template>

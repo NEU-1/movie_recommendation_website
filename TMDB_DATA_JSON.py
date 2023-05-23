@@ -27,7 +27,7 @@ def fetch_movie_data(url, page):
         if movie.get('release_date', '') and movie.get('backdrop_path', ''):
             fields = {
                 'genres': movie['genre_ids'],
-                'actors': [],
+                # 'actors': [],
                 'title': movie['title'],
                 'release_date': movie['release_date'],
                 'popularity': movie['popularity'],
@@ -65,26 +65,26 @@ def get_youtube_key(movie_dict):
 
 
 
-def fetch_credit_data(movie_data):
-    actor_dict = {}
-    for data in movie_data:
-        movie_id = data['pk']
-        url = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={TMDB_API_KEY}"
-        credit_info = requests.get(url).json()
-        actors = [cast for cast in credit_info['cast'][:5]]
-        data['fields']['actors'] = [actor['id'] for actor in actors]
+# def fetch_credit_data(movie_data):
+#     actor_dict = {}
+#     for data in movie_data:
+#         movie_id = data['pk']
+#         url = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={TMDB_API_KEY}"
+#         credit_info = requests.get(url).json()
+#         actors = [cast for cast in credit_info['cast'][:5]]
+#         data['fields']['actors'] = [actor['id'] for actor in actors]
 
-        for actor in actors:
-            if actor['id'] not in actor_dict:
-                actor_dict[actor['id']] = {
-                    "pk": actor['id'],
-                    "model": "movies.actor",
-                    "fields": {
-                        "name": actor['name']
-                    }
-                }
-        print(data.get('fields').get('title')) 
-    return list(actor_dict.values())
+#         for actor in actors:
+#             if actor['id'] not in actor_dict:
+#                 actor_dict[actor['id']] = {
+#                     "pk": actor['id'],
+#                     "model": "movies.actor",
+#                     "fields": {
+#                         "name": actor['name']
+#                     }
+#                 }
+#         print(data.get('fields').get('title')) 
+#     return list(actor_dict.values())
 
 
 
@@ -106,7 +106,7 @@ def main():
         movie_data.extend(fetch_movie_data(popular_url, i))
         movie_data.extend(fetch_movie_data(top_rated_url, i))
 
-    actor_data = fetch_credit_data(movie_data)
+    # actor_data = fetch_credit_data(movie_data)
     
     # save_to_file("genre", genre_data)
     save_to_file("movies", movie_data)
