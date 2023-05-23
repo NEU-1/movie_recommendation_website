@@ -15,8 +15,8 @@
         <p>
           좋아요 수:
           {{
-            movie.like_movies
-              ? movie.like_movies.length
+            movie.like_users
+              ? movie.like_users.length
               : 0
           }}
         </p>
@@ -43,7 +43,7 @@ export default {
       movie: {},
       player: null,
       genres: [],
-      // like_count: null,
+      like_count: null,
     };
   },
   async created() {
@@ -53,9 +53,8 @@ export default {
         `http://127.0.0.1:8000/api/v1/movies/${movie_id}/`
       );
       this.movie = response.data;
-
-      // 좋아요 개수 서버에서 받아오기
-    await this.fetchLikes();
+      console.log(response.data.like_users)
+      console.log(response.data.like_users)
     
       const tag = document.createElement("script");
       tag.src = "https://www.youtube.com/iframe_api";
@@ -104,33 +103,8 @@ export default {
         // console.log(this.movie)
         this.$set(
           this.movie,
-          "like_movies",
+          "like_users",
           response.data.like_users
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async fetchLikes() {
-      try {
-        const movieId = this.movie.id;
-        const url = `http://127.0.0.1:8000/api/v1/movies/${movieId}/likes/`;
-        const headers = {
-          headers: {
-            Authorization: `Token ${this.$store.state.token}`,
-          },
-        };
-
-        const response = await axios.get(url, headers);
-        this.$set(
-          this.movie,
-          "like_movies",
-          response.data.like_users
-        );
-        this.$set(
-          this.movie,
-          "like_count",
-          response.data.like_users.length
         );
       } catch (error) {
         console.error(error);
