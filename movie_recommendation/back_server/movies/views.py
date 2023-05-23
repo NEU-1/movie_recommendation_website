@@ -32,9 +32,6 @@ def movie_detail(request, movie_id):
     print(serializer.data)
     return Response(serializer.data)
 
-
-
-<<<<<<< HEAD
     # with open('movies/fixtures/movies.json', 'r', encoding='utf-8') as file:
     #     data = json.load(file)
     # movie = None
@@ -55,24 +52,6 @@ def movie_detail(request, movie_id):
     #     'is_liked': is_liked
     # }
     # return Response(context)
-=======
-    with open('movies/fixtures/movies.json', 'r', encoding='utf-8') as file:
-        data = json.load(file)
-    movie = None
-    for item in data:
-        if item['pk'] == movie_id:
-            movie = item
-            break
-    if not movie:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    is_liked = False
-    
-    context = {
-        'data': movie,
-        'is_liked': is_liked
-    }
-    return Response(context)
->>>>>>> 9839db34f479aeb4e3cc9cd9a39a53d259c757c2
 
 
 @api_view(['GET', 'POST'])
@@ -95,15 +74,21 @@ def review_list(request, movie_id):
 
 
 
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def movie_likes(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
+    
+    if request.method == 'GET':
+        like_count = movie.like_users.count()
+        return Response({'like_count': like_count})
+    
     if movie.like_users.filter(pk=request.user.pk).exists():
         movie.like_users.remove(request.user)
     else:
         movie.like_users.add(request.user)
-    serializer = MovieSerializer(movie)  
+        
+    serializer = MovieSerializer(movie)
     return Response(serializer.data)
 
 
