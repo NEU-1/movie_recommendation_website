@@ -47,7 +47,7 @@
 .community-detail {
   padding: 20px;
   width: 1000px;
-  height: 1300px;
+  min-height: 1000px;
   border: 2px solid #000;
   background-color: white;
 }
