@@ -12,9 +12,9 @@ class Actor(models.Model):
     name = models.CharField(max_length=50)
 
 class Movie(models.Model):
-    actors = models.ManyToManyField(Actor, related_name='movie_actor')
-    movie_id = models.IntegerField(primary_key=True)
-    genres = models.ManyToManyField(Genre, related_name='movie_genre')
+    actors = models.ManyToManyField(Actor, related_name='movie_actor', null=True, blank=True)
+    # movie_id = models.IntegerField(primary_key=True)
+    genres = models.ManyToManyField(Genre, related_name='movie_genre', null=True, blank=True)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_movies")
 
     title = models.CharField(max_length=100)
@@ -24,12 +24,7 @@ class Movie(models.Model):
     vote_count = models.IntegerField()
     overview = models.TextField()
     poster_path = models.CharField(max_length=200)
-    youtube_key = models.CharField(max_length=200)
-
-
-class MovieLike(models.Model):
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    youtube_key = models.CharField(max_length=255, null=True, blank=True)
 
 class MovieReview(models.Model):
     title = models.CharField(max_length=100)
