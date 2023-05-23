@@ -77,6 +77,11 @@ const routes = [
     name: "NotFound404",
     component: NotFound404,
   },
+  {
+    path: "/signupgenre/",
+    name: "signupgenre",
+    component: SignupGenre,
+  },
 ];
 
 const router = new VueRouter({

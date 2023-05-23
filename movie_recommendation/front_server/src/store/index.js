@@ -38,13 +38,17 @@ export default new Vuex.Store({
     GET_COMMUNITY_LIST(state, communities) {
       state.communities = communities;
     },
-    SAVE_TOKEN(state, userInfo) {
+    SAVE_TOKEN(state, userInfo, signup) {
       state.token = userInfo.token;
       console.log(333);
       console.log(state.token);
       console.log(222);
       state.username = userInfo.username;
-      router.push({ name: "home" });
+      if (signup) {
+        router.push({ name: "signupgenre" });
+      } else {
+        router.push({ name: "home" });
+      }
     },
     CLEAR_TOKEN(state) {
       state.token = null;
@@ -96,7 +100,8 @@ export default new Vuex.Store({
             username: payload.username,
             token: res.data.key,
           };
-          context.commit("SAVE_TOKEN", userInfo);
+          signup = true;
+          context.commit("SAVE_TOKEN", userInfo, signup);
         })
         .catch((err) => console.log(err.response.data));
     },
@@ -117,7 +122,8 @@ export default new Vuex.Store({
             username: payload.username,
             token: res.data.key,
           };
-          context.commit("SAVE_TOKEN", userInfo);
+          signup = false;
+          context.commit("SAVE_TOKEN", userInfo, signup);
         })
         .catch((err) => console.log(err));
     },

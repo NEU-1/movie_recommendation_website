@@ -70,7 +70,7 @@ def movie_likes(request, movie_pk):
         movie.like_users.remove(request.user)
     else:
         movie.like_users.add(request.user)
-    serializer = MovieSerializer(movie)  # MovieSerializer를 사용하여 movie 객체 직렬화
+    serializer = MovieSerializer(movie)  
     return Response(serializer.data)
 
 
@@ -87,6 +87,12 @@ def search_movies(request):
 
 
 def genre(request):
+    with open('movies/fixtures/genre.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    return JsonResponse(data, safe=False)
+
+
+def signupgenre(request):
     with open('movies/fixtures/genre.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
     return JsonResponse(data, safe=False)
