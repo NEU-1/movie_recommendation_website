@@ -55,7 +55,7 @@ export default {
       );
       this.movie = response.data;
       console.log(response.data.like_users)
-      console.log(response.data.like_users)
+      console.log(response)
     
       const tag = document.createElement("script");
       tag.src = "https://www.youtube.com/iframe_api";

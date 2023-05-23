@@ -109,8 +109,3 @@ def genre(request):
         data = json.load(file)
     return JsonResponse(data, safe=False)
 
-
-def signupgenre(request):
-    with open('movies/fixtures/genre.json', 'r', encoding='utf-8') as file:
-        data = json.load(file)
-    return JsonResponse(data, safe=False)
