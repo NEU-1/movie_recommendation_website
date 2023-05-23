@@ -1,12 +1,22 @@
 <template>
-  <div>
-    <h1>Community 세부사항</h1>
-    <div>
-      <h2>{{ community.title }}</h2>
-      <p>{{ community.content }}</p>
-      <p>작성자: {{ community.userName }}</p>
-      <p>작성일: {{ community.created_at }}</p>
-      <p>수정일: {{ community.updated_at }}</p>
+  <div class="community-detail">
+    <header>
+      <!-- 커뮤니티 제목 -->
+      {{ community.title }}
+    </header>
+
+    <div class="community-info">
+      <div class="author-info">
+        <!-- 작성자 정보 -->
+        <p class="author">작성자:{{ community.userName }}</p>
+        <p class="created-at">작성일:{{ community.created_at }}</p>
+        <!-- <p>수정일: {{ community.updated_at }}</p> -->
+      </div>
+
+      <!-- 커뮤니티 내용 -->
+      <div class="content">
+        {{ community.content }}
+      </div>
     </div>
 
     <h2>댓글</h2>
@@ -14,7 +24,7 @@
       <p>댓글이 없습니다.</p>
     </div>
     <div v-else>
-      <ul>
+      <ul class="comment-list">
         <li v-for="comment in comments" :key="comment.id">
           <p>{{ comment.content }}</p>
           <p>작성자: {{ comment.userName }}</p>
@@ -22,8 +32,7 @@
         </li>
       </ul>
     </div>
-    <div>
-      <h2>댓글 작성</h2>
+    <div class="comment-form">
       <form @submit.prevent="createComment">
         <textarea v-model.trim="commentContent" rows="4" cols="50"></textarea>
         <button type="submit">댓글 작성</button>
@@ -31,6 +40,63 @@
     </div>
   </div>
 </template>
+
+<style>
+.community-detail {
+  padding: 20px;
+  width: 1000px;
+  height: 1000px;
+}
+
+header {
+  text-align: left;
+  font-weight: bold;
+
+  font-size: 50px;
+}
+
+.author-info {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 50px;
+  color: rgb(80, 76, 76);
+  text-align: right;
+}
+
+.author-info p {
+  margin-left: 5px;
+}
+
+.content {
+  width: 1000px;
+  height: 500px;
+  margin: 0;
+  text-align: left;
+  border: 2px solid #000;
+  margin-bottom: 20px;
+  background-color: white;
+}
+
+.comment-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.comment-list li {
+  margin-bottom: 10px;
+}
+
+.comment-form textarea {
+  width: 100%;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+.comment-form button {
+  padding: 5px 10px;
+}
+</style>
 
 <script>
 import axios from "axios";
@@ -101,5 +167,3 @@ export default {
   },
 };
 </script>
-
-<style></style>
