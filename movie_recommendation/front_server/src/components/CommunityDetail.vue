@@ -12,27 +12,29 @@
         <p class="created-at">작성일:{{ community.created_at }}</p>
         <!-- <p>수정일: {{ community.updated_at }}</p> -->
       </div>
+      <hr />
 
       <!-- 커뮤니티 내용 -->
       <div class="content">
         {{ community.content }}
       </div>
     </div>
+    <div class="asdf">댓글</div>
 
-    <h2>댓글</h2>
+    <hr />
+
     <div v-if="comments.length === 0">
       <p>댓글이 없습니다.</p>
     </div>
     <div v-else>
       <ul class="comment-list">
         <li v-for="comment in comments" :key="comment.id">
+          <p class="comment-author">{{ comment.userName }}</p>
           <p>{{ comment.content }}</p>
-          <p>작성자: {{ comment.userName }}</p>
-          <p>작성일: {{ comment.created_at }}</p>
         </li>
       </ul>
     </div>
-    <div class="comment-form">
+    <div class="comment-form" style="text-align: right">
       <form @submit.prevent="createComment">
         <textarea v-model.trim="commentContent" rows="4" cols="50"></textarea>
         <button type="submit">댓글 작성</button>
@@ -45,7 +47,9 @@
 .community-detail {
   padding: 20px;
   width: 1000px;
-  height: 1000px;
+  height: 1300px;
+  border: 2px solid #000;
+  background-color: white;
 }
 
 header {
@@ -58,7 +62,7 @@ header {
 .author-info {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
   color: rgb(80, 76, 76);
   text-align: right;
 }
@@ -68,13 +72,12 @@ header {
 }
 
 .content {
-  width: 1000px;
+  width: 900px;
   height: 500px;
   margin: 0;
   text-align: left;
-  border: 2px solid #000;
+
   margin-bottom: 20px;
-  background-color: white;
 }
 
 .comment-list {
@@ -85,6 +88,7 @@ header {
 
 .comment-list li {
   margin-bottom: 10px;
+  text-align: left;
 }
 
 .comment-form textarea {
@@ -95,6 +99,9 @@ header {
 
 .comment-form button {
   padding: 5px 10px;
+}
+.asdf {
+  text-align: left;
 }
 </style>
 

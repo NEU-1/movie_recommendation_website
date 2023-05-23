@@ -1,12 +1,8 @@
 <template>
   <div class="container">
-    <div class="row">
-      <router-link :to="{ name: 'community' }">
-        <button>뒤로가기</button>
-      </router-link>
-    </div>
+    <div class="row"></div>
 
-    <div>
+    <div class="title1">
       <h2>게시글 작성</h2>
     </div>
     <br />
@@ -31,7 +27,12 @@
           style="height: 500px"
         ></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">등록</button>
+      <div class="button-group">
+        <router-link :to="{ name: 'community' }">
+          <button class="btn btn-primary">뒤로가기</button>
+        </router-link>
+        <button type="submit" class="btn btn-primary">등록</button>
+      </div>
     </form>
   </div>
 </template>
@@ -85,10 +86,23 @@ export default {
 
 <style scoped>
 .container {
-  max-width: 800px;
+  max-width: 740px;
   margin: 0 auto;
 }
 .form-control {
   width: 700px;
+}
+.title1 {
+  text-align: left;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+}
+.button-group {
+  text-align: right;
+  margin-right: 10px;
+}
+.button-group button {
+  margin-left: 10px; /* 버튼 사이의 간격을 조정할 수 있습니다 */
 }
 </style>
