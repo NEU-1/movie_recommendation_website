@@ -135,7 +135,7 @@ export default {
     goProfile(community) {
       console.log(community.userId);
       this.$router.push({
-        name: "ProFile",
+        name: "profile",
         params: { user_pk: community.userId },
       });
     },

@@ -2,7 +2,6 @@
   <div class="proFile">
     <div class="user-heading text-center pb-4">
       <h1>{{ user?.username }} 의 프로필 정보</h1>
-      <!-- ({{ me?.username }}) -->
     </div>
     <div class="user-details d-flex justify-content-around flex-wrap">
       <div class="follow-info" @click="openModal(1)">
@@ -19,7 +18,7 @@
       </div>
       <div class="follow-info">
         <h2>
-          <!-- <strong>{{ user.like_movies?.length }}</strong> -->
+          <strong>{{ user.like_movies?.length }}</strong>
         </h2>
         <p>좋아요한 영화 수</p>
       </div>
@@ -62,42 +61,6 @@
     color: #6c757d;
     font-size: 1.2rem;
   }
-</style>
-.my-profile {
-padding: 2rem 0;
-background-color: #f8f9fa;
-border-radius: 5px;
-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.user-heading h1 {
-font-size: 3rem;
-color: #343a40;
-}
-
-.user-details {
-margin-top: 3rem;
-}
-
-.follow-info {
-background-color: white;
-padding: 2rem;
-border-radius: 5px;
-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-flex: 1 0 200px;
-margin: 1rem;
-text-align: center;
-}
-
-.follow-info h2 {
-font-size: 2rem;
-margin-bottom: 1rem;
-}
-
-.follow-info p {
-color: #6c757d;
-font-size: 1.2rem;
-}
 </style>
 
 <script>
@@ -168,22 +131,23 @@ font-size: 1.2rem;
         }
       },
       async fetchProfile(user_pk) {
-        const tokenKey = this.$store.state.token;
-        console.log('Authorization Token Key:', tokenKey);
-        const url = user_pk ? `${API_URL}/user/profile/${user_pk}/` : `${API_URL}/accounts/user/`;
-        console.log(url)
-        try {
-          const res = await axios.get(url, {
-            headers: {
-              Authorization: `Token ${tokenKey}`,
-            },
-          });
-          return res.data;
-        } catch (err) {
-          console.log('프로필 자격 인증 데이터가 없습니다.');
-          return null;
-        }
+  const tokenKey = this.$store.state.token;
+  console.log('Authorization Token Key:', tokenKey);
+  const url = user_pk ? `${API_URL}/user/profile/${user_pk}/` : `${API_URL}/accounts/user/`;
+  console.log(url)
+  try {
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Token ${tokenKey}`,
       },
+    });
+    return res.data;
+  } catch (err) {
+    console.log('프로필 자격 인증 데이터가 없습니다.');
+    return null;
+  }
+},
+
       async fetchName(my_pk) {
         if (!my_pk) {
           console.log('사용자 PK가 없습니다.');
@@ -227,7 +191,6 @@ font-size: 1.2rem;
           .then((res) => {
             if (res.data) {
               alert('팔로우가 완료되었습니다.');
-              // this.getMyProfile();
             }
           })
           .catch((err) => {
