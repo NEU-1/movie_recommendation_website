@@ -1,8 +1,5 @@
 <template>
-  <nav
-    class="navbar navbar-expand-lg navbar-dark"
-    style="background-color: rgb(83, 131, 234)"
-  >
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(83, 131, 234)">
     <ul class="navbar-nav">
       <li class="nav-item" :class="{ active: $route.path === '/' }">
         <router-link class="nav-link" to="/">홈</router-link>
@@ -16,56 +13,54 @@
       <li class="nav-item" :class="{ active: $route.path === '/community' }">
         <router-link class="nav-link" to="/community">자유게시판</router-link>
       </li>
-      <li
-        class="nav-item"
-        :class="{ active: $route.path === '/recommendation' }"
-      >
+      <li class="nav-item" :class="{ active: $route.path === '/recommendation' }">
         <router-link class="nav-link" to="/recommendation">추천</router-link>
       </li>
-      <li class="nav-item" :class="{ active: $route.path.startsWith('/profile') }">
-    <router-link class="nav-link" :to="'/profile/' + userId">나의 프로필</router-link>
-  </li>
+      <li class="nav-item" :class="{ active: $route.path==='/ProFile' }">
+        <router-link class="nav-link" :to="'/profile/' + userId">나의 프로필</router-link>
+      </li>
     </ul>
   </nav>
 </template>
 
 <script>
-export default {
-  name: "NavBar",
-  computed: {
-    userId() {
-      return this.$store.state.userId;
+  export default {
+    name: "NavBar",
+    computed: {
+      userId() {
+        console.log(this.$store)
+        return this.$store.state.userId;
+      }
     }
-  }
-};
+  };
 </script>
 
 <style scoped>
-.navbar {
-  padding: 10px;
-}
+  .navbar {
+    padding: 10px;
+  }
 
-.navbar-nav {
-  display: flex;
-  align-items: center;
-}
+  .navbar-nav {
+    display: flex;
+    align-items: center;
+  }
 
-.nav-item {
-  margin-right: 20px;
-}
+  .nav-item {
+    margin-right: 20px;
+  }
 
-.nav-link {
-  color: rgb(80, 76, 76);
-  font-size: 25px;
-  text-decoration: none;
-}
+  .nav-link {
+    color: rgb(80, 76, 76);
+    font-size: 25px;
+    text-decoration: none;
+  }
 
-.nav-link:hover {
-  text-decoration: underline;
-}
+  .nav-link:hover {
+    text-decoration: underline;
+  }
 
-li.active {
-  font-weight: bold;
-  color: #fff;
-}
+  li.active {
+    font-weight: bold;
+    color: #fff;
+  }
 </style>

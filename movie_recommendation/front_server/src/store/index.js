@@ -91,7 +91,7 @@ export default new Vuex.Store({
         },
       })
         .then((res) => {
-          console.log('회원가입 응답:', res.data);
+          console.log("회원가입 응답:", res.data);
           const userInfo = {
             username: payload.username,
             token: res.data.key,
@@ -112,16 +112,16 @@ export default new Vuex.Store({
         },
       })
         .then((res) => {
-          console.log('로그인 응답:', res.data);
+          console.log("로그인 응답:", res.data);
           const userInfo = {
             username: payload.username,
             token: res.data.key,
           };
-          context.commit("SAVE_TOKEN", userInfo);  
+          context.commit("SAVE_TOKEN", userInfo);
         })
         .catch((err) => console.log(err));
-    },    
-    
+    },
+
     logout(context) {
       context.commit("CLEAR_TOKEN");
       router.push({ name: "home" }).catch((err) => {});
