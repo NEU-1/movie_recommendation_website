@@ -1,5 +1,9 @@
 <template>
   <div class="movie-detail" v-if="movie && movie.data">
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <h2>
       <b>{{ movie.data.fields.title }}</b>
     </h2>
@@ -7,35 +11,28 @@
     <div class="content">
       <div class="image-container">
         <img :src="imageUrl" alt="Poster" />
+
+        <p>장르 : {{ getGenreName(movie.data.fields.genres) }}</p>
+        <p>
+          좋아요 수:
+          {{
+            movie.data.fields.like_movies
+              ? movie.data.fields.like_movies.length
+              : 0
+          }}
+        </p>
+        <button class="btn btn-primary" @click="movie_likes">좋아요</button>
       </div>
       <div class="text-container">
-        <p>{{ movie.data.fields.overview }}</p>
-        <p>장르 : {{ getGenreName(movie.data.fields.genres) }}</p>
-        <div>
-<<<<<<< HEAD
-          <button @click="movie_likes">
-            좋아요
-          </button>
-          <p>좋아요 수: {{ movie.data.fields.like_movies ? movie.data.fields.like_movies.length : 0 }}</p>
-=======
-          <button @click="movie_likes">좋아요</button>
-          <p>
-            좋아요 수:
-            {{
-              movie.data.fields.like_movies
-                ? movie.data.fields.like_movies.length
-                : 0
-            }}
-          </p>
->>>>>>> 99ab195cd0f96520e4d52e1e02e4ca4b15341132
-        </div>
-        <div class="video-container">
-          <div id="player"></div>
+        {{ movie.data.fields.overview }}
+        <br />
+
+
+        <p> <div class="video-container">
+          <div id="player"></div> </p>
         </div>
       </div>
     </div>
-    <br />
-    <br />
   </div>
 </template>
 
@@ -65,7 +62,7 @@ export default {
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
       window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
-      console.log(this.movie)
+      console.log(this.movie);
     } catch (error) {
       console.error(error);
     }
@@ -99,25 +96,28 @@ export default {
       return genreNames.join(", ");
     },
 
-  async movie_likes() {
-  try {
-    const movieId = this.movie.data.pk;
-    const url = `http://127.0.0.1:8000/api/v1/movies/${movieId}/likes/`;
-    const headers = {
-      headers: {
-        Authorization: `Token ${this.$store.state.token}`
+    async movie_likes() {
+      try {
+        const movieId = this.movie.data.pk;
+        const url = `http://127.0.0.1:8000/api/v1/movies/${movieId}/likes/`;
+        const headers = {
+          headers: {
+            Authorization: `Token ${this.$store.state.token}`,
+          },
+        };
+
+        const response = await axios.post(url, null, headers);
+        // console.log(response)
+        // console.log(this.movie)
+        this.$set(
+          this.movie.data.fields,
+          "like_movies",
+          response.data.like_users
+        );
+      } catch (error) {
+        console.error(error);
       }
-    };
-
-    const response = await axios.post(url, null, headers);
-    // console.log(response)
-    // console.log(this.movie)
-    this.$set(this.movie.data.fields, 'like_movies', response.data.like_users);
-  } catch (error) {
-    console.error(error);
-  }
-},
-
+    },
   },
   async mounted() {
     try {
@@ -159,7 +159,9 @@ export default {
 
 <style scoped>
 .movie-detail {
-  max-width: 1400px;
+  max-width: 1100px;
+  width: 1100px;
+  height: 900px;
   margin: 0 auto;
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -190,6 +192,7 @@ export default {
 .text-container {
   flex-grow: 1;
   font-size: 20px;
+  font-weight: bold;
 }
 
 .text-container p,
@@ -202,7 +205,7 @@ export default {
 }
 
 .video-container iframe {
-  width: 100%;
+  width: 300px;
   height: 315px;
 }
 </style>

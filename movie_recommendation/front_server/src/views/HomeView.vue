@@ -3,6 +3,7 @@
     <div class="poster-container">
       <img :src="randomImage" alt="" class="poster-image hoverable" />
     </div>
+
     <SearchBar />
     <Footer />
   </div>
@@ -10,6 +11,7 @@
 
 <script>
 import SearchBar from "@/components/SearchBar.vue";
+
 import Footer from "@/components/Footer.vue";
 import img1 from "../assets/존윅.png";
 import img2 from "../assets/동석.png";
@@ -22,6 +24,7 @@ import img8 from "../assets/토토로.png";
 import img9 from "../assets/트랜스포머.png";
 import img10 from "../assets/해리포터.png";
 import img11 from "../assets/터미네이터.png";
+
 export default {
   name: "HomeView",
   components: {
