@@ -1,30 +1,29 @@
 <template>
-  <div class="movie-detail" v-if="movie && movie.data">
+  <div class="movie-detail" v-if="movie">
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <h2>
-      <b>{{ movie.data.fields.title }}</b>
+      <b>{{ movie.title }}</b>
     </h2>
     <br /><br />
     <div class="content">
       <div class="image-container">
         <img :src="imageUrl" alt="Poster" />
 
-        <p>장르 : {{ getGenreName(movie.data.fields.genres) }}</p>
         <p>
           좋아요 수:
           {{
-            movie.data.fields.like_movies
-              ? movie.data.fields.like_movies.length
+            movie.like_movies
+              ? movie.like_movies.length
               : 0
           }}
         </p>
         <button class="btn btn-primary" @click="movie_likes">좋아요</button>
       </div>
       <div class="text-container">
-        {{ movie.data.fields.overview }}
+        {{ movie.overview }}
         <br />
 
         <div class="video-container">
@@ -69,35 +68,27 @@ export default {
   },
   methods: {
     onYouTubeIframeAPIReady() {
-      if (window.YT && window.YT.Player) {
-        this.player = new window.YT.Player("player", {
-          videoId: this.movie.data.fields.youtube_key,
-          width: 560,
-          height: 315,
-          playerVars: {
-            autoplay: 1,
-            controls: 1,
-            modestbranding: 1,
-            rel: 0,
-            showinfo: 0,
-            fs: 1,
-          },
-        });
-      } else {
-        setTimeout(this.onYouTubeIframeAPIReady, 100);
-      }
-    },
-
-    getGenreName(genreId) {
-      const genreNames = this.genres
-        .filter((genre) => this.movie.data.fields.genres.includes(genre.pk))
-        .map((genre) => genre.fields.name);
-      return genreNames.join(", ");
-    },
-
+  if (window.YT && window.YT.Player && this.movie) {
+    this.player = new window.YT.Player("player", {
+      videoId: this.movie.youtube_key || "", // 기본값 설정
+      width: 560,
+      height: 315,
+      playerVars: {
+        autoplay: 1,
+        controls: 1,
+        modestbranding: 1,
+        rel: 0,
+        showinfo: 0,
+        fs: 1,
+      },
+    });
+  } else {
+    setTimeout(this.onYouTubeIframeAPIReady, 100);
+  }
+},
     async movie_likes() {
       try {
-        const movieId = this.movie.data.pk;
+        const movieId = this.movie.id;
         const url = `http://127.0.0.1:8000/api/v1/movies/${movieId}/likes/`;
         const headers = {
           headers: {
@@ -109,7 +100,7 @@ export default {
         // console.log(response)
         // console.log(this.movie)
         this.$set(
-          this.movie.data.fields,
+          this.movie,
           "like_movies",
           response.data.like_users
         );
@@ -124,7 +115,7 @@ export default {
         "http://127.0.0.1:8000/api/v1/movies/genre/"
       );
       this.genres = response.data;
-      if (this.movie.data && this.movie.data.fields.youtube_key) {
+      if (this.movie && this.movie.youtube_key) {
         this.onYouTubeIframeAPIReady();
       }
     } catch (error) {
@@ -134,14 +125,14 @@ export default {
   computed: {
     imageUrl() {
       const baseUrl = "https://image.tmdb.org/t/p/original/";
-      return baseUrl + this.movie.data.fields.poster_path;
+      return baseUrl + this.movie.poster_path;
     },
     formattedGenres() {
       if (
-        this.movie.data.fields.genres &&
-        Array.isArray(this.movie.data.fields.genres)
+        this.movie.genres &&
+        Array.isArray(this.movie.genres)
       ) {
-        return this.movie.data.fields.genres
+        return this.movie.genres
           .map((genre) => genre.name)
           .join(", ");
       }

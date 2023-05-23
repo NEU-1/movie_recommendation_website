@@ -26,14 +26,36 @@ def movie_list(request):
 @api_view(['GET'])
 def movie_detail(request, movie_id):
 
-    # movie = Movie.objects.get(movie_id=movie_id)
+    movie = Movie.objects.get(id=movie_id)
 
-    # serializer = MovieSerializer(movie)
-    # print(serializer.data)
-    # return Response(serializer.data)
+    serializer = MovieSerializer(movie)
+    print(serializer.data)
+    return Response(serializer.data)
 
 
 
+<<<<<<< HEAD
+    # with open('movies/fixtures/movies.json', 'r', encoding='utf-8') as file:
+    #     data = json.load(file)
+    # movie = None
+    # for item in data:
+    #     if item['pk'] == movie_id:
+    #         movie = item
+    #         break
+    # if not movie:
+    #     return Response(status=status.HTTP_404_NOT_FOUND)
+    # is_liked = False
+    # if request.user:
+    #     if movie['fields']['actors'] and request.user.pk in movie['fields']['actors']:
+    #         is_liked = True
+    #     else:
+    #         is_liked = False
+    # context = {
+    #     'data': movie,
+    #     'is_liked': is_liked
+    # }
+    # return Response(context)
+=======
     with open('movies/fixtures/movies.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
     movie = None
@@ -50,6 +72,7 @@ def movie_detail(request, movie_id):
         'is_liked': is_liked
     }
     return Response(context)
+>>>>>>> 9839db34f479aeb4e3cc9cd9a39a53d259c757c2
 
 
 @api_view(['GET', 'POST'])
