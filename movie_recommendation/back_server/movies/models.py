@@ -24,6 +24,8 @@ class Movie(models.Model):
     vote_count = models.IntegerField()
     overview = models.TextField()
     poster_path = models.CharField(max_length=200)
+    youtube_key = models.CharField(max_length=200)
+
 
 class MovieLike(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
