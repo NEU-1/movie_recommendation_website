@@ -131,32 +131,22 @@
         }
       },
       async fetchProfile(user_pk) {
-  const tokenKey = this.$store.state.token;
-  console.log('Authorization Token Key:', tokenKey);
-  const url = user_pk ? `${API_URL}/user/profile/${user_pk}/` : `${API_URL}/accounts/user/`;
-  console.log(url)
-  try {
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `Token ${tokenKey}`,
+        const tokenKey = this.$store.state.token;
+        console.log('Authorization Token Key:', tokenKey);
+        const url = user_pk ? `${API_URL}/user/profile/${user_pk}/` : `${API_URL}/accounts/user/`;
+        console.log(url)
+        try {
+          const res = await axios.get(url, {
+            headers: {
+              Authorization: `Token ${tokenKey}`,
+            },
+          });
+          return res.data;
+        } catch (err) {
+          console.log('프로필 자격 인증 데이터가 없습니다.');
+          return null;
+        }
       },
-    });
-    // 'like_movies' 정보를 추가로 요청하는 코드
-    // const like_movies = await axios.get(`${url}/like_movies/`, {
-    //   headers: {
-    //     Authorization: `Token ${tokenKey}`,
-    //   },
-    // });
-    // // 'like_movies' 정보를 추가로 저장하는 코드
-    // res.data.like_movies = like_movies.data;
-    // console.log(res.data)
-    return res.data;
-  } catch (err) {
-    console.log('프로필 자격 인증 데이터가 없습니다.');
-    return null;
-  }
-},
-
       async fetchName(my_pk) {
         if (!my_pk) {
           console.log('사용자 PK가 없습니다.');
