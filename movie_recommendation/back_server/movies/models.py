@@ -12,9 +12,8 @@ class Actor(models.Model):
     name = models.CharField(max_length=50)
 
 class Movie(models.Model):
-    actors = models.ManyToManyField(Actor, related_name='movie_actor', null=True, blank=True)
-    # movie_id = models.IntegerField(primary_key=True)
-    genres = models.ManyToManyField(Genre, related_name='movie_genre', null=True, blank=True)
+    actors = models.ManyToManyField(Actor, related_name='movie_actor', blank=True)
+    genres = models.ManyToManyField(Genre, related_name='movie_genre', blank=True)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_movies")
 
     title = models.CharField(max_length=100)
