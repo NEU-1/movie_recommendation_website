@@ -58,7 +58,7 @@ export default {
       );
       this.movie = response.data;
       console.log(response.data.like_users)
-      console.log(response.data.like_users)
+      console.log(response)
     
       const tag = document.createElement("script");
       tag.src = "https://www.youtube.com/iframe_api";
@@ -130,7 +130,8 @@ export default {
   },
   computed: {
     imageUrl() {
-      const baseUrl = "https://image.tmdb.org/t/p/original/";
+      const baseUrl = "https://image.tmdb.org/t/p/original";
+      console.log(this.movie)
       return baseUrl + this.movie.poster_path;
     },
     formattedGenres() {

@@ -10,6 +10,5 @@ urlpatterns = [
     path('<int:movie_pk>/likes/', views.movie_likes),
     path('search/', views.search_movies),
     path('genre/', views.genre),
-    path('signupgenre/', views.signupgenre),
 
 ]
