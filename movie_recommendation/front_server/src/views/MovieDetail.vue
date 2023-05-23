@@ -12,10 +12,22 @@
         <p>{{ movie.data.fields.overview }}</p>
         <p>장르 : {{ getGenreName(movie.data.fields.genres) }}</p>
         <div>
+<<<<<<< HEAD
           <button @click="movie_likes">
             좋아요
           </button>
           <p>좋아요 수: {{ movie.data.fields.like_movies ? movie.data.fields.like_movies.length : 0 }}</p>
+=======
+          <button @click="movie_likes">좋아요</button>
+          <p>
+            좋아요 수:
+            {{
+              movie.data.fields.like_movies
+                ? movie.data.fields.like_movies.length
+                : 0
+            }}
+          </p>
+>>>>>>> 99ab195cd0f96520e4d52e1e02e4ca4b15341132
         </div>
         <div class="video-container">
           <div id="player"></div>
@@ -74,7 +86,6 @@ export default {
             showinfo: 0,
             fs: 1,
           },
-
         });
       } else {
         setTimeout(this.onYouTubeIframeAPIReady, 100);
@@ -111,7 +122,7 @@ export default {
   async mounted() {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/api/v1/movies/genre/",
+        "http://127.0.0.1:8000/api/v1/movies/genre/"
       );
       this.genres = response.data;
       if (this.movie.data && this.movie.data.fields.youtube_key) {
