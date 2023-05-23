@@ -151,6 +151,7 @@ font-size: 1.2rem;
         console.log(userId, 'getprofile')
         if (!userId) {
           console.log('사용자 ID가 없습니다.');
+          this.user = null;
           return;
         }
 
@@ -237,10 +238,10 @@ font-size: 1.2rem;
     },
     computed: {
       followingsLength() {
-        return this.user.followings?.length || 0;
+        return this.user ? (this.user.followings?.length || 0) : 0;
       },
       followersLength() {
-        return this.user.followers?.length || 0;
+        return this.user ? (this.user.followers?.length || 0) : 0;
       },
     },
   };

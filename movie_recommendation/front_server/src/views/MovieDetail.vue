@@ -27,9 +27,8 @@
         {{ movie.data.fields.overview }}
         <br />
 
-
-        <p> <div class="video-container">
-          <div id="player"></div> </p>
+        <div class="video-container">
+          <div id="player"></div>
         </div>
       </div>
     </div>
@@ -192,7 +191,6 @@ export default {
 .text-container {
   flex-grow: 1;
   font-size: 20px;
-  font-weight: bold;
 }
 
 .text-container p,
@@ -205,7 +203,7 @@ export default {
 }
 
 .video-container iframe {
-  width: 300px;
+  width: 100%;
   height: 315px;
 }
 </style>
