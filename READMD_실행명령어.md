@@ -34,6 +34,7 @@ python manage.py loaddata movies.json
 npm i
 npm install bootstrap
 npm install bootstrap-vue bootstrap
+npm install swiper
 
 
 ## 실행

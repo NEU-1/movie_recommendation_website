@@ -58,14 +58,11 @@ export default {
   },
   async created() {
     const movie_id = this.$route.params.id;
-    console.log(this.$route)
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/api/v1/movies/${movie_id}/`
       );
       this.movie = response.data;
-      console.log(response.data.like_users)
-      console.log(response.data.like_users)
     
       const tag = document.createElement("script");
       tag.src = "https://www.youtube.com/iframe_api";
@@ -73,7 +70,6 @@ export default {
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
       window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
-      console.log(this.movie);
     } catch (error) {
       console.error(error);
     }
@@ -114,8 +110,6 @@ export default {
         };
 
         const response = await axios.post(url, null, headers);
-        // console.log(response)
-        // console.log(this.movie)
         this.$set(
           this.movie,
           "like_users",
