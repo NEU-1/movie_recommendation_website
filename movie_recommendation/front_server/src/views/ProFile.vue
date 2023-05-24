@@ -50,13 +50,17 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  font-size: 20px;
 }
 
 .movie-item {
   flex: 1 0 200px;
   margin: 1rem;
 }
-
+.movie-item h3 {
+  font-size: 20px;
+  color:aliceblue;
+}
 .img {
   width: 50px;
 }
