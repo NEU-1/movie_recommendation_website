@@ -9,16 +9,16 @@
       <div class="image-container">
         <img :src="imageUrl" alt="Poster" />
 
-        <div class="like-section">
+        <div class="container3" style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          ">
+          <button class="btn btn-primary" @click="movie_likes">좋아요</button>
           <div class="container3">
             좋아요 수:
-            {{
-            movie.like_users
-            ? movie.like_users.length
-            : 0
-            }}
+            {{ movie.like_users ? movie.like_users.length : 0 }}
           </div>
-          <button class="btn btn-primary" @click="movie_likes">좋아요</button>
         </div>
       </div>
       <div class="video-container">
@@ -26,11 +26,11 @@
         <br />
         <div class="container2">
           <div class="text-container">
-            {{ movie.overview }}</div>
+            {{ movie.overview }}
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -48,11 +48,14 @@
     },
     async created() {
       const movie_id = this.$route.params.id;
+      console.log(this.$route);
       try {
         const response = await axios.get(
           `http://127.0.0.1:8000/api/v1/movies/${movie_id}/`
         );
         this.movie = response.data;
+        console.log(response.data.like_users);
+        console.log(response);
 
         const tag = document.createElement("script");
         tag.src = "https://www.youtube.com/iframe_api";
@@ -60,6 +63,7 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
+        console.log(this.movie);
       } catch (error) {
         console.error(error);
       }
@@ -98,11 +102,7 @@
           const response = await axios.post(url, null, headers);
           // console.log(response)
           // console.log(this.movie)
-          this.$set(
-            this.movie,
-            "like_users",
-            response.data.like_users
-          );
+          this.$set(this.movie, "like_users", response.data.like_users);
         } catch (error) {
           console.error(error);
         }
@@ -123,44 +123,44 @@
     },
     computed: {
       imageUrl() {
-        const baseUrl = "https://image.tmdb.org/t/p/original/";
+        const baseUrl = "https://image.tmdb.org/t/p/original";
+        console.log(this.movie);
         return baseUrl + this.movie.poster_path;
       },
       formattedGenres() {
-        if (
-          this.movie.genres &&
-          Array.isArray(this.movie.genres)
-        ) {
-          return this.movie.genres
-            .map((genre) => genre.name)
-            .join(", ");
+        if (this.movie.genres && Array.isArray(this.movie.genres)) {
+          return this.movie.genres.map((genre) => genre.name).join(", ");
         }
-        return "";
       },
-    },
-    beforeDestroy() {
-      if (this.player) {
-        this.player.destroy();
-      }
     },
   };
 </script>
 
 <style scoped>
   .movie-detail {
-    max-width: 1100px;
-    width: 1100px;
+    max-width: 1050px;
+    width: 1050px;
     height: 900px;
     margin: 0 auto;
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     font-family: Arial, sans-serif;
+    background-color: rgb(255, 255, 255);
   }
 
   .container2 {
     margin: 10px !important;
-    padding: 10px;
+    padding: 15px;
   }
+
+  /* .movie-detail h2 {
+    color: ;
+    font-size: 2.5em;
+
+    .container2 {
+      margin: 10px !important;
+      padding: 10px;
+    } */
 
   .movie-detail h2 {
     color: white;
@@ -174,19 +174,11 @@
     gap: 20px;
   }
 
-  .image-container {
-    flex: 0 0 400px;
-  }
-
-  .image-container img {
-    max-width: 100%;
-    height: auto;
-  }
-
   .text-container {
     flex-grow: 1;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 18px;
+    /* font-weight: bold; */
+    color: black;
   }
 
   .container3 {
@@ -196,17 +188,14 @@
     font-size: 20px;
   }
 
-  .image-container p {
-    color: #000;
-    line-height: 1.6;
-    font-size: 1.2em;
-    font-weight: bold;
-    text-align: left;
+  .image-container img {
+    max-width: 100%;
+    height: auto;
   }
 
   .video-container iframe {
     width: 100%;
     height: 315px;
-    margin-bottom: 10px ! important;
+    margin-bottom: 10px !important;
   }
 </style>

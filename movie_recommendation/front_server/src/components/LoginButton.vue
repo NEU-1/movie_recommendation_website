@@ -1,12 +1,14 @@
 <template>
   <div>
-    <router-link v-if="!isLogin" to="/login" class="login-button">로그인</router-link>
+    <router-link v-if="!isLogin" to="/login" class="login-button"
+      >로그인</router-link
+    >
     <button v-else class="logout-button" @click="logout">로그아웃</button>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'; 
+import { mapGetters } from "vuex";
 
 export default {
   name: "LoginButton",
@@ -18,7 +20,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isLogin']) 
+    ...mapGetters(["isLogin"]),
   },
   methods: {
     showLoginModal() {
@@ -31,7 +33,7 @@ export default {
       this.closeLoginModal();
     },
     logout() {
-      this.$store.dispatch('logout');
+      this.$store.dispatch("logout");
     },
   },
 };
@@ -47,8 +49,8 @@ export default {
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  display: inline-block; /* 인라인 요소로 변경 */
-  margin-top: 3px; /* 상단 여백 조정 */
+  display: inline-block;
+  margin-top: 3px;
 }
 
 .logout-button {
@@ -59,8 +61,8 @@ export default {
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  display: inline-block; /* 인라인 요소로 변경 */
-  margin-top: 3px; /* 상단 여백 조정 */
+  display: inline-block;
+  margin-top: 3px;
 }
 
 .modal {
