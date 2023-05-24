@@ -4,6 +4,7 @@
       type="text"
       v-model="searchText"
       placeholder="검색할 영화제목을 쓰세요"
+      @keyup.enter="search"
     />
     <button @click="search">검색</button>
     <div v-for="movie in movies" :key="movie.movie_id">
@@ -24,10 +25,14 @@ export default {
   },
   methods: {
     search() {
-    const movieTitle = this.searchText;
-    console.log("검색어:", movieTitle);
-    // this.$router.push({ name: "moviedetail", params: { id: movieTitle } });
-    this.$router.push({ name: "searchresults", query: { q: movieTitle } });
+      if (this.searchText === "") {
+        alert("검색어를 입력하세요.");
+      } else {
+        const movieTitle = this.searchText;
+        console.log("검색어:", movieTitle);
+        // this.$router.push({ name: "moviedetail", params: { id: movieTitle } });
+        this.$router.push({ name: "searchresults", query: { q: movieTitle } });
+      }
   },
 },
 };
