@@ -16,15 +16,12 @@ class ActornameSerializer(serializers.ModelSerializer):
         fields = ('name','profile_path')
 
 class MovieSerializer(serializers.ModelSerializer):
-    genres = serializers.SerializerMethodField()
-
+    genres = GenrenameSerializer(many=True, read_only=True)
+    
     class Meta:
         model = Movie
         fields = '__all__'
         read_only_fields = ('like_users', 'actors')
-
-    def get_genres(self, obj):
-        return [genre.name for genre in obj.genres.all()]
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:

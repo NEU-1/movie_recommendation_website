@@ -133,13 +133,16 @@
             console.log('사용자 정보를 받아오지 못했습니다.');
             return;
           }
+
           this.user = user;
+          console.log(this.user)
         } catch (err) {
           console.error(err);
         }
       },
       async fetchProfile(user_pk) {
         const tokenKey = this.$store.state.token;
+        console.log('Authorization Token Key:', tokenKey);
         const url = user_pk ? `${API_URL}/user/profile/${user_pk}/` : `${API_URL}/accounts/user/`;
         try {
           const res = await axios.get(url, {
@@ -161,6 +164,7 @@
 
         try {
           const res = await axios.get(`${API_URL}/user/profile/${my_pk}/`);
+          console.log(my_pk)
           return res.data;
         } catch (err) {
           console.log('네임 자격 인증 데이터가 없습니다.');

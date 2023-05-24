@@ -40,6 +40,9 @@ export default new Vuex.Store({
     },
     SAVE_TOKEN(state, userInfo) {
       state.token = userInfo.token;
+      console.log(333);
+      console.log(state.token);
+      console.log(222);
       state.username = userInfo.username;
       router.push({ name: "home" });
     },
@@ -89,6 +92,7 @@ export default new Vuex.Store({
         },
       })
         .then((res) => {
+          console.log("회원가입 응답:", res.data);
           const userInfo = {
             username: payload.username,
             token: res.data.key,
@@ -111,6 +115,7 @@ export default new Vuex.Store({
         },
       })
         .then((res) => {
+          console.log("로그인 응답:", res.data);
           const userInfo = {
             username: payload.username,
             token: res.data.key,

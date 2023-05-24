@@ -46,20 +46,16 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
- 
-
 }
 
 .poster-container {
   position: relative;
   text-align: center;
-
 }
 
 .poster-image {
   width: 360px;
-  height: auto;
-
+  height: 550px;
 }
 
 .details-button {
