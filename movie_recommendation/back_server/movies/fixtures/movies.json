@@ -30,21 +30,6 @@
     }
   },
   {
-    "pk": 713704,
-    "model": "movies.movie",
-    "fields": {
-      "genres": [53, 27, 14],
-      "title": "이블 데드 라이즈",
-      "release_date": "2023-04-12",
-      "popularity": 3842.29,
-      "vote_average": 7.1,
-      "vote_count": 1233,
-      "overview": "길바닥에서 지친 베스가 비좁은 아파트에서 세 아이를 키우는 엘리를 뒤늦게 찾아간다. 아파트에서 신비로운 책이 발견되며 육체에 사로잡힌 악마가 발견되며, 베스가 가장 악몽 같은 버전의 모성애에 직면하게 되면서 생존에 위한 원초적인 싸움에 내몰리게 되는데...",
-      "poster_path": "/5ik4ATKmNtmJU6AYD0bLm56BCVM.jpg",
-      "youtube_key": "HuIyYNGM6Eg"
-    }
-  },
-  {
     "pk": 640146,
     "model": "movies.movie",
     "fields": {
