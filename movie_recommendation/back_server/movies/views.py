@@ -1,12 +1,10 @@
 import json
-from .models import Movie, Genre, Actor, MovieReview
-from django.http import HttpResponse, JsonResponse
+from .models import Movie
+from django.http import JsonResponse
 from .serializers import MovieSerializer, ReviewSerializer
-# from .serializers import MovieDetailSerializer, GenreSerializer
 from rest_framework import status
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404, get_list_or_404
-from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -25,34 +23,11 @@ def movie_list(request):
 
 @api_view(['GET'])
 def movie_detail(request, movie_id):
-
     movie = Movie.objects.get(id=movie_id)
-
     serializer = MovieSerializer(movie)
-    # print(serializer.data)
     return Response(serializer.data)
 
-    # with open('movies/fixtures/movies.json', 'r', encoding='utf-8') as file:
-    #     data = json.load(file)
-    # movie = None
-    # for item in data:
-    #     if item['pk'] == movie_id:
-    #         movie = item
-    #         break
-    # if not movie:
-    #     return Response(status=status.HTTP_404_NOT_FOUND)
-    # is_liked = False
-    # if request.user:
-    #     if movie['fields']['actors'] and request.user.pk in movie['fields']['actors']:
-    #         is_liked = True
-    #     else:
-    #         is_liked = False
-    # context = {
-    #     'data': movie,
-    #     'is_liked': is_liked
-    # }
-    # return Response(context)
-
+    
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])

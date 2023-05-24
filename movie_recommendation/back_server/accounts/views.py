@@ -1,10 +1,8 @@
-from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from .serializers import UserSerializer
 from .models import User
 
@@ -62,10 +60,8 @@ def follow(request, my_pk, user_pk):
             # 팔로우를 합니다.
             person.followers.add(me)
             followed = True
-
         follow_status = {'followed': followed}
         return Response(follow_status)
-
     return Response({'detail': "Can't follow yourself"})
 
 

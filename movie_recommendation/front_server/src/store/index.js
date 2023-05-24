@@ -96,10 +96,20 @@ export default new Vuex.Store({
           signup = true;
           context.commit("SAVE_TOKEN", userInfo);
         })
-        .catch((err) => console.log(err.response.data));
+        .catch((err) => {
+          if (err.response && err.response.data) {
+            let errorMessage = '';
+            const errorData = err.response.data;
+            for (let key in errorData) {
+              errorMessage += `${errorData[key]}\n`;
+            }
+            alert(errorMessage);
+          } else {
+            alert('회원가입 중 알 수 없는 오류가 발생했습니다.');
+          }
+        });
     },
     login(context, payload) {
-      let signup = false; // declare variable
       const username = payload.username;
       const password = payload.password;
       axios({
@@ -115,10 +125,20 @@ export default new Vuex.Store({
             username: payload.username,
             token: res.data.key,
           };
-          signup = false;
           context.commit("SAVE_TOKEN", userInfo);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          if (err.response && err.response.data) {
+            let errorMessage = '';
+            const errorData = err.response.data;
+            for (let key in errorData) {
+              errorMessage += `${errorData[key]}\n`;
+            }
+            alert(errorMessage);
+          } else {
+            alert('로그인 중 알 수 없는 오류가 발생했습니다.');
+          }
+        });
     },
 
     logout(context) {

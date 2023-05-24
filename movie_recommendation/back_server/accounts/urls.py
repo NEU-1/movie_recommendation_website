@@ -8,7 +8,6 @@ urlpatterns = [
     path('profile/<int:user_pk>/', views.profile),
     path('follow/<int:my_pk>/<int:user_pk>/', views.follow),
     path('is_follow/<int:my_pk>/<int:user_pk>/', views.is_follow),
-    # path('like_movies/', views.like_movies),
     path('api-token-auth/', obtain_jwt_token),
 ]
 
