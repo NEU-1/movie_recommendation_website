@@ -1,7 +1,7 @@
 <template>
   <div>
     <canvas id="canvas1"></canvas>
-    <img src="@/assets/동석.png" id="image" />
+    <img src="@/assets/박성욱.png" id="image" />
   </div>
 </template>
 

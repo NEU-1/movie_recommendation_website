@@ -163,12 +163,6 @@ export default {
   margin: 10px !important;
   padding: 15px;
 }
-.movie-detail h2 {
-  color: ;
-  font-size: 2.5em;
-
-  margin-bottom: 10px;
-}
 
 .content {
   display: flex;
