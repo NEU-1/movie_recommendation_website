@@ -3,11 +3,7 @@
     <div class="user-heading text-center pb-4">
       <h1>{{ user?.username }} 의 프로필</h1>
     </div>
-    <button
-      v-if="me && me.id !== user.id"
-      @click="followUser"
-      class="btn btn-primary"
-    >
+    <button v-if="me && me.id !== user.id" @click="followUser" class="btn btn-primary">
       팔로우
     </button>
     <div class="user-details d-flex justify-content-around flex-wrap">
@@ -30,14 +26,15 @@
         <p>좋아요한 영화 수</p>
       </div>
     </div>
-
-    <!-- 좋아요한 영화 포스트 출력 -->
     <h3 class="white-text">좋아요한 영화</h3>
     <div class="movie-grid">
       <div class="movie-item" v-for="movie in movieList" :key="movie.id">
-        <img :src="imageUrl(movie)" alt="Poster" />
-        <h3>{{ movie.title }}</h3>
+        <router-link :to="`/movies/${movie.id}`">
+          <img :src="imageUrl(movie)" alt="Poster" />
+          <h3>{{ movie.title }}</h3>
+        </router-link>
       </div>
+
     </div>
   </div>
 </template>
@@ -48,18 +45,22 @@
   background-color: rgb(83, 131, 234);
   width: 800px;
 }
+
 .movie-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
 .movie-item {
   flex: 1 0 200px;
   margin: 1rem;
 }
+
 .img {
   width: 50px;
 }
+
 .user-heading h1 {
   font-size: 3rem;
   color: #343a40;
@@ -68,9 +69,11 @@
 .user-details {
   margin-top: 3rem;
 }
+
 .white-text {
   color: white;
 }
+
 .follow-info {
   background-color: white;
   padding: 2rem;
@@ -90,10 +93,12 @@
   color: #6c757d;
   font-size: 1.2rem;
 }
+
 img {
   width: 200px;
   height: 300px;
-  object-fit: cover; /* 유지하면서 이미지 비율이 유지되도록 이미지를 조정합니다. */
+  object-fit: cover;
+  /* 유지하면서 이미지 비율이 유지되도록 이미지를 조정합니다. */
 }
 </style>
 
@@ -162,14 +167,12 @@ export default {
         }
 
         this.user = user;
-        console.log(this.user);
       } catch (err) {
         console.error(err);
       }
     },
     async fetchProfile(user_pk) {
       const tokenKey = this.$store.state.token;
-      console.log("Authorization Token Key:", tokenKey);
       const url = user_pk
         ? `${API_URL}/user/profile/${user_pk}/`
         : `${API_URL}/accounts/user/`;
@@ -193,7 +196,6 @@ export default {
 
       try {
         const res = await axios.get(`${API_URL}/user/profile/${my_pk}/`);
-        console.log(my_pk);
         return res.data;
       } catch (err) {
         console.log("네임 자격 인증 데이터가 없습니다.");
