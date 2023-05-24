@@ -23,7 +23,7 @@
   import img8 from "../assets/토토로.png";
   import img9 from "../assets/트랜스포머.png";
   import img10 from "../assets/해리포터.png";
-  import img11 from "../assets/터미네이터.png";
+ 
 
   export default {
     name: "HomeView",
@@ -45,7 +45,7 @@
           img8,
           img9,
           img10,
-          img11,
+          
         ],
       };
     },

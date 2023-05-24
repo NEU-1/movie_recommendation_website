@@ -18,12 +18,7 @@
       <div class="content">
         {{ community.content }}
       </div>
-      <div v-if="isAuthor(community.userName)">
-        <router-link :to="{ name: 'CommunityUpdate', params: { community_pk: communityId }}" class="edit-button">수정</router-link>
-        <button @click="deleteCommunity">삭제</button>
-      </div>
     </div>
-    <router-link to="/community/" class="back-button">뒤로가기</router-link>
 
     <div class="asdf">댓글</div>
 
@@ -41,15 +36,35 @@
       </ul>
     </div>
     <div class="comment-form" style="text-align: right">
-      <form @submit.prevent="createComment">
-        <textarea v-model.trim="commentContent" rows="4" cols="50"></textarea>
+    <form @submit.prevent="createComment">
+      <textarea v-model.trim="commentContent" rows="4" cols="50"></textarea>
+      <div class="button-row">
         <button type="submit">댓글 작성</button>
-      </form>
-    </div>
+        <div v-if="isAuthor(community.userName)" class="edit-delete-buttons">
+          <button @click="$router.push({ name: 'CommunityUpdate', params: { community_pk: communityId }})" class="edit-button">수정</button>
+          <button @click="deleteCommunity">삭제</button>
+        </div>
+        <button @click="$router.push('/community/')">뒤로가기</button>
+      </div>
+    </form>
+  </div>
   </div>
 </template>
-
 <style>
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.edit-delete-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.button-row button, .edit-delete-buttons button {
+  padding: 5px 10px;
+}
 .community-detail {
   padding: 20px;
   width: 1000px;
