@@ -12,28 +12,31 @@
       <div class="image-container">
         <img :src="imageUrl" alt="Poster" />
 
-        <div class="like-section">
-    <div class ="container3">
-      좋아요 수:
-      {{
-        movie.like_users
-          ? movie.like_users.length
-          : 0
-      }}
-    </div>
-    <button class="btn btn-primary" @click="movie_likes">좋아요</button>
-  </div>
-</div>
+        <div
+          class="container3"
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <button class="btn btn-primary" @click="movie_likes">좋아요</button>
+          <div class="container3">
+            좋아요 수:
+            {{ movie.like_users ? movie.like_users.length : 0 }}
+          </div>
+        </div>
+      </div>
       <div class="video-container">
-          <div id="player"></div>
+        <div id="player"></div>
         <br />
-          <div class="container2">
+        <div class="container2">
           <div class="text-container">
-        {{ movie.overview }}</div>
+            {{ movie.overview }}
+          </div>
         </div>
       </div>
     </div>
-   
   </div>
 </template>
 
@@ -51,15 +54,15 @@ export default {
   },
   async created() {
     const movie_id = this.$route.params.id;
-    console.log(this.$route)
+    console.log(this.$route);
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/api/v1/movies/${movie_id}/`
       );
       this.movie = response.data;
-      console.log(response.data.like_users)
-      console.log(response)
-    
+      console.log(response.data.like_users);
+      console.log(response);
+
       const tag = document.createElement("script");
       tag.src = "https://www.youtube.com/iframe_api";
       const firstScriptTag = document.getElementsByTagName("script")[0];
@@ -74,24 +77,24 @@ export default {
   },
   methods: {
     onYouTubeIframeAPIReady() {
-  if (window.YT && window.YT.Player && this.movie) {
-    this.player = new window.YT.Player("player", {
-      videoId: this.movie.youtube_key || "", // 기본값 설정
-      width: 560,
-      height: 315,
-      playerVars: {
-        autoplay: 1,
-        controls: 1,
-        modestbranding: 1,
-        rel: 0,
-        showinfo: 0,
-        fs: 1,
-      },
-    });
-  } else {
-    setTimeout(this.onYouTubeIframeAPIReady, 100);
-  }
-},
+      if (window.YT && window.YT.Player && this.movie) {
+        this.player = new window.YT.Player("player", {
+          videoId: this.movie.youtube_key || "", // 기본값 설정
+          width: 560,
+          height: 315,
+          playerVars: {
+            autoplay: 1,
+            controls: 1,
+            modestbranding: 1,
+            rel: 0,
+            showinfo: 0,
+            fs: 1,
+          },
+        });
+      } else {
+        setTimeout(this.onYouTubeIframeAPIReady, 100);
+      }
+    },
     async movie_likes() {
       try {
         const movieId = this.movie.id;
@@ -105,11 +108,7 @@ export default {
         const response = await axios.post(url, null, headers);
         // console.log(response)
         // console.log(this.movie)
-        this.$set(
-          this.movie,
-          "like_users",
-          response.data.like_users
-        );
+        this.$set(this.movie, "like_users", response.data.like_users);
       } catch (error) {
         console.error(error);
       }
@@ -131,17 +130,12 @@ export default {
   computed: {
     imageUrl() {
       const baseUrl = "https://image.tmdb.org/t/p/original";
-      console.log(this.movie)
+      console.log(this.movie);
       return baseUrl + this.movie.poster_path;
     },
     formattedGenres() {
-      if (
-        this.movie.genres &&
-        Array.isArray(this.movie.genres)
-      ) {
-        return this.movie.genres
-          .map((genre) => genre.name)
-          .join(", ");
+      if (this.movie.genres && Array.isArray(this.movie.genres)) {
+        return this.movie.genres.map((genre) => genre.name).join(", ");
       }
       return "";
     },
@@ -156,20 +150,21 @@ export default {
 
 <style scoped>
 .movie-detail {
-  max-width: 1100px;
-  width: 1100px;
+  max-width: 1050px;
+  width: 1050px;
   height: 900px;
   margin: 0 auto;
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   font-family: Arial, sans-serif;
+  background-color: rgb(255, 255, 255);
 }
 .container2 {
   margin: 10px !important;
-  padding: 10px;
+  padding: 15px;
 }
 .movie-detail h2 {
-  color: white;
+  color: ;
   font-size: 2.5em;
 
   margin-bottom: 10px;
@@ -191,14 +186,15 @@ export default {
 
 .text-container {
   flex-grow: 1;
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 18px;
+  /* font-weight: bold; */
+  color: black;
 }
 .container3 {
-  padding:20px;
+  padding: 20px;
   font-weight: bold;
   text-align: left;
-  font-size:20px;
+  font-size: 20px;
 }
 
 .image-container p {
@@ -212,6 +208,6 @@ export default {
 .video-container iframe {
   width: 100%;
   height: 315px;
-  margin-bottom: 10px ! important;
+  margin-bottom: 10px !important;
 }
 </style>

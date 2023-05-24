@@ -1,29 +1,25 @@
 <template>
-  <nav
-    class="navbar navbar-expand-lg navbar-dark"
-    style="background-color: rgb(83, 131, 234)"
-  >
-    <ul class="navbar-nav">
-      <li class="nav-item" :class="{ active: $route.path === '/' }">
-        <router-link class="nav-link" to="/">홈</router-link>
-      </li>
-      <li class="nav-item" :class="{ active: $route.path === '/movies' }">
-        <router-link class="nav-link" to="/movies">전체영화목록</router-link>
-      </li>
-      <li class="nav-item" :class="{ active: $route.path === '/ranking' }">
-        <router-link class="nav-link" to="/ranking">추천 랭킹</router-link>
-      </li>
-      <li class="nav-item" :class="{ active: $route.path === '/community' }">
-        <router-link class="nav-link" to="/community">자유게시판</router-link>
-      </li>
+  <b-navbar toggleable="lg" type="dark" class="custom-navbar">
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-      <li class="nav-item" :class="{ active: $route.path === '/profile' }">
-        <router-link class="nav-link" :to="'/profile/' + userId"
-          >나의 프로필</router-link
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav class="navbar-nav">
+        <b-nav-item :to="{ path: '/' }" active-class="active">홈</b-nav-item>
+        <b-nav-item :to="{ path: '/movies' }" active-class="active"
+          >전체영화목록</b-nav-item
         >
-      </li>
-    </ul>
-  </nav>
+        <b-nav-item :to="{ path: '/ranking' }" active-class="active"
+          >추천 랭킹</b-nav-item
+        >
+        <b-nav-item :to="{ path: '/community' }" active-class="active"
+          >자유게시판</b-nav-item
+        >
+        <b-nav-item :to="{ path: '/profile/' + userId }" active-class="active"
+          >나의 프로필</b-nav-item
+        >
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
 </template>
 
 <script>
@@ -38,8 +34,9 @@ export default {
 </script>
 
 <style scoped>
-.navbar {
+.custom-navbar {
   padding: 10px;
+  background-color: rgb(83, 131, 234);
 }
 
 .navbar-nav {
