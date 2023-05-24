@@ -29,7 +29,7 @@ def movie_detail(request, movie_id):
     movie = Movie.objects.get(id=movie_id)
 
     serializer = MovieSerializer(movie)
-    print(serializer.data)
+    # print(serializer.data)
     return Response(serializer.data)
 
     # with open('movies/fixtures/movies.json', 'r', encoding='utf-8') as file:

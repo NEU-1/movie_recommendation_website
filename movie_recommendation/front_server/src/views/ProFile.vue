@@ -105,12 +105,10 @@
         try {
           const me = await this.fetchProfile();
           if (!me) {
-            console.log('프로필 정보를 받아오지 못했습니다.');
             return;
           }
           const user = await this.fetchName(me.pk);
           if (!user) {
-            console.log('사용자 정보를 받아오지 못했습니다.');
             return;
           }
           this.me = me;
@@ -122,7 +120,6 @@
       async getProfile() {
         const userId = this.$route.params.user_pk;
         if (!userId) {
-          console.log('사용자 ID가 없습니다.');
           this.user = null;
           return;
         }
@@ -130,19 +127,16 @@
         try {
           const user = await this.fetchProfile(userId);
           if (!user) {
-            console.log('사용자 정보를 받아오지 못했습니다.');
             return;
           }
 
           this.user = user;
-          console.log(this.user)
         } catch (err) {
           console.error(err);
         }
       },
       async fetchProfile(user_pk) {
         const tokenKey = this.$store.state.token;
-        console.log('Authorization Token Key:', tokenKey);
         const url = user_pk ? `${API_URL}/user/profile/${user_pk}/` : `${API_URL}/accounts/user/`;
         try {
           const res = await axios.get(url, {
@@ -152,22 +146,18 @@
           });
           return res.data;
         } catch (err) {
-          console.log('프로필 자격 인증 데이터가 없습니다.');
           return null;
         }
       },
       async fetchName(my_pk) {
         if (!my_pk) {
-          console.log('사용자 PK가 없습니다.');
           return null;
         }
 
         try {
           const res = await axios.get(`${API_URL}/user/profile/${my_pk}/`);
-          console.log(my_pk)
           return res.data;
         } catch (err) {
-          console.log('네임 자격 인증 데이터가 없습니다.');
           return null;
         }
       },

@@ -44,133 +44,132 @@
 </template>
 
 <style>
-.community-detail {
-  padding: 20px;
-  width: 1000px;
-  min-height: 1000px;
-  border: 2px solid #000;
-  background-color: white;
-}
+  .community-detail {
+    padding: 20px;
+    width: 1000px;
+    min-height: 1000px;
+    border: 2px solid #000;
+    background-color: white;
+  }
 
-header {
-  text-align: left;
-  font-weight: bold;
+  header {
+    text-align: left;
+    font-weight: bold;
 
-  font-size: 50px;
-}
+    font-size: 50px;
+  }
 
-.author-info {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 10px;
-  color: rgb(80, 76, 76);
-  text-align: right;
-}
+  .author-info {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    color: rgb(80, 76, 76);
+    text-align: right;
+  }
 
-.author-info p {
-  margin-left: 5px;
-}
+  .author-info p {
+    margin-left: 5px;
+  }
 
-.content {
-  width: 900px;
-  height: 500px;
-  margin: 0;
-  text-align: left;
+  .content {
+    width: 900px;
+    height: 500px;
+    margin: 0;
+    text-align: left;
 
-  margin-bottom: 20px;
-}
+    margin-bottom: 20px;
+  }
 
-.comment-list {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 20px;
-}
+  .comment-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
 
-.comment-list li {
-  margin-bottom: 10px;
-  text-align: left;
-}
+  .comment-list li {
+    margin-bottom: 10px;
+    text-align: left;
+  }
 
-.comment-form textarea {
-  width: 100%;
-  resize: vertical;
-  margin-bottom: 10px;
-}
+  .comment-form textarea {
+    width: 100%;
+    resize: vertical;
+    margin-bottom: 10px;
+  }
 
-.comment-form button {
-  padding: 5px 10px;
-}
-.asdf {
-  text-align: left;
-}
+  .comment-form button {
+    padding: 5px 10px;
+  }
+
+  .asdf {
+    text-align: left;
+  }
 </style>
 
 <script>
-import axios from "axios";
-const API_URL = "http://127.0.0.1:8000";
+  import axios from "axios";
+  const API_URL = "http://127.0.0.1:8000";
 
-export default {
-  name: "CommunityDetail",
-  data() {
-    return {
-      community: {},
-      commentContent: null,
-      communityId: this.$route.params.community_pk.toString(),
-      comments: [],
-    };
-  },
-  methods: {
-    getCommunityDetail() {
-      axios({
-        method: "get",
-        url: `${API_URL}/api/v1/community/detail/${this.communityId}`,
-      })
-        .then((res) => {
-          console.log(res.data);
-          this.community = res.data;
-        })
-        .catch((err) => console.log(err));
+  export default {
+    name: "CommunityDetail",
+    data() {
+      return {
+        community: {},
+        commentContent: null,
+        communityId: this.$route.params.community_pk.toString(),
+        comments: [],
+      };
     },
-    getCommunityComment() {
-      axios({
-        method: "get",
-        url: `${API_URL}/api/v1/community/comments/${this.communityId}`,
-      })
-        .then((res) => {
-          this.comments = res.data;
+    methods: {
+      getCommunityDetail() {
+        axios({
+          method: "get",
+          url: `${API_URL}/api/v1/community/detail/${this.communityId}`,
         })
-        .catch((err) => console.log(err));
-    },
-    createComment() {
-      console.log(this.$store.state.token);
-      console.log(1111111);
+          .then((res) => {
+            console.log(res.data);
+            this.community = res.data;
+          })
+          .catch((err) => console.log(err));
+      },
+      getCommunityComment() {
+        axios({
+          method: "get",
+          url: `${API_URL}/api/v1/community/comments/${this.communityId}`,
+        })
+          .then((res) => {
+            this.comments = res.data;
+          })
+          .catch((err) => console.log(err));
+      },
+      createComment() {
 
-      const content = this.commentContent;
-      if (!content) {
-        alert("내용을 입력해주세요!");
-        return;
-      }
-      axios({
-        method: "post",
-        url: `${API_URL}/api/v1/community/${this.communityId}/comment_create/`,
-        data: {
-          content,
-        },
-        headers: {
-          Authorization: `Token ${this.$store.state.token}`,
-        },
-      })
-        .then(() => {
-          this.$emit("comment_add");
-          this.commentContent = "";
-          this.getCommunityComment();
+        const content = this.commentContent;
+        if (!content) {
+          alert("내용을 입력해주세요!");
+          return;
+        }
+        axios({
+          method: "post",
+          url: `${API_URL}/api/v1/community/${this.communityId}/comment_create/`,
+          data: {
+            content,
+          },
+          headers: {
+            Authorization: `Token ${this.$store.state.token}`,
+          },
         })
-        .catch((err) => console.log(err));
+          .then(() => {
+            this.$emit("comment_add");
+            this.commentContent = "";
+            this.getCommunityComment();
+          })
+          .catch((err) => console.log(err));
+      },
     },
-  },
-  created() {
-    this.getCommunityDetail();
-    this.getCommunityComment();
-  },
-};
+    created() {
+      this.getCommunityDetail();
+      this.getCommunityComment();
+    },
+  };
 </script>
