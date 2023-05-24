@@ -9,6 +9,9 @@
     </h2>
     <br /><br />
     <div class="content">
+      <div class="close-button-container">
+    <button @click="goBack">닫기</button>
+  </div>
       <div class="image-container">
         <img :src="imageUrl" alt="Poster" />
 
@@ -77,6 +80,10 @@ export default {
     // this.getMe()
   },
   methods: {
+    goBack() {
+    this.$router.go(-1);
+  },
+
     onYouTubeIframeAPIReady() {
   if (window.YT && window.YT.Player && this.movie) {
     this.player = new window.YT.Player("player", {
@@ -182,7 +189,18 @@ export default {
   display: flex;
   gap: 20px;
 }
-
+.close-button-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.close-button-container button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
 .image-container {
   flex: 0 0 400px;
 }

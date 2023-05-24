@@ -1,34 +1,25 @@
 <template>
-  <div class="movie-item">
-    <div class="row">
+  <div class="movie-item swiper-container">
+    <div class="swiper-wrapper">
       <MovieListItem
-        v-for="movie in paginatedMovies"
+        v-for="movie in movies"
         :key="movie.id"
         :movie="movie"
         :movie_id="movie.pk"
-        class="col-md-4"
+        class="swiper-slide"
       />
     </div>
-    <div class="pagination">
-      <button
-        class="btn btn-primary btn-lg arrow-btn"
-        v-if="currentPage > 1"
-        @click="currentPage--"
-      >
-        &larr; Previous
-      </button>
-      <button
-        class="btn btn-primary btn-lg arrow-btn"
-        v-if="currentPage < pageCount"
-        @click="currentPage++"
-      >
-        Next &rarr;
-      </button>
-    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Add Navigation -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
   </div>
 </template>
 
 <script>
+import Swiper from 'swiper';
+import 'swiper/swiper-bundle.css';
 import MovieListItem from "@/components/MovieListItem";
 
 export default {
@@ -38,13 +29,6 @@ export default {
     MovieListItem,
   },
 
-  data() {
-    return {
-      currentPage: 1,
-      pageSize: 3,
-    };
-  },
-
   props: {
     movies: {
       type: Array,
@@ -52,63 +36,34 @@ export default {
     },
   },
 
-  computed: {
-    pageCount() {
-      return Math.ceil(this.movies.length / this.pageSize);
-    },
-
-    paginatedMovies() {
-      const start = (this.currentPage - 1) * this.pageSize;
-      const end = start + this.pageSize;
-      return this.movies.slice(start, end);
-    },
+  mounted() {
+    new Swiper('.swiper-container', {
+      slidesPerView: 3,
+      spaceBetween: 10,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
   },
 };
 </script>
+
 <style scoped>
+@import 'swiper/swiper-bundle.css';
+
 .movie-item {
-  margin-bottom: 20px;
+  width: 100%;
+  height: 100%;
 }
 
-.movie-item .row {
+.swiper-slide {
   display: flex;
-  flex-wrap: wrap;
-  margin-right: -10px;
-  margin-left: -10px;
-}
-
-.movie-item .col-md-4 {
-  padding-right: 10px;
-  padding-left: 10px;
-  flex: 0 0 33.33%;
-  max-width: 33.33%;
-}
-
-.movie-item img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
-.movie-item h3 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.movie-item p {
-  font-size: 14px;
-  color: #6c757d;
-}
-.pagination {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 0;
-}
-
-.arrow-btn {
-  cursor: pointer;
-  margin: 0 5px;
+  justify-content: center;
+  align-items: center;
 }
 </style>
