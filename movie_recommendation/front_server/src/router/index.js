@@ -12,6 +12,7 @@ import SearchResults from "@/components/SearchResults.vue";
 import ProFile from "@/views/ProFile.vue";
 import NotFound404 from "@/views/NotFound404.vue";
 import CommunityDetail from "@/components/CommunityDetail.vue";
+import CommunityUpdate from "@/components/CommunityUpdate.vue";
 
 Vue.use(VueRouter);
 
@@ -45,6 +46,11 @@ const routes = [
     path: "/community/:community_pk/",
     name: "CommunityDetail",
     component: CommunityDetail,
+  },
+  {
+    path: '/community/update/:community_pk',
+    name: 'CommunityUpdate',
+    component: CommunityUpdate,
   },
   {
     path: "/movies/:id/",

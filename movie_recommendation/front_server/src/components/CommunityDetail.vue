@@ -18,7 +18,13 @@
       <div class="content">
         {{ community.content }}
       </div>
+      <div v-if="isAuthor(community.userName)">
+        <router-link :to="{ name: 'CommunityUpdate', params: { community_pk: communityId }}" class="edit-button">수정</router-link>
+        <button @click="deleteCommunity">삭제</button>
+      </div>
     </div>
+    <router-link to="/community/" class="back-button">뒤로가기</router-link>
+
     <div class="asdf">댓글</div>
 
     <hr />
@@ -167,10 +173,36 @@ export default {
         })
         .catch((err) => console.log(err));
     },
+    isAuthor(userName) {
+      // console.log(this.community.userName)
+      // console.log(this.$store.state.username)
+    return userName === this.$store.state.username;
+  },
+
+deleteCommunity() {
+  const confirmDelete = confirm("정말로 삭제하시겠습니까?");
+  if (confirmDelete) {
+    axios({
+      method: "delete",
+      url: `${API_URL}/api/v1/community/update/${this.communityId}/`,
+      headers: {
+        Authorization: `Token ${this.$store.state.token}`,
+      },
+    })
+      .then(() => {
+        this.$router.push("/community/");
+      })
+      .catch((err) => console.log(err));
+  }
+},
+
   },
   created() {
     this.getCommunityDetail();
     this.getCommunityComment();
   },
+  mounted(){
+    this.getCommunityComment();
+  }
 };
 </script>

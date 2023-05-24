@@ -22,6 +22,17 @@ class CommunityListSerializer(serializers.ModelSerializer):
 
 
 class CommunitySerializer(serializers.ModelSerializer):
+    userName = serializers.SerializerMethodField()
+
+    def get_userName(self, obj):
+        return obj.user.username
+
+    class Meta:
+        model = Community
+        fields = ('id', 'title', 'content', 'created_at', 'updated_at', 'user', 'userName',)
+        read_only_fields = ('user', 'userName',)
+        
+class CommunityUpdateSerializer(serializers.ModelSerializer):
   userName = serializers.SerializerMethodField()
 
   def get_userName(self,obj):
@@ -29,8 +40,7 @@ class CommunitySerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Community
-    fields = ('id', 'title', 'content', 'created_at', 'updated_at', 'user', 'userName',)
-    read_only_fields = ('user',)
+    fields = ('title', 'content','updated_at')
 
 
 class CommentListSerializer(serializers.ModelSerializer):
