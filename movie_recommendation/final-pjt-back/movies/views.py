@@ -15,10 +15,7 @@ def movie_list(request):
     with open('movies/fixtures/movies.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
     return JsonResponse(data, safe=False)
-    # movies = Movie.objects.all()
-    # serializer = MovieSerializer(movies)
-    # print(serializer.data)
-    # return Response(serializer.data)
+  
 
 
 @api_view(['GET'])
