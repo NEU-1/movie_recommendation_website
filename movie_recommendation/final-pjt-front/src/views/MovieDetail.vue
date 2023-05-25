@@ -192,6 +192,7 @@ export default {
   flex-grow: 1;
   font-size: 20px;
   font-weight: bold;
+  color: white;
 }
 .container3 {
   padding: 20px;
