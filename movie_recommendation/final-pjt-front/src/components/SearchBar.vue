@@ -8,7 +8,9 @@
     />
     <button @click="search">검색</button>
     <div v-for="movie in movies" :key="movie.movie_id">
-      <router-link :to="`/movies/${movie.movie_id}`">{{ movie.title }}</router-link>
+      <router-link :to="`/movies/${movie.movie_id}`">{{
+        movie.title
+      }}</router-link>
     </div>
   </div>
 </template>
@@ -30,11 +32,11 @@ export default {
       } else {
         const movieTitle = this.searchText;
         console.log("검색어:", movieTitle);
-        // this.$router.push({ name: "moviedetail", params: { id: movieTitle } });
+
         this.$router.push({ name: "searchresults", query: { q: movieTitle } });
       }
+    },
   },
-},
 };
 </script>
 <style scoped>

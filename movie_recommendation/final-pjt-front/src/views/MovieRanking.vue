@@ -84,7 +84,7 @@ export default {
 
       for (const movie of this.movies) {
         if (!movieMap.has(movie.pk)) {
-          movieMap.set(movie.pk, true); // set any value to Map
+          movieMap.set(movie.pk, true);
           uniqueMovies.push(movie);
         }
       }
@@ -170,7 +170,7 @@ export default {
 
 .movie-list {
   display: grid;
-  grid-template-columns: 1fr; /* Show only one movie per row */
+  grid-template-columns: 1fr;
   gap: 1em;
 }
 
@@ -179,8 +179,8 @@ export default {
   background-color: #f8f9fa;
   border-radius: 5px;
   transition: transform 0.3s;
-  display: flex; /* Add this */
-  align-items: center; /* Add this */
+  display: flex;
+  align-items: center;
 }
 
 .movie-img {
@@ -201,7 +201,7 @@ export default {
 
 .movie-title {
   margin: 0 0 0.5em;
-  font-size: 1.5em; /* Increase font size */
+  font-size: 1.5em;
   color: #007bff;
 }
 
@@ -212,7 +212,7 @@ export default {
 }
 
 .movie-info {
-  flex-grow: 1; /* Add this */
+  flex-grow: 1;
 }
 
 .no-bullet {

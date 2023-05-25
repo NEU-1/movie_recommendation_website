@@ -39,7 +39,6 @@ export default {
 };
 </script>
 
-<!-- ...your styles... -->
 <style scoped>
 .login-button {
   padding: 10px 20px;

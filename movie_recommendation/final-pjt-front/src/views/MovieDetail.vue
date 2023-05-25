@@ -66,7 +66,6 @@ export default {
     } catch (error) {
       console.error(error);
     }
-    // this.getMe()
   },
   methods: {
     goBack() {
@@ -76,7 +75,7 @@ export default {
     onYouTubeIframeAPIReady() {
       if (window.YT && window.YT.Player && this.movie) {
         this.player = new window.YT.Player("player", {
-          videoId: this.movie.youtube_key || "", // 기본값 설정
+          videoId: this.movie.youtube_key || "",
           width: 560,
           height: 315,
           playerVars: {
@@ -144,7 +143,7 @@ export default {
 
 <style scoped>
 .movie-detail {
-  position: relative; /* Add this */
+  position: relative;
   max-width: 1100px;
   width: 1100px;
   height: 900px;
@@ -170,9 +169,8 @@ export default {
 }
 .close-button-container {
   position: absolute;
-  top: 20px; /* adjust this as per your preference */
-  right: 20px; /* adjust this as per your preference */
-  /* other styles */
+  top: 20px;
+  right: 20px;
 }
 .close-button-container button {
   background-color: black;

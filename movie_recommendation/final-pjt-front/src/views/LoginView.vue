@@ -6,14 +6,14 @@
         <label for="username">아이디</label>
         <input type="text" id="username" v-model="username" required />
       </div>
-      <br/>
+      <br />
       <div class="form-group">
         <label for="password">비밀번호</label>
         <input type="password" id="password" v-model="password" required />
       </div>
-      <br/>
+      <br />
       <button type="submit">로그인</button>
-      <br/>
+      <br />
       <button type="button" @click="goToSignup">회원가입</button>
     </form>
   </div>
@@ -30,12 +30,13 @@ export default {
   },
   methods: {
     login() {
-      const username = this.username
-      const password = this.password
+      const username = this.username;
+      const password = this.password;
       const payload = {
-        username, password
-      }
-      this.$store.dispatch('login', payload)
+        username,
+        password,
+      };
+      this.$store.dispatch("login", payload);
     },
     goToSignup() {
       this.$router.push("/signup");
@@ -46,7 +47,7 @@ export default {
 
 <style scoped>
 .login-view {
-  max-width: 500px; /* 크기 조정 */
+  max-width: 500px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f5f5f5;
@@ -59,8 +60,8 @@ h2 {
 }
 
 .form-group {
-  margin-bottom: 0px; /* 크기 조정 */
-  width: 100%; /* 너비 조정 */
+  margin-bottom: 0px;
+  width: 100%;
 }
 
 label {
@@ -75,7 +76,7 @@ input[type="password"] {
   font-size: 16px;
   border-radius: 4px;
   border: 1px solid #ccc;
-  /* 인풋 창의 크기 조정 */
+
   box-sizing: border-box;
 }
 
