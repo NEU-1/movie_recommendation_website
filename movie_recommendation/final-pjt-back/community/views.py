@@ -65,6 +65,7 @@ def community_update_delete(request, community_pk):
         serializer = CommunitySerializer(community, data=request.data)  
         if serializer.is_valid(raise_exception=True):  
             serializer.save(user=request.user)  
+            return Response(serializer.data)
     else:
         community.delete()  
         return Response({ 'id': community_pk }) 
