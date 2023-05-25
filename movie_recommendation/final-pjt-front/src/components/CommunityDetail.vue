@@ -40,14 +40,16 @@
       <textarea v-model.trim="commentContent" rows="4" cols="50"></textarea>
       <div class="button-row">
         <button type="submit">댓글 작성</button>
-        <div v-if="isAuthor(community.userName)" class="edit-delete-buttons">
-          <button @click="$router.push({ name: 'CommunityUpdate', params: { community_pk: communityId }})" class="edit-button">수정</button>
-          <button @click="deleteCommunity">삭제</button>
-        </div>
-        <button @click="$router.push('/community/')">뒤로가기</button>
       </div>
     </form>
-  </div>
+    <div class="button-row" style="display: flex; justify-content: flex-start">
+      <div v-if="isAuthor(community.userName)" class="edit-delete-buttons">
+        <button @click="$router.push({ name: 'CommunityUpdate', params: { community_pk: communityId }})" class="edit-button">수정</button>
+        <button @click="deleteCommunity">삭제</button>
+      </div>
+      <button @click="$router.push('/community/')">뒤로가기</button>
+    </div>
+    </div>
   </div>
 </template>
 <style>
