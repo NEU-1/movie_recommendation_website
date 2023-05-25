@@ -1,7 +1,7 @@
 <template>
   <div class="proFile">
-    <div class="user-heading text-center pb-4">
-      <h1>{{ user?.username }} 의 프로필</h1>
+    <div class="user-heading text-center pb-4" v-if="user">
+      <h1 class="profile-heading">{{ user?.username }} 의 프로필</h1>
     </div>
     <button
       v-if="me && me.id !== user.id"
@@ -30,7 +30,7 @@
         <p>좋아요한 영화 수</p>
       </div>
     </div>
-    <h3 class="white-text">좋아요한 영화</h3>
+    <h3 class="white-text" v-if="user">좋아요한 영화</h3>
     <div class="movie-grid">
       <div class="movie-item" v-for="movie in movieList" :key="movie.id">
         <router-link :to="`/movies/${movie.id}`">
@@ -66,6 +66,9 @@
 }
 .img {
   width: 50px;
+}
+.profile-heading {
+  color: white !important; /* 원하는 색상으로 변경하세요 */
 }
 
 .user-heading h1 {

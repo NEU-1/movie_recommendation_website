@@ -1,5 +1,7 @@
 <template>
   <div class="movie-item swiper-container">
+    <h2>무비 차트</h2>
+    <BR />
     <div class="swiper-wrapper">
       <MovieListItem
         v-for="movie in movies"
@@ -59,6 +61,11 @@ export default {
 .movie-item {
   width: 100%;
   height: 100%;
+}
+.movie-item h2 {
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
 }
 
 .swiper-slide {

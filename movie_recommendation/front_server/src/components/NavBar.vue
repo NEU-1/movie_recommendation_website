@@ -14,7 +14,10 @@
         <b-nav-item :to="{ path: '/community' }" active-class="active"
           >자유게시판</b-nav-item
         >
-        <b-nav-item :to="{ path: '/profile/' + userId }" active-class="active"
+        <b-nav-item
+          :to="{ path: '/profile/' + userId }"
+          active-class="active"
+          v-if="user"
           >나의 프로필</b-nav-item
         >
       </b-navbar-nav>
