@@ -144,6 +144,7 @@ export default {
 
 <style scoped>
 .movie-detail {
+  position: relative; /* Add this */
   max-width: 1100px;
   width: 1100px;
   height: 900px;
@@ -169,11 +170,12 @@ export default {
 }
 .close-button-container {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px; /* adjust this as per your preference */
+  right: 20px; /* adjust this as per your preference */
+  /* other styles */
 }
 .close-button-container button {
-  background-color: red;
+  background-color: black;
   color: white;
   border: none;
   padding: 5px 10px;
