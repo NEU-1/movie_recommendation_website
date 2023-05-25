@@ -3,7 +3,11 @@
     <div class="user-heading text-center pb-4">
       <h1>{{ user?.username }} 의 프로필</h1>
     </div>
-    <button v-if="me && me.id !== user.id" @click="followUser" class="btn btn-primary">
+    <button
+      v-if="me && me.id !== user.id"
+      @click="followUser"
+      class="btn btn-primary"
+    >
       팔로우
     </button>
     <div class="user-details d-flex justify-content-around flex-wrap">
@@ -34,7 +38,6 @@
           <h3>{{ movie.title }}</h3>
         </router-link>
       </div>
-
     </div>
   </div>
 </template>
@@ -59,7 +62,7 @@
 }
 .movie-item h3 {
   font-size: 20px;
-  color:aliceblue;
+  color: aliceblue;
 }
 .img {
   width: 50px;
@@ -102,7 +105,6 @@ img {
   width: 200px;
   height: 300px;
   object-fit: cover;
-  /* 유지하면서 이미지 비율이 유지되도록 이미지를 조정합니다. */
 }
 </style>
 

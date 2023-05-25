@@ -9,17 +9,17 @@
         class="swiper-slide"
       />
     </div>
-    <!-- Add Pagination -->
+
     <div class="swiper-pagination"></div>
-    <!-- Add Navigation -->
+
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </div>
 </template>
 
 <script>
-import Swiper from 'swiper';
-import 'swiper/swiper-bundle.css';
+import Swiper from "swiper";
+import "swiper/swiper-bundle.css";
 import MovieListItem from "@/components/MovieListItem";
 
 export default {
@@ -37,15 +37,15 @@ export default {
   },
 
   mounted() {
-    new Swiper('.swiper-container', {
+    new Swiper(".swiper-container", {
       slidesPerView: 3,
       spaceBetween: 10,
       navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
       },
       pagination: {
-        el: '.swiper-pagination',
+        el: ".swiper-pagination",
         clickable: true,
       },
     });
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style scoped>
-@import 'swiper/swiper-bundle.css';
+@import "swiper/swiper-bundle.css";
 
 .movie-item {
   width: 100%;

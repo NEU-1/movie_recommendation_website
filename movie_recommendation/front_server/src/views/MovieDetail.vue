@@ -10,37 +10,30 @@
     <br /><br />
     <div class="content">
       <div class="close-button-container">
-    <button @click="goBack">닫기</button>
-  </div>
+        <button @click="goBack">닫기</button>
+      </div>
       <div class="image-container">
         <img :src="imageUrl" alt="Poster" />
 
         <div class="like-section">
-    <div class ="container3">
-      <button class="btn btn-primary" @click="movie_likes">
-  좋아요: 
-  {{
-    movie.like_users
-      ? movie.like_users.length
-      : 0
-  }}
-</button>
-
-      
-    </div>
-   
-  </div>
-</div>
+          <div class="container3">
+            <button class="btn btn-primary" @click="movie_likes">
+              좋아요:
+              {{ movie.like_users ? movie.like_users.length : 0 }}
+            </button>
+          </div>
+        </div>
+      </div>
       <div class="video-container">
-          <div id="player"></div>
+        <div id="player"></div>
         <br />
-          <div class="container2">
+        <div class="container2">
           <div class="text-container">
-        {{ movie.overview }}</div>
+            {{ movie.overview }}
+          </div>
         </div>
       </div>
     </div>
-   
   </div>
 </template>
 
@@ -63,7 +56,7 @@ export default {
         `http://127.0.0.1:8000/api/v1/movies/${movie_id}/`
       );
       this.movie = response.data;
-    
+
       const tag = document.createElement("script");
       tag.src = "https://www.youtube.com/iframe_api";
       const firstScriptTag = document.getElementsByTagName("script")[0];
@@ -77,28 +70,28 @@ export default {
   },
   methods: {
     goBack() {
-    this.$router.go(-1);
-  },
+      this.$router.go(-1);
+    },
 
     onYouTubeIframeAPIReady() {
-  if (window.YT && window.YT.Player && this.movie) {
-    this.player = new window.YT.Player("player", {
-      videoId: this.movie.youtube_key || "", // 기본값 설정
-      width: 560,
-      height: 315,
-      playerVars: {
-        autoplay: 1,
-        controls: 1,
-        modestbranding: 1,
-        rel: 0,
-        showinfo: 0,
-        fs: 1,
-      },
-    });
-  } else {
-    setTimeout(this.onYouTubeIframeAPIReady, 100);
-  }
-},
+      if (window.YT && window.YT.Player && this.movie) {
+        this.player = new window.YT.Player("player", {
+          videoId: this.movie.youtube_key || "", // 기본값 설정
+          width: 560,
+          height: 315,
+          playerVars: {
+            autoplay: 1,
+            controls: 1,
+            modestbranding: 1,
+            rel: 0,
+            showinfo: 0,
+            fs: 1,
+          },
+        });
+      } else {
+        setTimeout(this.onYouTubeIframeAPIReady, 100);
+      }
+    },
     async movie_likes() {
       try {
         const movieId = this.movie.id;
@@ -110,11 +103,7 @@ export default {
         };
 
         const response = await axios.post(url, null, headers);
-        this.$set(
-          this.movie,
-          "like_users",
-          response.data.like_users
-        );
+        this.$set(this.movie, "like_users", response.data.like_users);
       } catch (error) {
         console.error(error);
       }
@@ -139,13 +128,8 @@ export default {
       return baseUrl + this.movie.poster_path;
     },
     formattedGenres() {
-      if (
-        this.movie.genres &&
-        Array.isArray(this.movie.genres)
-      ) {
-        return this.movie.genres
-          .map((genre) => genre.name)
-          .join(", ");
+      if (this.movie.genres && Array.isArray(this.movie.genres)) {
+        return this.movie.genres.map((genre) => genre.name).join(", ");
       }
       return "";
     },
@@ -210,10 +194,10 @@ export default {
   font-weight: bold;
 }
 .container3 {
-  padding:20px;
+  padding: 20px;
   font-weight: bold;
-  text-align: center; /* 여기에 추가 */
-  font-size:20px;
+  text-align: center;
+  font-size: 20px;
 }
 .image-container p {
   color: #000;
@@ -226,7 +210,6 @@ export default {
 .video-container iframe {
   width: 100%;
   height: 315px;
-  margin-bottom: 10px ! important;
+  margin-bottom: 10px !important;
 }
-
 </style>
