@@ -1,20 +1,16 @@
 <template>
   <div class="community-detail">
     <header>
-      <!-- 커뮤니티 제목 -->
       {{ community.title }}
     </header>
 
     <div class="community-info">
       <div class="author-info">
-        <!-- 작성자 정보 -->
         <p class="author">작성자:{{ community.userName }}</p>
         <p class="created-at">작성일:{{ community.created_at }}</p>
-        <!-- <p>수정일: {{ community.updated_at }}</p> -->
       </div>
       <hr />
 
-      <!-- 커뮤니티 내용 -->
       <div class="content">
         {{ community.content }}
       </div>
@@ -36,19 +32,32 @@
       </ul>
     </div>
     <div class="comment-form" style="text-align: right">
-    <form @submit.prevent="createComment">
-      <textarea v-model.trim="commentContent" rows="4" cols="50"></textarea>
-      <div class="button-row">
-        <button type="submit">댓글 작성</button>
+      <form @submit.prevent="createComment">
+        <textarea v-model.trim="commentContent" rows="4" cols="50"></textarea>
+        <div class="button-row">
+          <button type="submit">댓글 작성</button>
+        </div>
+      </form>
+      <div
+        class="button-row"
+        style="display: flex; justify-content: flex-start"
+      >
+        <div v-if="isAuthor(community.userName)" class="edit-delete-buttons">
+          <button
+            @click="
+              $router.push({
+                name: 'CommunityUpdate',
+                params: { community_pk: communityId },
+              })
+            "
+            class="edit-button"
+          >
+            수정
+          </button>
+          <button @click="deleteCommunity">삭제</button>
+        </div>
+        <button @click="$router.push('/community/')">뒤로가기</button>
       </div>
-    </form>
-    <div class="button-row" style="display: flex; justify-content: flex-start">
-      <div v-if="isAuthor(community.userName)" class="edit-delete-buttons">
-        <button @click="$router.push({ name: 'CommunityUpdate', params: { community_pk: communityId }})" class="edit-button">수정</button>
-        <button @click="deleteCommunity">삭제</button>
-      </div>
-      <button @click="$router.push('/community/')">뒤로가기</button>
-    </div>
     </div>
   </div>
 </template>
@@ -64,7 +73,8 @@
   gap: 10px;
 }
 
-.button-row button, .edit-delete-buttons button {
+.button-row button,
+.edit-delete-buttons button {
   padding: 5px 10px;
 }
 .community-detail {
@@ -193,33 +203,32 @@ export default {
     isAuthor(userName) {
       // console.log(this.community.userName)
       // console.log(this.$store.state.username)
-    return userName === this.$store.state.username;
-  },
+      return userName === this.$store.state.username;
+    },
 
-deleteCommunity() {
-  const confirmDelete = confirm("정말로 삭제하시겠습니까?");
-  if (confirmDelete) {
-    axios({
-      method: "delete",
-      url: `${API_URL}/api/v1/community/update/${this.communityId}/`,
-      headers: {
-        Authorization: `Token ${this.$store.state.token}`,
-      },
-    })
-      .then(() => {
-        this.$router.push("/community/");
-      })
-      .catch((err) => console.log(err));
-  }
-},
-
+    deleteCommunity() {
+      const confirmDelete = confirm("정말로 삭제하시겠습니까?");
+      if (confirmDelete) {
+        axios({
+          method: "delete",
+          url: `${API_URL}/api/v1/community/update/${this.communityId}/`,
+          headers: {
+            Authorization: `Token ${this.$store.state.token}`,
+          },
+        })
+          .then(() => {
+            this.$router.push("/community/");
+          })
+          .catch((err) => console.log(err));
+      }
+    },
   },
   created() {
     this.getCommunityDetail();
     this.getCommunityComment();
   },
-  mounted(){
+  mounted() {
     this.getCommunityComment();
-  }
+  },
 };
 </script>

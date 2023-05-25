@@ -68,7 +68,7 @@
   width: 50px;
 }
 .profile-heading {
-  color: white !important; /* 원하는 색상으로 변경하세요 */
+  color: white !important;
 }
 
 .user-heading h1 {
