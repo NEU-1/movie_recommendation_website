@@ -38,10 +38,8 @@
 
 ### 0. 개요
 
-- **초기 ERD**
+- **ERD**
   ![10팀](README.assets/10팀.JPG)
-  **최종 ERD**
-  ![10팀](README.assets/erd.png)
 
 - **파일트리 (개요 (일부 생략)**
 
